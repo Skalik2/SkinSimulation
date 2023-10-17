@@ -4,16 +4,13 @@
 class SkinCell
 {
 private:
-	sf::Texture m_texture;
-	sf::Sprite m_sprite;
-	sf::Vector2f m_position;
-	int m_state;
+	sf::RectangleShape m_shape;
 public:
 	SkinCell();
 	~SkinCell();
-	void init(std::string textureName, sf::Vector2f position, int
+	void init(sf::Vector2f size, sf::Vector2f position, int
 		state);
-	void update(float dt);
-	sf::Sprite getSprite();
+	void update(int state);
+	sf::RectangleShape getShape();
 };
 
