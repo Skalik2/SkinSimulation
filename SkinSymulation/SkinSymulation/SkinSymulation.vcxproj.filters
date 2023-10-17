@@ -15,7 +15,7 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Symulacja Tkanki.cpp">
+    <ClCompile Include="SkinSymulation.cpp">
       <Filter>Pliki źródłowe</Filter>
     </ClCompile>
     <ClCompile Include="SkinCell.cpp">

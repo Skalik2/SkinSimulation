@@ -3,17 +3,19 @@
 #include <iostream>
 #include "SkinCell.h"
 
-sf::Vector2f viewSize(720, 720);
+#define TABSIZE 15
+
+sf::Vector2f viewSize(TABSIZE * 60, TABSIZE * 60);
 sf::VideoMode vm(viewSize.x, viewSize.y);
 sf::RenderWindow window(vm, "Symulacja tkanki", sf::Style::Default);
-SkinCell hero[12][12];
+SkinCell hero[TABSIZE][TABSIZE];
 
 void init() {
-	for (int x = 0; x < 12; x++)
+	for (int x = 0; x < TABSIZE; x++)
 	{
-		for (int y = 0; y < 12; y++)
+		for (int y = 0; y < TABSIZE; y++)
 		{
-			hero[x][y].init("Assets/graphics/skin60.png", sf::Vector2f(60 * x + 30, 60 * y + 30), 1);
+			hero[x][y].init("Assets/graphics/skin60v2.png", sf::Vector2f(60 * x + 30, 60 * y + 30), 1);
 		}
 	}
 }
@@ -31,20 +33,19 @@ void updateInput() {
 	}
 }
 void draw() {
-	for (int x = 0; x < 12; x++)
+	for (int x = 0; x < TABSIZE; x++)
 	{
-		for (int y = 0; y < 12; y++)
+		for (int y = 0; y < TABSIZE; y++)
 		{
 			window.draw(hero[x][y].getSprite());
 		}
 	}
-	
+
 }
 int main() {
 	sf::Clock clock;
 	window.setFramerateLimit(120);
 	init();
-
 	while (window.isOpen()) {
 		updateInput();
 		sf::Time dt = clock.restart();
