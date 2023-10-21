@@ -3,7 +3,7 @@
 #include <iostream>
 #include "SkinCell.h"
 
-#define TABSIZE 6
+#define TABSIZE 12
 
 sf::Vector2f viewSize(TABSIZE * 60, TABSIZE * 60);
 sf::VideoMode vm(viewSize.x, viewSize.y);
@@ -16,7 +16,7 @@ void init() {
 	{
 		for (int y = 0; y < TABSIZE; y++)
 		{
-			hero[x][y].init(sf::Vector2f(60.f, 60.f) , sf::Vector2f(60 * x, 60 * y), rand() % 2);
+			hero[x][y].init(sf::Vector2f(60.f, 60.f) , sf::Vector2f(60 * x, 60 * y), 0);
 		}
 	}
 }
@@ -57,7 +57,7 @@ void update() {
 	{
 		for (int y = 0; y < TABSIZE; y++)
 		{
-			hero[x][y].update(rand() % 2);
+			hero[x][y].update(rand() % 3 + 1);
 		}
 	}
 }
@@ -70,7 +70,7 @@ int main() {
 	while (window.isOpen()) {
 		updateInput();
 
-		if (clock.getElapsedTime().asMilliseconds() > 500) {
+		if (clock.getElapsedTime().asMilliseconds() > 1) {
 			update();
 			clock.restart();
 		}

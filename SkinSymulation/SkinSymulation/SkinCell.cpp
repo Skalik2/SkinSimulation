@@ -1,13 +1,16 @@
 #include "SkinCell.h"
 
-SkinCell::SkinCell() {
+SkinCell::SkinCell() 
+{
 
 }
-SkinCell::~SkinCell() {
+SkinCell::~SkinCell() 
+{
 
 }
 
-sf::Color setStateColor(int state) {
+sf::Color setStateColor(int state) 
+{
 	switch (state) {
 	case 0:
 		return sf::Color(255, 174, 0, 255);
@@ -15,22 +18,108 @@ sf::Color setStateColor(int state) {
 	case 1:
 		return sf::Color(255, 60, 0, 255);
 		break;
+	case 2:
+		return sf::Color(34, 191, 76, 255);
+		break;
+	case 3:
+		return sf::Color(204, 255, 0, 255);
+		break;
 	}
 }
 
 void SkinCell::init(sf::Vector2f size,sf::Vector2f position,
-	int state) {
+	int state) 
+{
 	m_shape.setSize(size);
 	m_shape.setPosition(position);
-	m_shape.setFillColor(setStateColor(state));
+	m_shape.setFillColor(setStateColor(0));
 	m_shape.setOutlineColor(sf::Color::Black);
 	m_shape.setOutlineThickness(3);
 }
 
-void SkinCell::update(int state) {
-	m_shape.setFillColor(setStateColor(state));	
+int switchTickSpeed = 3;
+
+void SkinCell::update(int state) 
+{
+	if (static_cast<int>(getTargetColor().r) == 0 &&
+		static_cast<int>(getTargetColor().g) == 0 &&
+		static_cast<int>(getTargetColor().b) == 0)
+	{
+		setTargetColor(setStateColor(state));
+	}
+	else
+	{
+		if (static_cast<int>(m_shape.getFillColor().r) < static_cast<int>(getTargetColor().r))
+		{
+			m_shape.setFillColor(sf::Color(
+				static_cast<int>(std::min(255, m_shape.getFillColor().r + switchTickSpeed)),
+				static_cast<int>(m_shape.getFillColor().g),
+				static_cast<int>(m_shape.getFillColor().b),
+				255));
+		}
+		else if (static_cast<int>(m_shape.getFillColor().r) > static_cast<int>(getTargetColor().r))
+		{
+			m_shape.setFillColor(sf::Color(
+				static_cast<int>(std::max(0, m_shape.getFillColor().r - switchTickSpeed)),
+				static_cast<int>(m_shape.getFillColor().g),
+				static_cast<int>(m_shape.getFillColor().b),
+				255));
+		}
+			
+		if (static_cast<int>(m_shape.getFillColor().g) < static_cast<int>(getTargetColor().g))
+		{
+			m_shape.setFillColor(sf::Color(
+				static_cast<int>(m_shape.getFillColor().r),
+				static_cast<int>(std::min(255, m_shape.getFillColor().g + switchTickSpeed)),
+				static_cast<int>(m_shape.getFillColor().b),
+				255));
+		}
+		else if (static_cast<int>(m_shape.getFillColor().g) > static_cast<int>(getTargetColor().g))
+		{
+			m_shape.setFillColor(sf::Color(
+				static_cast<int>(m_shape.getFillColor().r),
+				static_cast<int>(std::max(0, m_shape.getFillColor().g - switchTickSpeed)),
+				static_cast<int>(m_shape.getFillColor().b),
+				255));
+		}
+			
+		if (static_cast<int>(m_shape.getFillColor().b) < static_cast<int>(getTargetColor().b))
+		{
+			m_shape.setFillColor(sf::Color(
+				static_cast<int>(m_shape.getFillColor().r),
+				static_cast<int>(m_shape.getFillColor().g),
+				static_cast<int>(std::min(255, m_shape.getFillColor().b + switchTickSpeed)),
+				255));
+		}
+		else if (static_cast<int>(m_shape.getFillColor().b) > static_cast<int>(getTargetColor().b))
+		{
+			m_shape.setFillColor(sf::Color(
+				static_cast<int>(m_shape.getFillColor().r),
+				static_cast<int>(m_shape.getFillColor().g),
+				static_cast<int>(std::max(0, m_shape.getFillColor().b - switchTickSpeed)),
+				255));
+		}
+			
+		if (static_cast<int>(m_shape.getFillColor().r) == static_cast<int>(getTargetColor().r) &&
+			static_cast<int>(m_shape.getFillColor().g) == static_cast<int>(getTargetColor().g) &&
+			static_cast<int>(m_shape.getFillColor().b) == static_cast<int>(getTargetColor().b))
+		{
+			setTargetColor(sf::Color(0, 0, 0, 0));
+		}
+	}
 }
 
-sf::RectangleShape SkinCell::getShape() {
+sf::RectangleShape SkinCell::getShape() 
+{
 	return m_shape;
+}
+
+sf::Color SkinCell::getTargetColor() 
+{
+	return m_targetColor;
+}
+
+void SkinCell::setTargetColor(sf::Color targetColor) 
+{
+	m_targetColor = targetColor;
 }
