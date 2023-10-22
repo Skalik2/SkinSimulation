@@ -4,7 +4,6 @@
 
 class SkinCell
 {
-private:
 	sf::RectangleShape m_shape;
 	sf::Color m_targetColor;
 public:
