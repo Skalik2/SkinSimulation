@@ -27,17 +27,17 @@ sf::Color setStateColor(int state)
 	}
 }
 
-void SkinCell::init(sf::Vector2f size,sf::Vector2f position,
-	int state) 
+void SkinCell::init(const sf::Vector2f& size,const sf::Vector2f& position,
+	const int& state) 
 {
 	m_shape.setSize(size);
 	m_shape.setPosition(position);
 	m_shape.setFillColor(setStateColor(0));
 	m_shape.setOutlineColor(sf::Color::Black);
-	m_shape.setOutlineThickness(3);
+	m_shape.setOutlineThickness(2);
 }
 
-int switchTickSpeed = 3;
+int switchTickSpeed = 1;
 
 void SkinCell::update(int state) 
 {
@@ -46,6 +46,12 @@ void SkinCell::update(int state)
 		static_cast<int>(getTargetColor().b) == 0)
 	{
 		setTargetColor(setStateColor(state));
+		std::cout << "Target (" << static_cast<int>(getTargetColor().r) << ", "
+			<< static_cast<int>(getTargetColor().g) << ", "
+			<< static_cast<int>(getTargetColor().g) << ")" << std::endl;
+		std::cout << "Current (" << static_cast<int>(m_shape.getFillColor().r) << ", "
+			<< static_cast<int>(m_shape.getFillColor().g) << ", "
+			<< static_cast<int>(m_shape.getFillColor().b) << ")" << std::endl;
 	}
 	else
 	{
@@ -109,17 +115,17 @@ void SkinCell::update(int state)
 	}
 }
 
-sf::RectangleShape SkinCell::getShape() 
+sf::RectangleShape SkinCell::getShape() const
 {
 	return m_shape;
 }
 
-sf::Color SkinCell::getTargetColor() 
+sf::Color SkinCell::getTargetColor() const
 {
 	return m_targetColor;
 }
 
-void SkinCell::setTargetColor(sf::Color targetColor) 
+void SkinCell::setTargetColor(const sf::Color& targetColor) 
 {
 	m_targetColor = targetColor;
 }
