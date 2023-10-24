@@ -27,8 +27,7 @@ sf::Color setStateColor(int state)
 	}
 }
 
-void SkinCell::init(const sf::Vector2f& size,const sf::Vector2f& position,
-	const int& state) 
+void SkinCell::init(const sf::Vector2f& size,const sf::Vector2f& position, int state) 
 {
 	m_shape.setSize(size);
 	m_shape.setPosition(position);
@@ -46,12 +45,12 @@ void SkinCell::update(int state)
 		static_cast<int>(getTargetColor().b) == 0)
 	{
 		setTargetColor(setStateColor(state));
-		std::cout << "Target (" << static_cast<int>(getTargetColor().r) << ", "
+		/*std::cout << "Target (" << static_cast<int>(getTargetColor().r) << ", "
 			<< static_cast<int>(getTargetColor().g) << ", "
 			<< static_cast<int>(getTargetColor().g) << ")" << std::endl;
 		std::cout << "Current (" << static_cast<int>(m_shape.getFillColor().r) << ", "
 			<< static_cast<int>(m_shape.getFillColor().g) << ", "
-			<< static_cast<int>(m_shape.getFillColor().b) << ")" << std::endl;
+			<< static_cast<int>(m_shape.getFillColor().b) << ")" << std::endl;*/
 	}
 	else
 	{
