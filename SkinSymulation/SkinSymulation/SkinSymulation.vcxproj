@@ -151,10 +151,12 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="CellArray.cpp" />
     <ClCompile Include="SkinCell.cpp" />
     <ClCompile Include="SkinSymulation.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="CellArray.h" />
     <ClInclude Include="SkinCell.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

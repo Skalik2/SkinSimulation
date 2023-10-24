@@ -3,26 +3,41 @@
 #include <iostream>
 #include <vector>
 
+#include "CellArray.h"
 #include "SkinCell.h"
 
-#define TABSIZE 11
+#define TABSIZE 12
 
-sf::Vector2f viewSize(TABSIZE * 60, TABSIZE * 60);
+sf::Vector2f viewSize(800, 800);
 sf::VideoMode vm(viewSize.x, viewSize.y);
 sf::RenderWindow window(vm, "Symulacja tkanki", sf::Style::Default);
 SkinCell hero[TABSIZE][TABSIZE];
 bool switchSkin = false;
 
-std::vector<std::vector<SkinCell>> skinCellTab(11,std::vector<SkinCell>(11));
+CellArray skinTab;
+int ArraysizeX, ArraysizeY;
 
-void init() {
-	for (int x = 0; x < TABSIZE; x++)
+std::vector<std::vector<SkinCell>> skinCellTab(TABSIZE,std::vector<SkinCell>(TABSIZE));
+
+void init() 
+{
+	skinTab.init();
+}
+
+void draw() {
+	for (int x = 0; x < ArraysizeX; x++)
 	{
-		for (int y = 0; y < TABSIZE; y++)
+		for (int y = 0; y < ArraysizeY; y++)
 		{
-			skinCellTab[x][y].init(sf::Vector2f(60.f, 60.f), sf::Vector2f(60 * x, 60 * y), 0);
+			window.draw(skinTab.get(x,y));
 		}
 	}
+
+}
+
+void update() 
+{
+	skinTab.update();
 }
 void updateInput() {
 	sf::Event event;
@@ -31,41 +46,41 @@ void updateInput() {
 			window.close();
 		if (event.type == sf::Event::KeyPressed) {
 			if (event.key.code == sf::Keyboard::Up) {
-				std::cout << "Key up" << std::endl;
+				ArraysizeY -= 1;
+				skinTab.size(ArraysizeX, ArraysizeY);
+				draw();
 			}
 			if (event.key.code == sf::Keyboard::Right) {
-				switchSkin = true;
+				ArraysizeX += 1;
+				skinTab.size(ArraysizeX, ArraysizeY);
+				skinTab.update();
+				draw();
+			}
+			if (event.key.code == sf::Keyboard::Left) {
+				ArraysizeX -= 1;
+				skinTab.size(ArraysizeX, ArraysizeY);
+				skinTab.update();
+				draw();
+			}
+			if (event.key.code == sf::Keyboard::Down) {
+				ArraysizeY += 1;
+				skinTab.size(ArraysizeX, ArraysizeY);
+				draw();
 			}
 		}
 		if (event.type == sf::Event::KeyReleased) {
 			if (event.key.code == sf::Keyboard::Right) {
-				switchSkin = false;
+
 			}
-		}
-	}
-}
-void draw() {
-	for (int x = 0; x < TABSIZE; x++)
-	{
-		for (int y = 0; y < TABSIZE; y++)
-		{
-			window.draw(skinCellTab[x][y].getShape());
-		}
-	}
-
-}
-
-void update() {
-	for (int x = 0; x < TABSIZE; x++)
-	{
-		for (int y = 0; y < TABSIZE; y++)
-		{
-			skinCellTab[x][y].update(rand() % 3 + 1);
 		}
 	}
 }
 
 int main() {
+	ArraysizeX = TABSIZE;
+	ArraysizeY = TABSIZE;
+	skinTab.size(ArraysizeX, ArraysizeY);
+
 	srand(time(NULL));
 	sf::Clock clock;
 	window.setFramerateLimit(120);
