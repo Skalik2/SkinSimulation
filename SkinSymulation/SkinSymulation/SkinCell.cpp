@@ -45,12 +45,6 @@ void SkinCell::update(int state)
 		static_cast<int>(getTargetColor().b) == 0)
 	{
 		setTargetColor(setStateColor(state));
-		/*std::cout << "Target (" << static_cast<int>(getTargetColor().r) << ", "
-			<< static_cast<int>(getTargetColor().g) << ", "
-			<< static_cast<int>(getTargetColor().g) << ")" << std::endl;
-		std::cout << "Current (" << static_cast<int>(m_shape.getFillColor().r) << ", "
-			<< static_cast<int>(m_shape.getFillColor().g) << ", "
-			<< static_cast<int>(m_shape.getFillColor().b) << ")" << std::endl;*/
 	}
 	else
 	{

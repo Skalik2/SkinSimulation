@@ -11,13 +11,9 @@
 sf::Vector2f viewSize(800, 800);
 sf::VideoMode vm(viewSize.x, viewSize.y);
 sf::RenderWindow window(vm, "Symulacja tkanki", sf::Style::Default);
-SkinCell hero[TABSIZE][TABSIZE];
-bool switchSkin = false;
 
 CellArray skinTab;
 int ArraysizeX, ArraysizeY;
-
-std::vector<std::vector<SkinCell>> skinCellTab(TABSIZE,std::vector<SkinCell>(TABSIZE));
 
 void init() 
 {
@@ -46,25 +42,27 @@ void updateInput() {
 			window.close();
 		if (event.type == sf::Event::KeyPressed) {
 			if (event.key.code == sf::Keyboard::Up) {
+				std::cout << "up" << std::endl;
 				ArraysizeY -= 1;
-				skinTab.size(ArraysizeX, ArraysizeY);
+				skinTab.setSize(ArraysizeX, ArraysizeY);
 				draw();
 			}
 			if (event.key.code == sf::Keyboard::Right) {
+				std::cout << "Right" << std::endl;
 				ArraysizeX += 1;
-				skinTab.size(ArraysizeX, ArraysizeY);
-				skinTab.update();
+				skinTab.setSize(ArraysizeX, ArraysizeY);
 				draw();
 			}
 			if (event.key.code == sf::Keyboard::Left) {
+				std::cout << "Left" << std::endl;
 				ArraysizeX -= 1;
-				skinTab.size(ArraysizeX, ArraysizeY);
-				skinTab.update();
+				skinTab.setSize(ArraysizeX, ArraysizeY);
 				draw();
 			}
 			if (event.key.code == sf::Keyboard::Down) {
+				std::cout << "Down" << std::endl;
 				ArraysizeY += 1;
-				skinTab.size(ArraysizeX, ArraysizeY);
+				skinTab.setSize(ArraysizeX, ArraysizeY);
 				draw();
 			}
 		}
@@ -77,9 +75,9 @@ void updateInput() {
 }
 
 int main() {
-	ArraysizeX = TABSIZE;
-	ArraysizeY = TABSIZE;
-	skinTab.size(ArraysizeX, ArraysizeY);
+	ArraysizeX = 12;
+	ArraysizeY = 12;
+	skinTab.setSize(ArraysizeX, ArraysizeY);
 
 	srand(time(NULL));
 	sf::Clock clock;

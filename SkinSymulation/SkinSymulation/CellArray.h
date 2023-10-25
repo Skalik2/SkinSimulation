@@ -4,11 +4,12 @@
 
 class CellArray
 {
-	std::vector<std::vector<SkinCell>> skinCellTab;
+	std::vector<std::vector<SkinCell>> m_skinCellTab;
 public:
-	void size(int x, int y);
+	void setSize(int x, int y);
 	void init();
 	void update();
 	sf::RectangleShape get(int x, int y);
+	void addRigt();
 };
 
