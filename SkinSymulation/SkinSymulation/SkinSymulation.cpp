@@ -13,7 +13,7 @@ sf::VideoMode vm(viewSize.x, viewSize.y);
 sf::RenderWindow window(vm, "Symulacja tkanki", sf::Style::Default);
 
 CellArray skinTab;
-int ArraysizeX, ArraysizeY;
+
 
 void init() 
 {
@@ -21,9 +21,9 @@ void init()
 }
 
 void draw() {
-	for (int x = 0; x < ArraysizeX; x++)
+	for (int x = 0; x < skinTab.getSizeX(); x++)
 	{
-		for (int y = 0; y < ArraysizeY; y++)
+		for (int y = 0; y < skinTab.getSizeY(); y++)
 		{
 			window.draw(skinTab.get(x,y));
 		}
@@ -43,26 +43,26 @@ void updateInput() {
 		if (event.type == sf::Event::KeyPressed) {
 			if (event.key.code == sf::Keyboard::Up) {
 				std::cout << "up" << std::endl;
-				ArraysizeY -= 1;
-				skinTab.setSize(ArraysizeX, ArraysizeY);
+				skinTab.setSize(skinTab.getSizeX(), skinTab.getSizeY() - 1);
+				skinTab.init();
 				draw();
 			}
 			if (event.key.code == sf::Keyboard::Right) {
 				std::cout << "Right" << std::endl;
-				ArraysizeX += 1;
-				skinTab.setSize(ArraysizeX, ArraysizeY);
+				skinTab.setSize(skinTab.getSizeX() + 1, skinTab.getSizeY());
+				skinTab.init();
 				draw();
 			}
 			if (event.key.code == sf::Keyboard::Left) {
 				std::cout << "Left" << std::endl;
-				ArraysizeX -= 1;
-				skinTab.setSize(ArraysizeX, ArraysizeY);
+				skinTab.setSize(skinTab.getSizeX() - 1, skinTab.getSizeY());
+				skinTab.init();
 				draw();
 			}
 			if (event.key.code == sf::Keyboard::Down) {
 				std::cout << "Down" << std::endl;
-				ArraysizeY += 1;
-				skinTab.setSize(ArraysizeX, ArraysizeY);
+				skinTab.setSize(skinTab.getSizeX(), skinTab.getSizeY() + 1);
+				skinTab.init();
 				draw();
 			}
 		}
@@ -75,10 +75,8 @@ void updateInput() {
 }
 
 int main() {
-	ArraysizeX = 12;
-	ArraysizeY = 12;
-	skinTab.setSize(ArraysizeX, ArraysizeY);
-
+	skinTab.setSize(TABSIZE, TABSIZE);
+	
 	srand(time(NULL));
 	sf::Clock clock;
 	window.setFramerateLimit(120);
