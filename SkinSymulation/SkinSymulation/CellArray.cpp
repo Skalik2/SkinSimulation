@@ -5,6 +5,9 @@ void CellArray::setSize(int x, int y)
     m_sizeX = x;
     m_sizeY = y;
     m_skinCellTab.resize(x, std::vector<SkinCell>(y));
+    for (auto& innerTab : m_skinCellTab) {
+        innerTab.resize(y);
+    }
     
 }
 
@@ -20,7 +23,7 @@ void CellArray::init()
     {
         for (int j = 0; j < m_sizeY; j++)
         {
-            m_skinCellTab[i][j].init(sf::Vector2f(round(800 / m_sizeX), round(800 / m_sizeY)), sf::Vector2f(round(800/ m_sizeX) * i, round(800 / m_sizeY) * j), 0);
+            m_skinCellTab[i][j].init(sf::Vector2f(round(720 / m_sizeX), round(720 / m_sizeY)), sf::Vector2f(round(720/ m_sizeX) * i, round(720 / m_sizeY) * j), 0);
         }
     }
 }
