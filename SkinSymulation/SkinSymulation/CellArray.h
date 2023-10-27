@@ -10,6 +10,8 @@ public:
 	void setSize(int x, int y);
 	void init();
 	void initRight();
+	void initDown();
+	void resizeTab();
 	void update();
 	sf::RectangleShape get(int x, int y);
 	int getSizeX() const;

@@ -35,9 +35,39 @@ void CellArray::init()
 
 void CellArray::initRight()
 {
-    for (int j = 0; j < m_sizeX; j++)
+    for (int i = 0; i < m_sizeY; i++)
     {
-        m_skinCellTab[j][m_sizeY].init(sf::Vector2f(round(720 / m_sizeX), round(720 / m_sizeY)), sf::Vector2f(round(720 / m_sizeX) * m_sizeX, round(720 / m_sizeY) * j), 0);
+        m_skinCellTab[m_sizeX - 1][i].init(
+            sf::Vector2f(round(720.0f / m_sizeX), round(720.0f / m_sizeY)),
+            sf::Vector2f(round(720.0f / m_sizeX) * (m_sizeX - 1), round(720.0f / m_sizeY) * i), 0
+        );
+    }
+    resizeTab();
+}
+
+
+void CellArray::initDown()
+{
+    for (int i = 0; i < m_sizeX; i++)
+    {
+        m_skinCellTab[i][m_sizeY - 1].init(
+            sf::Vector2f(round(720.0f / m_sizeX), round(720.0f / (m_sizeY - 1) )),
+            sf::Vector2f(round(720.0f / m_sizeX) * i, round(720.0f / (m_sizeY - 1)) * i), 0
+        );
+    }
+    resizeTab();
+}
+
+void CellArray::resizeTab()
+{
+    for (int i = 0; i < m_sizeX; i++)
+    {
+        for (int j = 0; j < m_sizeY; j++)
+        {
+            m_skinCellTab[i][j].updatePositon(
+                sf::Vector2f(round(720 / m_sizeX) * i,
+                round(720 / m_sizeY) * j));
+        }
     }
 }
 

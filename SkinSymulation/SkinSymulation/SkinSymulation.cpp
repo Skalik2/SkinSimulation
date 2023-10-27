@@ -55,7 +55,7 @@ void updateInput() {
 				skinTab.setSize(skinTab.getSizeX() + 1, skinTab.getSizeY());
 				
 				std::cout << skinTab.getSizeX() << " " << skinTab.getSizeY() << std::endl;
-				skinTab.init();
+				skinTab.initRight();
 				draw();
 			}
 			if (event.key.code == sf::Keyboard::Left) {
@@ -70,7 +70,8 @@ void updateInput() {
 			if (event.key.code == sf::Keyboard::Down) {
 				std::cout << "Down" << std::endl;
 				skinTab.setSize(skinTab.getSizeX(), skinTab.getSizeY() + 1);
-				skinTab.init();
+				std::cout << skinTab.getSizeX() << " " << skinTab.getSizeY() << std::endl;
+				skinTab.initDown();
 				draw();
 			}
 		}

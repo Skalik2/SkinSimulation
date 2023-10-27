@@ -10,6 +10,7 @@ public:
 	SkinCell();
 	~SkinCell();
 	void init(const sf::Vector2f& size, const sf::Vector2f& position, int state);
+	void updatePositon(sf::Vector2f position);
 	void update(int state);
 	sf::RectangleShape getShape() const;
 	sf::Color getTargetColor() const;

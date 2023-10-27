@@ -36,6 +36,12 @@ void SkinCell::init(const sf::Vector2f& size,const sf::Vector2f& position, int s
 	m_shape.setOutlineThickness(2);
 }
 
+
+void SkinCell::updatePositon(sf::Vector2f position)
+{
+	m_shape.setPosition(position);
+}
+
 int switchTickSpeed = 1;
 
 void SkinCell::update(int state) 
