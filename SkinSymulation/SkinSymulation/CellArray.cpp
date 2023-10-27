@@ -23,8 +23,21 @@ void CellArray::init()
     {
         for (int j = 0; j < m_sizeY; j++)
         {
-            m_skinCellTab[i][j].init(sf::Vector2f(round(720 / m_sizeX), round(720 / m_sizeY)), sf::Vector2f(round(720/ m_sizeX) * i, round(720 / m_sizeY) * j), 0);
+            m_skinCellTab[i][j].init(
+                sf::Vector2f(round(720 / m_sizeX), 
+                             round(720 / m_sizeY)), 
+                sf::Vector2f(round(720/ m_sizeX) * i, 
+                             round(720 / m_sizeY) * j), 0
+            );
         }
+    }
+}
+
+void CellArray::initRight()
+{
+    for (int j = 0; j < m_sizeX; j++)
+    {
+        m_skinCellTab[j][m_sizeY].init(sf::Vector2f(round(720 / m_sizeX), round(720 / m_sizeY)), sf::Vector2f(round(720 / m_sizeX) * m_sizeX, round(720 / m_sizeY) * j), 0);
     }
 }
 

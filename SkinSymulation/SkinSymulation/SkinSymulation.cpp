@@ -8,7 +8,7 @@
 
 #define TABSIZE 12
 
-sf::Vector2f viewSize(800, 800);
+sf::Vector2f viewSize(720, 720);
 sf::VideoMode vm(viewSize.x, viewSize.y);
 sf::RenderWindow window(vm, "Symulacja tkanki", sf::Style::Default);
 
@@ -42,22 +42,30 @@ void updateInput() {
 			window.close();
 		if (event.type == sf::Event::KeyPressed) {
 			if (event.key.code == sf::Keyboard::Up) {
-				std::cout << "up" << std::endl;
-				skinTab.setSize(skinTab.getSizeX(), skinTab.getSizeY() - 1);
-				skinTab.init();
-				draw();
+				if (skinTab.getSizeY() != 1)
+				{
+					std::cout << "up" << std::endl;
+					skinTab.setSize(skinTab.getSizeX(), skinTab.getSizeY() - 1);
+					skinTab.init();
+					draw();
+				}
 			}
 			if (event.key.code == sf::Keyboard::Right) {
 				std::cout << "Right" << std::endl;
 				skinTab.setSize(skinTab.getSizeX() + 1, skinTab.getSizeY());
+				
+				std::cout << skinTab.getSizeX() << " " << skinTab.getSizeY() << std::endl;
 				skinTab.init();
 				draw();
 			}
 			if (event.key.code == sf::Keyboard::Left) {
-				std::cout << "Left" << std::endl;
-				skinTab.setSize(skinTab.getSizeX() - 1, skinTab.getSizeY());
-				skinTab.init();
-				draw();
+				if (skinTab.getSizeX() != 1)
+				{
+					std::cout << "Left" << std::endl;
+					skinTab.setSize(skinTab.getSizeX() - 1, skinTab.getSizeY());
+					skinTab.init();
+					draw();
+				}
 			}
 			if (event.key.code == sf::Keyboard::Down) {
 				std::cout << "Down" << std::endl;
