@@ -44,33 +44,26 @@ void updateInput() {
 			if (event.key.code == sf::Keyboard::Up) {
 				if (skinTab.getSizeY() != 1)
 				{
-					std::cout << "up" << std::endl;
 					skinTab.setSize(skinTab.getSizeX(), skinTab.getSizeY() - 1);
-					skinTab.init();
+					skinTab.resizeTab();
 					draw();
 				}
 			}
 			if (event.key.code == sf::Keyboard::Right) {
-				std::cout << "Right" << std::endl;
 				skinTab.setSize(skinTab.getSizeX() + 1, skinTab.getSizeY());
-				
-				std::cout << skinTab.getSizeX() << " " << skinTab.getSizeY() << std::endl;
 				skinTab.initRight();
 				draw();
 			}
 			if (event.key.code == sf::Keyboard::Left) {
 				if (skinTab.getSizeX() != 1)
 				{
-					std::cout << "Left" << std::endl;
 					skinTab.setSize(skinTab.getSizeX() - 1, skinTab.getSizeY());
-					skinTab.init();
+					skinTab.resizeTab();
 					draw();
 				}
 			}
 			if (event.key.code == sf::Keyboard::Down) {
-				std::cout << "Down" << std::endl;
 				skinTab.setSize(skinTab.getSizeX(), skinTab.getSizeY() + 1);
-				std::cout << skinTab.getSizeX() << " " << skinTab.getSizeY() << std::endl;
 				skinTab.initDown();
 				draw();
 			}
@@ -88,7 +81,7 @@ int main() {
 	
 	srand(time(NULL));
 	sf::Clock clock;
-	window.setFramerateLimit(120);
+	window.setFramerateLimit(60);
 	init();
 	while (window.isOpen()) {
 		updateInput();
