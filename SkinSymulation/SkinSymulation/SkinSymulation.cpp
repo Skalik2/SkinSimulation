@@ -50,9 +50,12 @@ void updateInput() {
 				}
 			}
 			if (event.key.code == sf::Keyboard::Right) {
-				skinTab.setSize(skinTab.getSizeX() + 1, skinTab.getSizeY());
-				skinTab.initRight();
-				draw();
+				if (skinTab.getSizeX() < 360)
+				{
+					skinTab.setSize(skinTab.getSizeX() + 1, skinTab.getSizeY());
+					skinTab.initRight();
+					draw();
+				}
 			}
 			if (event.key.code == sf::Keyboard::Left) {
 				if (skinTab.getSizeX() != 1)
@@ -63,9 +66,12 @@ void updateInput() {
 				}
 			}
 			if (event.key.code == sf::Keyboard::Down) {
-				skinTab.setSize(skinTab.getSizeX(), skinTab.getSizeY() + 1);
-				skinTab.initDown();
-				draw();
+				if (skinTab.getSizeY() < 360)
+				{
+					skinTab.setSize(skinTab.getSizeX(), skinTab.getSizeY() + 1);
+					skinTab.initDown();
+					draw();
+				}
 			}
 		}
 		if (event.type == sf::Event::KeyReleased) {

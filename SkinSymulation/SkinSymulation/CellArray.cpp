@@ -39,7 +39,7 @@ void CellArray::initRight()
     {
         m_skinCellTab[m_sizeX - 1][i].init(
             sf::Vector2f(round(720.0f / m_sizeX), round(720.0f / m_sizeY)),
-            sf::Vector2f(round(720.0f / m_sizeX) * (m_sizeX - 1), round(720.0f / m_sizeY) * i), 0
+            sf::Vector2f(round(720.0f / m_sizeX) * m_sizeX, round(720.0f / m_sizeY) * i), 0
         );
     }
     resizeTab();
