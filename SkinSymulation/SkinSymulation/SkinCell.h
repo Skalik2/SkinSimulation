@@ -1,11 +1,15 @@
 #pragma once
 #include <SFML/Graphics.hpp>  
 #include <iostream>
+#include <math.h>
 
 class SkinCell
 {
 	sf::RectangleShape m_shape;
 	sf::Color m_targetColor;
+	int m_dividerRed;
+	int m_dividerGreen;
+	int m_dividerBlue;
 public:
 	SkinCell();
 	~SkinCell();
@@ -16,5 +20,10 @@ public:
 	sf::RectangleShape getShape() const;
 	sf::Color getTargetColor() const;
 	void setTargetColor(const sf::Color&);
-	
+	void setDividerRed(int divider);
+	void setDividerGreen(int divider);
+	void setDividerBlue(int divider);
+	int getDividerRed();
+	int getDividerGreen();
+	int getDividerBlue();
 };
