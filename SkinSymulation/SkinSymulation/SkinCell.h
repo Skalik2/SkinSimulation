@@ -20,10 +20,4 @@ public:
 	sf::RectangleShape getShape() const;
 	sf::Color getTargetColor() const;
 	void setTargetColor(const sf::Color&);
-	void setDividerRed(int divider);
-	void setDividerGreen(int divider);
-	void setDividerBlue(int divider);
-	int getDividerRed();
-	int getDividerGreen();
-	int getDividerBlue();
 };

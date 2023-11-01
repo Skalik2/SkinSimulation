@@ -92,7 +92,7 @@ int main() {
 	while (window.isOpen()) {
 		updateInput();
 
-		if (clock.getElapsedTime().asMilliseconds() > 1000) {
+		if (clock.getElapsedTime().asMilliseconds() > 10) {
 			update();
 			clock.restart();
 		}
