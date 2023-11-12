@@ -2,7 +2,6 @@
 #include <string.h>
 #include <iostream>
 #include <vector>
-#include<windows.h>      
 
 #include "CellArray.h"
 #include "SkinCell.h"
@@ -14,7 +13,7 @@ sf::Vector2f viewSize(720, 720);
 sf::VideoMode vm(viewSize.x, viewSize.y);
 sf::RenderWindow window(vm, "Symulacja tkanki", sf::Style::Default);
 
-GameMenu gameMenu(window);
+Menu gameMenu(window);
 CellArray skinTab;
 
 bool menu = true;
@@ -50,14 +49,16 @@ void update()
 void updateInput() {
 	sf::Event event;
 	while (window.pollEvent(event)) {
-		if (event.key.code == sf::Keyboard::Escape || event.type == sf::Event::Closed)
+		if (event.type == sf::Event::Closed)
 			window.close();
 		switch (event.type) {
 			case sf::Event::KeyPressed:
 				switch (event.key.code) {
 					case sf::Keyboard::W:
 					case sf::Keyboard::Up:
-						if (skinTab.getSizeY() != 1)
+						if (menu == true)
+							gameMenu.moveUp();
+						if (skinTab.getSizeY() != 1 && menu == false)
 						{
 							skinTab.setSize(skinTab.getSizeX(), skinTab.getSizeY() - 1);
 							skinTab.resizeTab();
@@ -66,7 +67,7 @@ void updateInput() {
 					break;
 					case sf::Keyboard::D:
 					case sf::Keyboard::Right:
-						if (skinTab.getSizeX() < 360)
+						if (skinTab.getSizeX() < 360 && menu == false)
 						{
 							skinTab.setSize(skinTab.getSizeX() + 1, skinTab.getSizeY());
 							skinTab.initRight();
@@ -75,7 +76,7 @@ void updateInput() {
 					break;
 					case sf::Keyboard::A:
 					case sf::Keyboard::Left:
-						if (skinTab.getSizeX() != 1)
+						if (skinTab.getSizeX() != 1 && menu == false)
 						{
 							skinTab.setSize(skinTab.getSizeX() - 1, skinTab.getSizeY());
 							skinTab.resizeTab();
@@ -84,20 +85,31 @@ void updateInput() {
 					break;
 					case sf::Keyboard::S:
 					case sf::Keyboard::Down:
-						if (skinTab.getSizeY() < 360)
+						if (menu == true)
+							gameMenu.moveDown();
+						if (skinTab.getSizeY() < 360 && menu == false)
 						{
 							skinTab.setSize(skinTab.getSizeX(), skinTab.getSizeY() + 1);
 							skinTab.initDown();
 							draw(1);
 						}
 					break;
-					case sf::Keyboard::P:
+					case sf::Keyboard::Escape:
+					case sf::Keyboard::M:
 						if (menu == true)
 							menu = false;
 						else
 							menu = true;
 					break;
+					case sf::Keyboard::Enter:
+						if (menu == true)
+							gameMenu.MenuChoice(gameMenu.getSelectedItemIndex());
+					break;
 				}
+			break;
+			case sf::Event::MouseButtonPressed:
+				if (menu == true)
+					gameMenu.handleMouseClick();
 			break;
 		}
 	}

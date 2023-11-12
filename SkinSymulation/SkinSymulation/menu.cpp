@@ -1,6 +1,6 @@
 #include "menu.h"
 
-GameMenu::GameMenu(sf::RenderWindow& window) 
+Menu::Menu(sf::RenderWindow& window) 
     : m_window(window)  
     , m_selectedItemIndex(0)
 {
@@ -24,7 +24,7 @@ GameMenu::GameMenu(sf::RenderWindow& window)
     }
 }
 
-void GameMenu::draw() {
+void Menu::draw() {
     m_window.draw(m_title);
 
     for (int i = 0; i < MENU_ITEMS; ++i) {
@@ -32,7 +32,7 @@ void GameMenu::draw() {
     }
 }
 
-void GameMenu::moveUp() {
+void Menu::moveUp() {
     if (m_selectedItemIndex - 1 >= 0) {
         m_menu[m_selectedItemIndex].setFillColor(sf::Color::White);
         m_selectedItemIndex--;
@@ -40,7 +40,7 @@ void GameMenu::moveUp() {
     }
 }
 
-void GameMenu::moveDown() {
+void Menu::moveDown() {
     if (m_selectedItemIndex + 1 < MENU_ITEMS) {
         m_menu[m_selectedItemIndex].setFillColor(sf::Color::White);
         m_selectedItemIndex++;
@@ -48,6 +48,38 @@ void GameMenu::moveDown() {
     }
 }
 
-int GameMenu::getSelectedItemIndex() const {
+int Menu::getSelectedItemIndex() const {
     return m_selectedItemIndex;
+}
+
+void Menu::handleMouseClick() {
+    sf::Vector2i mousePosition = sf::Mouse::getPosition(m_window);
+
+    for (int i = 0; i < MENU_ITEMS; ++i) {
+        if (m_menu[i].getGlobalBounds().contains(static_cast<sf::Vector2f>(mousePosition))) {
+            m_selectedItemIndex = i;
+            for (int j = 0; j < MENU_ITEMS; ++j) {
+                m_menu[j].setFillColor(sf::Color::White);
+            }
+            m_menu[m_selectedItemIndex].setFillColor(sf::Color::Red);
+            MenuChoice(m_selectedItemIndex);
+            break;
+        }
+    }
+}
+
+void Menu::MenuChoice(int elementId) 
+{
+    switch (elementId)
+    {
+    case 0:
+
+        break;
+    case 1:
+
+        break;
+    case 2:
+        m_window.close();
+        break;
+    }
 }
