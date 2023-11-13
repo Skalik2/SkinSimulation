@@ -97,8 +97,10 @@ int Menu::MenuChoice(int elementId)
         return 0;
     case 1:
         return 1;
-    case 2:
-        m_window.close();
+    case 2: 
         return 2;
+    case 3:
+        m_window.close();
+        return 3;
     }
 }

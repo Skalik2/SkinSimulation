@@ -31,6 +31,7 @@ void draw(int stage) {
 		break;
 
 		case 1:
+		case 2:
 			for (int x = 0; x < skinTab.getSizeX(); x++)
 			{
 				for (int y = 0; y < skinTab.getSizeY(); y++)
@@ -38,8 +39,9 @@ void draw(int stage) {
 					window.draw(skinTab.get(x, y));
 				}
 			}
-		break;
-		case 2:
+			break;
+
+		case 3:
 			gameMenu.drawSettings();
 		break;
 	}
@@ -61,7 +63,7 @@ void updateInput() {
 				case sf::Keyboard::Up:
 					if (stage == 0)
 						gameMenu.moveUp();
-					if (skinTab.getSizeY() != 1 && stage == 1)
+					if (skinTab.getSizeY() != 1 && stage != 0)
 					{
 						skinTab.setSize(skinTab.getSizeX(), skinTab.getSizeY() - 1);
 						skinTab.resizeTab();
@@ -70,7 +72,7 @@ void updateInput() {
 				break;
 				case sf::Keyboard::D:
 				case sf::Keyboard::Right:
-					if (skinTab.getSizeX() < 360 && stage == 1)
+					if (skinTab.getSizeX() < 360 && stage != 0)
 					{
 						skinTab.setSize(skinTab.getSizeX() + 1, skinTab.getSizeY());
 						skinTab.initRight();
@@ -79,7 +81,7 @@ void updateInput() {
 				break;
 				case sf::Keyboard::A:
 				case sf::Keyboard::Left:
-					if (skinTab.getSizeX() != 1 && stage == 1)
+					if (skinTab.getSizeX() != 1 && stage != 0)
 					{
 						skinTab.setSize(skinTab.getSizeX() - 1, skinTab.getSizeY());
 						skinTab.resizeTab();
@@ -90,7 +92,7 @@ void updateInput() {
 				case sf::Keyboard::Down:
 					if (stage == 0)
 						gameMenu.moveDown();
-					if (skinTab.getSizeY() < 360 && stage == 1)
+					if (skinTab.getSizeY() < 360 && stage != 0)
 					{
 						skinTab.setSize(skinTab.getSizeX(), skinTab.getSizeY() + 1);
 						skinTab.initDown();
@@ -111,10 +113,14 @@ void updateInput() {
 						{
 						case 0:
 							stage = 1;
-							init();
-							break;
+							draw(stage);
+						break;
 						case 1:
 							stage = 2;
+							init();
+						break;
+						case 2:
+							stage = 3;
 							draw(stage);
 						break;
 						}
@@ -135,7 +141,6 @@ int main() {
 	srand(time(NULL));
 	sf::Clock clock;
 	window.setFramerateLimit(60);
-	init();
 	while (window.isOpen()) {
 		updateInput();
 
