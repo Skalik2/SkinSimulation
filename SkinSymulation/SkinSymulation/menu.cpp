@@ -15,6 +15,7 @@ Menu::Menu(sf::RenderWindow& window)
     m_title.setStyle(sf::Text::Bold);
     m_title.setPosition(window.getSize().x / 2 - m_title.getGlobalBounds().width / 2, 140);
 
+
     for (int i = 0; i < MENU_ITEMS; ++i) {
         m_menu[i].setFont(m_font);
         m_menu[i].setCharacterSize(40);
@@ -22,6 +23,7 @@ Menu::Menu(sf::RenderWindow& window)
         m_menu[i].setString(m_options[i]);
         m_menu[i].setPosition(window.getSize().x / 2 - m_menu[i].getGlobalBounds().width / 2, 300 + i * 60);
     }
+    m_menu[0].setFillColor(sf::Color::Red);
 }
 
 void Menu::draw() {
@@ -73,7 +75,6 @@ void Menu::MenuChoice(int elementId)
     switch (elementId)
     {
     case 0:
-
         break;
     case 1:
 

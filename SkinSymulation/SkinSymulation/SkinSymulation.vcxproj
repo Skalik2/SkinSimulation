@@ -24,6 +24,7 @@
     <ProjectGuid>{065ab24b-e7b9-48f6-be8c-722a9c9b6634}</ProjectGuid>
     <RootNamespace>SkinSymulation</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
+    <ProjectName>SkinSimulation</ProjectName>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
