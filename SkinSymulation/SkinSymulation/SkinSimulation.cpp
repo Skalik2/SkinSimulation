@@ -47,18 +47,41 @@ void draw(int stage) {
 	}
 }
 
+void stageSwitch(int menuButton) 
+{
+	switch (menuButton)
+	{
+	case 0:
+		stage = 1;
+		draw(stage);
+		break;
+	case 1:
+		stage = 2;
+		init();
+		break;
+	case 2:
+		stage = 3;
+		draw(stage);
+		break;
+	}
+}
+
 void update() 
 {
 	skinTab.update();
 }
+
 void updateInput() {
 	sf::Event event;
 	while (window.pollEvent(event)) {
+
 		if (event.type == sf::Event::Closed)
 			window.close();
+
 		switch (event.type) {
 			case sf::Event::KeyPressed:
 				switch (event.key.code) {
+
 				case sf::Keyboard::W:
 				case sf::Keyboard::Up:
 					if (stage == 0)
@@ -109,28 +132,15 @@ void updateInput() {
 				case sf::Keyboard::Enter:
 					if (stage == 0)
 					{
-						switch (gameMenu.MenuChoice(gameMenu.getSelectedItemIndex()))
-						{
-						case 0:
-							stage = 1;
-							draw(stage);
-						break;
-						case 1:
-							stage = 2;
-							init();
-						break;
-						case 2:
-							stage = 3;
-							draw(stage);
-						break;
-						}
+						stageSwitch(gameMenu.MenuChoice(gameMenu.getSelectedItemIndex()));
 					}
 				break;
 				}
 			break;
+
 			case sf::Event::MouseButtonPressed:
 				if (stage == 0)
-					gameMenu.handleMouseClick();
+					stageSwitch(gameMenu.handleMouseClick());
 			break;
 		}
 	}

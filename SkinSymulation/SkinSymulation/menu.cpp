@@ -73,7 +73,7 @@ int Menu::getSelectedItemIndex() const {
     return m_selectedItemIndex;
 }
 
-void Menu::handleMouseClick() {
+int Menu::handleMouseClick() {
     sf::Vector2i mousePosition = sf::Mouse::getPosition(m_window);
 
     for (int i = 0; i < MENU_ITEMS; ++i) {
@@ -83,7 +83,7 @@ void Menu::handleMouseClick() {
                 m_menu[j].setFillColor(sf::Color::White);
             }
             m_menu[m_selectedItemIndex].setFillColor(sf::Color::Red);
-            MenuChoice(m_selectedItemIndex);
+            return MenuChoice(m_selectedItemIndex);
             break;
         }
     }

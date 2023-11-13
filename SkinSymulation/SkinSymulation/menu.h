@@ -26,7 +26,7 @@ public:
     void moveUp();
     void moveDown();
     int getSelectedItemIndex() const;
-    void handleMouseClick();
+    int handleMouseClick();
     int MenuChoice(int elementId);
 };
 
