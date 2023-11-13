@@ -16,6 +16,7 @@ sf::RenderWindow window(vm, "Symulacja tkanki", sf::Style::Default);
 Menu gameMenu(window);
 CellArray skinTab;
 
+bool gameActive = false;
 int stage = 0;
 
 void init() 
@@ -52,10 +53,13 @@ void stageSwitch(int menuButton)
 	switch (menuButton)
 	{
 	case 0:
+		if (!gameActive)
+			break;
 		stage = 1;
 		draw(stage);
 		break;
 	case 1:
+		gameActive = true;
 		stage = 2;
 		init();
 		break;
