@@ -17,7 +17,7 @@ Menu::Menu(sf::RenderWindow& window)
     m_title.setPosition(window.getSize().x / 2 - m_title.getGlobalBounds().width / 2, 140);
     
 
-    for (int i = 0; i < MENU_ITEMS; ++i) {
+    for (int i = 0; i < m_MENU_ITEMS; ++i) {
         m_menu[i].setFont(m_font);
         m_menu[i].setCharacterSize(40);
         m_menu[i].setFillColor(sf::Color::White);
@@ -26,7 +26,7 @@ Menu::Menu(sf::RenderWindow& window)
     }
     m_menu[0].setFillColor(sf::Color::Red);
 
-    for (int i = 0; i < SETTINGS_ITEMS; ++i) {
+    for (int i = 0; i < m_SETTINGS_ITEMS; ++i) {
         m_menu2[i].setFont(m_font);
         m_menu2[i].setCharacterSize(40);
         m_menu2[i].setFillColor(sf::Color::White);
@@ -39,7 +39,7 @@ Menu::Menu(sf::RenderWindow& window)
 void Menu::draw() {
     m_window.draw(m_title);
 
-    for (int i = 0; i < MENU_ITEMS; ++i) {
+    for (int i = 0; i < m_MENU_ITEMS; ++i) {
         m_window.draw(m_menu[i]);
     }
 }
@@ -47,26 +47,54 @@ void Menu::draw() {
 void Menu::drawSettings() {
     m_window.draw(m_title);
 
-    for (int i = 0; i < SETTINGS_ITEMS; ++i) {
+    for (int i = 0; i < m_SETTINGS_ITEMS; ++i) {
         m_window.draw(m_menu2[i]);
     }
 }
 
 
 void Menu::moveUp() {
-    if (m_selectedItemIndex - 1 >= 0) {
-        m_menu[m_selectedItemIndex].setFillColor(sf::Color::White);
-        m_selectedItemIndex--;
-        m_menu[m_selectedItemIndex].setFillColor(sf::Color::Red);
+    switch (m_menuLevel)
+    {
+    case 0:
+        if (m_selectedItemIndex - 1 >= 0) {
+            m_menu[m_selectedItemIndex].setFillColor(sf::Color::White);
+            m_selectedItemIndex--;
+            m_menu[m_selectedItemIndex].setFillColor(sf::Color::Red);
+        }
+    break;
+    case 1:
+        if (m_selectedItemIndex - 1 >= 0) {
+            m_menu2[m_selectedItemIndex].setFillColor(sf::Color::White);
+            m_selectedItemIndex--;
+            m_menu2[m_selectedItemIndex].setFillColor(sf::Color::Red);
+        }
+    break;
     }
+
+        
+    
 }
 
 void Menu::moveDown() {
-    if (m_selectedItemIndex + 1 < MENU_ITEMS) {
-        m_menu[m_selectedItemIndex].setFillColor(sf::Color::White);
-        m_selectedItemIndex++;
-        m_menu[m_selectedItemIndex].setFillColor(sf::Color::Red);
+    switch (m_menuLevel)
+    {
+    case 0:
+        if (m_selectedItemIndex + 1 < m_MENU_ITEMS) {
+            m_menu[m_selectedItemIndex].setFillColor(sf::Color::White);
+            m_selectedItemIndex++;
+            m_menu[m_selectedItemIndex].setFillColor(sf::Color::Red);
+        }
+    break;
+    case 1:
+        if (m_selectedItemIndex + 1 < m_SETTINGS_ITEMS) {
+            m_menu2[m_selectedItemIndex].setFillColor(sf::Color::White);
+            m_selectedItemIndex++;
+            m_menu2[m_selectedItemIndex].setFillColor(sf::Color::Red);
+        }
+    break;
     }
+    
 }
 
 int Menu::getSelectedItemIndex() const {
@@ -76,10 +104,10 @@ int Menu::getSelectedItemIndex() const {
 int Menu::handleMouseClick() {
     sf::Vector2i mousePosition = sf::Mouse::getPosition(m_window);
 
-    for (int i = 0; i < MENU_ITEMS; ++i) {
+    for (int i = 0; i < m_MENU_ITEMS; ++i) {
         if (m_menu[i].getGlobalBounds().contains(static_cast<sf::Vector2f>(mousePosition))) {
             m_selectedItemIndex = i;
-            for (int j = 0; j < MENU_ITEMS; ++j) {
+            for (int j = 0; j < m_MENU_ITEMS; ++j) {
                 m_menu[j].setFillColor(sf::Color::White);
             }
             m_menu[m_selectedItemIndex].setFillColor(sf::Color::Red);
@@ -87,6 +115,21 @@ int Menu::handleMouseClick() {
             break;
         }
     }
+}
+
+void Menu::clearSelectedItem()
+{
+    m_selectedItemIndex = 0;
+}
+
+void Menu::clearMenuLevel()
+{
+    m_menuLevel = 0;
+    for (int i = 0; i < m_MENU_ITEMS; ++i)
+    {
+        m_menu[i].setFillColor(sf::Color::White);
+    }
+    m_menu[m_selectedItemIndex].setFillColor(sf::Color::Red);
 }
 
 int Menu::MenuChoice(int elementId) 
@@ -98,6 +141,8 @@ int Menu::MenuChoice(int elementId)
     case 1:
         return 1;
     case 2: 
+        m_selectedItemIndex = 0;
+        m_menuLevel = 1;
         return 2;
     case 3:
         m_window.close();

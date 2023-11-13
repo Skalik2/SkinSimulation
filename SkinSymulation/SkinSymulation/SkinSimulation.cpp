@@ -88,7 +88,7 @@ void updateInput() {
 
 				case sf::Keyboard::W:
 				case sf::Keyboard::Up:
-					if (stage == 0)
+					if (stage == 0 || stage == 3)
 						gameMenu.moveUp();
 					if (skinTab.getSizeY() != 1 && stage != 0)
 					{
@@ -117,7 +117,7 @@ void updateInput() {
 				break;
 				case sf::Keyboard::S:
 				case sf::Keyboard::Down:
-					if (stage == 0)
+					if (stage == 0 || stage == 3)
 						gameMenu.moveDown();
 					if (skinTab.getSizeY() < 360 && stage != 0)
 					{
@@ -131,7 +131,11 @@ void updateInput() {
 					if (stage == 0)
 						stage = 1;
 					else
+					{
+						gameMenu.clearSelectedItem();
+						gameMenu.clearMenuLevel();
 						stage = 0;
+					}	
 				break;
 				case sf::Keyboard::Enter:
 					if (stage == 0)
