@@ -16,7 +16,7 @@ sf::RenderWindow window(vm, "Symulacja tkanki", sf::Style::Default);
 Menu gameMenu(window);
 CellArray skinTab;
 
-bool menu = true;
+int stage = 0;
 
 void init() 
 {
@@ -39,6 +39,9 @@ void draw(int stage) {
 				}
 			}
 		break;
+		case 2:
+			gameMenu.drawSettings();
+		break;
 	}
 }
 
@@ -54,61 +57,73 @@ void updateInput() {
 		switch (event.type) {
 			case sf::Event::KeyPressed:
 				switch (event.key.code) {
-					case sf::Keyboard::W:
-					case sf::Keyboard::Up:
-						if (menu == true)
-							gameMenu.moveUp();
-						if (skinTab.getSizeY() != 1 && menu == false)
+				case sf::Keyboard::W:
+				case sf::Keyboard::Up:
+					if (stage == 0)
+						gameMenu.moveUp();
+					if (skinTab.getSizeY() != 1 && stage == 1)
+					{
+						skinTab.setSize(skinTab.getSizeX(), skinTab.getSizeY() - 1);
+						skinTab.resizeTab();
+						draw(1);
+					}
+				break;
+				case sf::Keyboard::D:
+				case sf::Keyboard::Right:
+					if (skinTab.getSizeX() < 360 && stage == 1)
+					{
+						skinTab.setSize(skinTab.getSizeX() + 1, skinTab.getSizeY());
+						skinTab.initRight();
+						draw(1);
+					}
+				break;
+				case sf::Keyboard::A:
+				case sf::Keyboard::Left:
+					if (skinTab.getSizeX() != 1 && stage == 1)
+					{
+						skinTab.setSize(skinTab.getSizeX() - 1, skinTab.getSizeY());
+						skinTab.resizeTab();
+						draw(1);
+					}
+				break;
+				case sf::Keyboard::S:
+				case sf::Keyboard::Down:
+					if (stage == 0)
+						gameMenu.moveDown();
+					if (skinTab.getSizeY() < 360 && stage == 1)
+					{
+						skinTab.setSize(skinTab.getSizeX(), skinTab.getSizeY() + 1);
+						skinTab.initDown();
+						draw(1);
+					}
+				break;
+				case sf::Keyboard::Escape:
+				case sf::Keyboard::M:
+					if (stage == 0)
+						stage = 1;
+					else
+						stage = 0;
+				break;
+				case sf::Keyboard::Enter:
+					if (stage == 0)
+					{
+						switch (gameMenu.MenuChoice(gameMenu.getSelectedItemIndex()))
 						{
-							skinTab.setSize(skinTab.getSizeX(), skinTab.getSizeY() - 1);
-							skinTab.resizeTab();
-							draw(1);
+						case 0:
+							stage = 1;
+							init();
+							break;
+						case 1:
+							stage = 2;
+							draw(stage);
+						break;
 						}
-					break;
-					case sf::Keyboard::D:
-					case sf::Keyboard::Right:
-						if (skinTab.getSizeX() < 360 && menu == false)
-						{
-							skinTab.setSize(skinTab.getSizeX() + 1, skinTab.getSizeY());
-							skinTab.initRight();
-							draw(1);
-						}
-					break;
-					case sf::Keyboard::A:
-					case sf::Keyboard::Left:
-						if (skinTab.getSizeX() != 1 && menu == false)
-						{
-							skinTab.setSize(skinTab.getSizeX() - 1, skinTab.getSizeY());
-							skinTab.resizeTab();
-							draw(1);
-						}
-					break;
-					case sf::Keyboard::S:
-					case sf::Keyboard::Down:
-						if (menu == true)
-							gameMenu.moveDown();
-						if (skinTab.getSizeY() < 360 && menu == false)
-						{
-							skinTab.setSize(skinTab.getSizeX(), skinTab.getSizeY() + 1);
-							skinTab.initDown();
-							draw(1);
-						}
-					break;
-					case sf::Keyboard::Escape:
-					case sf::Keyboard::M:
-						if (menu == true)
-							menu = false;
-						else
-							menu = true;
-					break;
-					case sf::Keyboard::Enter:
-						if (menu == true)
-							gameMenu.MenuChoice(gameMenu.getSelectedItemIndex());
-					break;
+					}
+				break;
 				}
 			break;
 			case sf::Event::MouseButtonPressed:
-				if (menu == true)
+				if (stage == 0)
 					gameMenu.handleMouseClick();
 			break;
 		}
@@ -129,10 +144,9 @@ int main() {
 			clock.restart();
 		}
 		window.clear(sf::Color::Black);
-		if (menu)
-			draw(0);
-		else
-			draw(1);
+
+		draw(stage);
+
 		window.display();
 	}
 	return 0;

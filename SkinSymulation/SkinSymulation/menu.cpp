@@ -3,9 +3,10 @@
 Menu::Menu(sf::RenderWindow& window) 
     : m_window(window)  
     , m_selectedItemIndex(0)
+    , m_selectedItemSettingsIndex(0)
 {
     if (!m_font.loadFromFile("arial.ttf")) {
-        std::cerr << "Nie uda³o siê wczytaæ czcionki." << std::endl;
+        std::cerr << "Couldn't load font" << std::endl;
     }
 
     m_title.setFont(m_font);
@@ -14,7 +15,7 @@ Menu::Menu(sf::RenderWindow& window)
     m_title.setFillColor(sf::Color::White);
     m_title.setStyle(sf::Text::Bold);
     m_title.setPosition(window.getSize().x / 2 - m_title.getGlobalBounds().width / 2, 140);
-
+    
 
     for (int i = 0; i < MENU_ITEMS; ++i) {
         m_menu[i].setFont(m_font);
@@ -24,6 +25,15 @@ Menu::Menu(sf::RenderWindow& window)
         m_menu[i].setPosition(window.getSize().x / 2 - m_menu[i].getGlobalBounds().width / 2, 300 + i * 60);
     }
     m_menu[0].setFillColor(sf::Color::Red);
+
+    for (int i = 0; i < SETTINGS_ITEMS; ++i) {
+        m_menu2[i].setFont(m_font);
+        m_menu2[i].setCharacterSize(40);
+        m_menu2[i].setFillColor(sf::Color::White);
+        m_menu2[i].setString(m_options2[i]);
+        m_menu2[i].setPosition(window.getSize().x / 2 - m_menu2[i].getGlobalBounds().width / 2, 300 + i * 60);
+    }
+    m_menu2[0].setFillColor(sf::Color::Red);
 }
 
 void Menu::draw() {
@@ -33,6 +43,15 @@ void Menu::draw() {
         m_window.draw(m_menu[i]);
     }
 }
+
+void Menu::drawSettings() {
+    m_window.draw(m_title);
+
+    for (int i = 0; i < SETTINGS_ITEMS; ++i) {
+        m_window.draw(m_menu2[i]);
+    }
+}
+
 
 void Menu::moveUp() {
     if (m_selectedItemIndex - 1 >= 0) {
@@ -70,17 +89,16 @@ void Menu::handleMouseClick() {
     }
 }
 
-void Menu::MenuChoice(int elementId) 
+int Menu::MenuChoice(int elementId) 
 {
     switch (elementId)
     {
     case 0:
-        break;
+        return 0;
     case 1:
-
-        break;
+        return 1;
     case 2:
         m_window.close();
-        break;
+        return 2;
     }
 }
