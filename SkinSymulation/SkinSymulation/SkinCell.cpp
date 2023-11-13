@@ -34,6 +34,7 @@ void SkinCell::init(const sf::Vector2f& size,const sf::Vector2f& position, int s
 	m_shape.setFillColor(setStateColor(0));
 	m_shape.setOutlineColor(sf::Color::Black);
 	m_shape.setOutlineThickness(1);
+	setTargetColor(sf::Color(0, 0, 0, 255));
 }
 
 
