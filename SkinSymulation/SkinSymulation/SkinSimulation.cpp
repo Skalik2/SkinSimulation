@@ -90,7 +90,7 @@ void updateInput() {
 				case sf::Keyboard::Up:
 					if (stage == 0 || stage == 3)
 						gameMenu.moveUp();
-					if (skinTab.getSizeY() != 1 && stage != 0)
+					if (skinTab.getSizeY() != 1 && (stage != 0 && stage !=3))
 					{
 						skinTab.setSize(skinTab.getSizeX(), skinTab.getSizeY() - 1);
 						skinTab.resizeTab();
@@ -99,7 +99,7 @@ void updateInput() {
 				break;
 				case sf::Keyboard::D:
 				case sf::Keyboard::Right:
-					if (skinTab.getSizeX() < 360 && stage != 0)
+					if (skinTab.getSizeX() < 360 && (stage != 0 && stage != 3))
 					{
 						skinTab.setSize(skinTab.getSizeX() + 1, skinTab.getSizeY());
 						skinTab.initRight();
@@ -108,7 +108,7 @@ void updateInput() {
 				break;
 				case sf::Keyboard::A:
 				case sf::Keyboard::Left:
-					if (skinTab.getSizeX() != 1 && stage != 0)
+					if (skinTab.getSizeX() != 1 && (stage != 0 && stage != 3))
 					{
 						skinTab.setSize(skinTab.getSizeX() - 1, skinTab.getSizeY());
 						skinTab.resizeTab();
@@ -119,7 +119,7 @@ void updateInput() {
 				case sf::Keyboard::Down:
 					if (stage == 0 || stage == 3)
 						gameMenu.moveDown();
-					if (skinTab.getSizeY() < 360 && stage != 0)
+					if (skinTab.getSizeY() < 360 && (stage != 0 && stage != 3))
 					{
 						skinTab.setSize(skinTab.getSizeX(), skinTab.getSizeY() + 1);
 						skinTab.initDown();
