@@ -156,7 +156,7 @@ void updateInput() {
 
 int main() {
 	skinTab.setSize(TABSIZE, TABSIZE);
-	srand(time(NULL));
+	srand(static_cast<unsigned>(time(NULL)));
 	sf::Clock clock;
 	window.setFramerateLimit(60);
 	while (window.isOpen()) {
