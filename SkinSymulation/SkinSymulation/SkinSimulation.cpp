@@ -13,8 +13,12 @@ sf::Vector2f viewSize(720, 720);
 sf::VideoMode vm(viewSize.x, viewSize.y);
 sf::RenderWindow window(vm, "Symulacja tkanki", sf::Style::Default);
 
+sf::VideoMode desktop = sf::VideoMode::getDesktopMode();
+sf::Vector2i centerPosition(desktop.width / 2 - viewSize.x / 2, desktop.height / 2 - viewSize.y / 2);
+sf::Vector2u originalSize = window.getSize();
+
 Menu gameMenu(window);
-CellArray skinTab;
+CellArray skinTab(window);
 
 bool gameActive = false;
 int stage = 0;
@@ -52,22 +56,29 @@ void stageSwitch(int menuButton)
 {
 	switch (menuButton)
 	{
-	case 0:
+	case 0: //continue
 		if (!gameActive)
 			break;
 		stage = 1;
 		draw(stage);
 		break;
-	case 1:
+	case 1: //new game
 		gameActive = true;
 		stage = 2;
 		init();
 		break;
-	case 2:
+	case 2: // settings
 		stage = 3;
 		draw(stage);
 		break;
+	case 3: //main menu 
+		stage = 0;
+		gameMenu.clearSelectedItem();
+		gameMenu.clearMenuLevel();
+		draw(stage);
+		break;
 	}
+	
 }
 
 void update() 
@@ -81,6 +92,11 @@ void updateInput() {
 
 		if (event.type == sf::Event::Closed)
 			window.close();
+
+		if (window.getSize() != originalSize) {
+			window.setSize(originalSize);
+			window.setPosition(centerPosition);
+		}
 
 		switch (event.type) {
 			case sf::Event::KeyPressed:
@@ -96,7 +112,7 @@ void updateInput() {
 						skinTab.resizeTab();
 						draw(1);
 					}
-				break;
+					break;
 				case sf::Keyboard::D:
 				case sf::Keyboard::Right:
 					if (skinTab.getSizeX() < 360 && (stage != 0 && stage != 3))
@@ -105,7 +121,7 @@ void updateInput() {
 						skinTab.initRight();
 						draw(1);
 					}
-				break;
+					break;
 				case sf::Keyboard::A:
 				case sf::Keyboard::Left:
 					if (skinTab.getSizeX() != 1 && (stage != 0 && stage != 3))
@@ -114,7 +130,7 @@ void updateInput() {
 						skinTab.resizeTab();
 						draw(1);
 					}
-				break;
+					break;
 				case sf::Keyboard::S:
 				case sf::Keyboard::Down:
 					if (stage == 0 || stage == 3)
@@ -125,7 +141,7 @@ void updateInput() {
 						skinTab.initDown();
 						draw(1);
 					}
-				break;
+					break;
 				case sf::Keyboard::Escape:
 				case sf::Keyboard::M:
 					if (stage == 0)
@@ -136,20 +152,24 @@ void updateInput() {
 						gameMenu.clearMenuLevel();
 						stage = 0;
 					}	
-				break;
+					break;
 				case sf::Keyboard::Enter:
-					if (stage == 0)
+					if (stage == 0 || stage == 3)
 					{
 						stageSwitch(gameMenu.MenuChoice(gameMenu.getSelectedItemIndex()));
 					}
-				break;
+					break;
 				}
 			break;
 
 			case sf::Event::MouseButtonPressed:
-				if (stage == 0)
+				if (stage == 0 || stage == 3)
 					stageSwitch(gameMenu.handleMouseClick());
-			break;
+				else if (stage == 2)
+ 					std::cout << "click captured in game" << std::endl;
+
+				skinTab.handleMouseClick();
+				break;
 		}
 	}
 }

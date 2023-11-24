@@ -104,16 +104,35 @@ int Menu::getSelectedItemIndex() const {
 int Menu::handleMouseClick() {
     sf::Vector2i mousePosition = sf::Mouse::getPosition(m_window);
 
-    for (int i = 0; i < m_MENU_ITEMS; ++i) {
-        if (m_menu[i].getGlobalBounds().contains(static_cast<sf::Vector2f>(mousePosition))) {
-            m_selectedItemIndex = i;
-            for (int j = 0; j < m_MENU_ITEMS; ++j) {
-                m_menu[j].setFillColor(sf::Color::White);
+    switch (m_menuLevel)
+    {
+    case 0:
+        for (int i = 0; i < m_MENU_ITEMS; ++i) {
+            if (m_menu[i].getGlobalBounds().contains(static_cast<sf::Vector2f>(mousePosition))) {
+                m_selectedItemIndex = i;
+                for (int j = 0; j < m_MENU_ITEMS; ++j) {
+                    m_menu[j].setFillColor(sf::Color::White);
+                }
+                m_menu[m_selectedItemIndex].setFillColor(sf::Color::Red);
+                return MenuChoice(m_selectedItemIndex);
+                break;
             }
-            m_menu[m_selectedItemIndex].setFillColor(sf::Color::Red);
-            return MenuChoice(m_selectedItemIndex);
-            break;
         }
+        break;
+    case 1:
+        std::cout << "mclick";
+        for (int i = 0; i < m_SETTINGS_ITEMS; ++i) {
+            if (m_menu2[i].getGlobalBounds().contains(static_cast<sf::Vector2f>(mousePosition))) {
+                m_selectedItemIndex = i;
+                for (int j = 0; j < m_SETTINGS_ITEMS; ++j) {
+                    m_menu2[j].setFillColor(sf::Color::White);
+                }
+                m_menu2[m_selectedItemIndex].setFillColor(sf::Color::Red);
+                return MenuChoice(m_selectedItemIndex);
+                break;
+            }
+        }
+        break;
     }
 }
 
@@ -134,18 +153,40 @@ void Menu::clearMenuLevel()
 
 int Menu::MenuChoice(int elementId) 
 {
-    switch (elementId)
+    std::cout << m_menuLevel <<  std::endl;
+    switch (m_menuLevel)
     {
     case 0:
-        return 0;
+        switch (elementId)
+        {
+        case 0:
+            return 0;
+        case 1:
+            return 1;
+        case 2: 
+            m_selectedItemIndex = 0;
+            m_menuLevel = 1;
+            return 2;
+        case 3:
+            m_window.close();
+            return 3;
+        }
+    break;
     case 1:
-        return 1;
-    case 2: 
-        m_selectedItemIndex = 0;
-        m_menuLevel = 1;
-        return 2;
-    case 3:
-        m_window.close();
-        return 3;
+        switch (elementId)
+        {
+        case 0:
+            std::cout << "wybor";
+            return 3;
+        case 1:
+
+            
+        case 2:
+
+
+        case 3:
+            break;
+        } 
+        break;
     }
 }

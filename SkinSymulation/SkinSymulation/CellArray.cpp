@@ -87,7 +87,7 @@ void CellArray::update()
     {
         for (int j = 0; j < m_sizeY; j++)
         {
-            m_skinCellTab[i][j].update(0);
+            m_skinCellTab[i][j].update();
         }
     }
 }

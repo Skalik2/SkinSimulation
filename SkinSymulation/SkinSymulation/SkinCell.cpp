@@ -12,17 +12,14 @@ SkinCell::~SkinCell()
 sf::Color setStateColor(int state) 
 {
 	switch (state) {
-	case 0:
+	case 0:  //resistant
 		return sf::Color(255, 174, 0, 255);
 		break;
-	case 1:
+	case 1:  //infected
 		return sf::Color(255, 60, 0, 255);
 		break;
-	case 2:
+	case 2:  //healthy
 		return sf::Color(34, 191, 76, 255);
-		break;
-	case 3:
-		return sf::Color(204, 255, 0, 255);
 		break;
 	}
 }
@@ -31,7 +28,7 @@ void SkinCell::init(const sf::Vector2f& size,const sf::Vector2f& position, int s
 {
 	m_shape.setSize(size);
 	m_shape.setPosition(position);
-	m_shape.setFillColor(setStateColor(0));
+	m_shape.setFillColor(setStateColor(2));
 	m_shape.setOutlineColor(sf::Color::Black);
 	m_shape.setOutlineThickness(1);
 	setTargetColor(sf::Color(0, 0, 0, 255));
@@ -48,15 +45,13 @@ void SkinCell::updateSize(sf::Vector2f size)
 	m_shape.setSize(size);
 }
 
-int switchTickSpeed = 1;
-
-void SkinCell::update(int state) 
+void SkinCell::update() 
 {
 	if (getTargetColor().r == 0 &&
 		getTargetColor().g == 0 &&
 		getTargetColor().b == 0)
 	{
-		setTargetColor(setStateColor(state));
+		//setTargetColor(setStateColor(0));
 	}
 	else
 	{
@@ -119,7 +114,6 @@ void SkinCell::update(int state)
 		}
 	}
 }
-
 
 sf::RectangleShape SkinCell::getShape() const
 {

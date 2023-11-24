@@ -8,7 +8,7 @@ class Menu
 {
     int m_menuLevel = 0;
     static const int m_MENU_ITEMS = 4;
-    static const int m_SETTINGS_ITEMS = 3;
+    static const int m_SETTINGS_ITEMS = 4;
     sf::Text m_title;
     sf::Text m_menu[m_MENU_ITEMS];
     sf::Text m_menu2[m_SETTINGS_ITEMS];
@@ -17,7 +17,7 @@ class Menu
     int m_selectedItemSettingsIndex;
     sf::RenderWindow& m_window;
     std::string m_options[m_MENU_ITEMS] = { "Kontynuuj","Nowa symulacja", "Ustawienia", "Wyjscie" };
-    std::string m_options2[m_SETTINGS_ITEMS] = { "Zarazliwosc", "Szybkosc", "Zapisz" };
+    std::string m_options2[m_SETTINGS_ITEMS] = { "Powrot","Zarazliwosc", "Szybkosc", "Zapisz"};
 public:
 
     Menu(sf::RenderWindow& window);
