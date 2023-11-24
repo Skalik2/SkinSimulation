@@ -1,5 +1,12 @@
 #include "CellArray.h"
 
+CellArray::CellArray(sf::RenderWindow& window)
+    : m_window(window)
+{
+
+}
+
+
 void CellArray::setSize(int x, int y)
 {
     m_sizeX = x;
@@ -80,9 +87,25 @@ void CellArray::update()
     {
         for (int j = 0; j < m_sizeY; j++)
         {
-            m_skinCellTab[i][j].update(rand() % 3 + 1);
+            m_skinCellTab[i][j].update(0);
         }
     }
+}
+
+int CellArray::handleMouseClick() {
+    sf::Vector2i mousePosition = sf::Mouse::getPosition(m_window);
+
+    for (auto& innerTab : m_skinCellTab) {
+        for (auto& el : innerTab) {
+            sf::RectangleShape currentCell = el.getShape();
+            if (currentCell.getGlobalBounds().contains(static_cast<sf::Vector2f>(mousePosition)))
+            {
+                el.setTargetColor(sf::Color(255, 60, 0, 255));
+                std::cout << "color change";
+            }
+        }
+    }
+    return 0;
 }
 
 sf::RectangleShape CellArray::get(int x, int y)
