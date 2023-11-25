@@ -22,7 +22,7 @@ void CellArray::init()
 {
     if (m_skinCellTab.empty())
     {
-        std::cerr << "Tablica nie ma ustawionego rozmiaru." << std::endl;
+        std::cerr << "Array empty" << std::endl;
         return;
     }
 
@@ -100,12 +100,78 @@ int CellArray::handleMouseClick() {
             sf::RectangleShape currentCell = el.getShape();
             if (currentCell.getGlobalBounds().contains(static_cast<sf::Vector2f>(mousePosition)))
             {
+                el.setStateCell(1);
                 el.setTargetColor(sf::Color(255, 60, 0, 255));
                 std::cout << "color change";
             }
         }
     }
     return 0;
+}
+
+void CellArray::updateInfect()
+{
+    for (int i = 0; i < m_sizeX; i++)
+    {
+        for (int j = 0; j < m_sizeY; j++)
+        {
+            if (m_skinCellTab[i][j].getStateCell())
+            {
+                if (i == 0 && j == 0)
+                {
+                    m_skinCellTab[1][0].randInfect();
+                    m_skinCellTab[0][1].randInfect();
+                }
+                else if (i == m_sizeX - 1 && j == m_sizeY - 1)
+                {
+                    m_skinCellTab[m_sizeX - 2][m_sizeY - 1].randInfect();
+                    m_skinCellTab[m_sizeX - 1][m_sizeY - 2].randInfect();
+                }
+                else if (i == m_sizeX - 1 && j == 0)
+                {
+                    m_skinCellTab[m_sizeX - 2][0].randInfect();
+                    m_skinCellTab[m_sizeX - 1][1].randInfect();
+                }
+                else if (i == 0 && j == m_sizeY - 1)
+                {
+                    m_skinCellTab[0][m_sizeY - 2].randInfect();
+                    m_skinCellTab[1][m_sizeY - 1].randInfect();
+                }
+
+                else if (i == 0 && j != 0 && j != m_sizeY - 1)
+                {
+                    m_skinCellTab[0][j - 1].randInfect();
+                    m_skinCellTab[0][j + 1].randInfect();
+                    m_skinCellTab[1][j].randInfect();
+                }
+                else if (i == m_sizeX -1 && j != 0 && j != m_sizeY - 1)
+                {
+                    m_skinCellTab[i][j - 1].randInfect();
+                    m_skinCellTab[i][j + 1].randInfect();
+                    m_skinCellTab[i - 1][j].randInfect();
+                }
+                else if (j == 0 && i != 0 && i != m_sizeX - 1)
+                {
+                    m_skinCellTab[i - 1][0].randInfect();
+                    m_skinCellTab[i + 1][0].randInfect();
+                    m_skinCellTab[i][1].randInfect();
+                }
+                else if (j == m_sizeY - 1 && i != 0 && i != m_sizeX - 1)
+                {
+                    m_skinCellTab[i - 1][j].randInfect();
+                    m_skinCellTab[i + 1][j].randInfect();
+                    m_skinCellTab[i][j - 1].randInfect();
+                }
+                else if (j != 0 && j != m_sizeY - 1 && i != 0 && i != m_sizeX - 1)
+                {
+                    m_skinCellTab[i - 1][j].randInfect();
+                    m_skinCellTab[i + 1][j].randInfect();
+                    m_skinCellTab[i][j - 1].randInfect();
+                    m_skinCellTab[i][j + 1].randInfect();
+                }
+            }
+        }
+    }
 }
 
 sf::RectangleShape CellArray::get(int x, int y)

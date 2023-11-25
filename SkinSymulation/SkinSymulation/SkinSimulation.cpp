@@ -86,6 +86,11 @@ void update()
 	skinTab.update();
 }
 
+void updateInfection()
+{
+	skinTab.updateInfect();
+}
+
 void updateInput() {
 	sf::Event event;
 	while (window.pollEvent(event)) {
@@ -108,6 +113,7 @@ void updateInput() {
 						gameMenu.moveUp();
 					if (skinTab.getSizeY() != 1 && (stage != 0 && stage !=3))
 					{
+						std::cout << "X: " << skinTab.getSizeX() << " Y: " << skinTab.getSizeY() << std::endl;
 						skinTab.setSize(skinTab.getSizeX(), skinTab.getSizeY() - 1);
 						skinTab.resizeTab();
 						draw(1);
@@ -117,6 +123,7 @@ void updateInput() {
 				case sf::Keyboard::Right:
 					if (skinTab.getSizeX() < 360 && (stage != 0 && stage != 3))
 					{
+						std::cout << "X: " << skinTab.getSizeX() << " Y: " << skinTab.getSizeY() << std::endl;
 						skinTab.setSize(skinTab.getSizeX() + 1, skinTab.getSizeY());
 						skinTab.initRight();
 						draw(1);
@@ -126,6 +133,7 @@ void updateInput() {
 				case sf::Keyboard::Left:
 					if (skinTab.getSizeX() != 1 && (stage != 0 && stage != 3))
 					{
+						std::cout << "X: " << skinTab.getSizeX() << " Y: " << skinTab.getSizeY() << std::endl;
 						skinTab.setSize(skinTab.getSizeX() - 1, skinTab.getSizeY());
 						skinTab.resizeTab();
 						draw(1);
@@ -137,6 +145,7 @@ void updateInput() {
 						gameMenu.moveDown();
 					if (skinTab.getSizeY() < 360 && (stage != 0 && stage != 3))
 					{
+						std::cout << "X: " << skinTab.getSizeX() << " Y: " << skinTab.getSizeY() << std::endl;
 						skinTab.setSize(skinTab.getSizeX(), skinTab.getSizeY() + 1);
 						skinTab.initDown();
 						draw(1);
@@ -178,13 +187,22 @@ int main() {
 	skinTab.setSize(TABSIZE, TABSIZE);
 	srand(static_cast<unsigned>(time(NULL)));
 	sf::Clock clock;
+	sf::Clock clock2;
 	window.setFramerateLimit(60);
-	while (window.isOpen()) {
+	while (window.isOpen()) 
+	{
 		updateInput();
 
-		if (clock.getElapsedTime().asMilliseconds() > 10) {
+		if (clock.getElapsedTime().asMilliseconds() > 10) 
+		{
 			update();
 			clock.restart();
+		}
+
+		if (clock2.getElapsedTime().asMilliseconds() > 2000) 
+		{
+			updateInfection();
+			clock2.restart();
 		}
 		window.clear(sf::Color::Black);
 

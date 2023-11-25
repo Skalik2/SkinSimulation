@@ -110,9 +110,29 @@ void SkinCell::update()
 			m_shape.getFillColor().g == getTargetColor().g &&
 			m_shape.getFillColor().b == getTargetColor().b) 
 		{
-			setTargetColor(sf::Color(0, 0, 0, 0));
+			//setTargetColor(sf::Color(0, 0, 0, 0));
+			m_stateOfCell = 1;
 		}
 	}
+}
+
+void SkinCell::randInfect()
+{
+	int probability = 0;
+	probability = rand() % 2;
+	if (probability) {
+		m_targetColor = sf::Color(255, 60, 0, 255);
+	}
+}
+
+void SkinCell::setStateCell(int state)
+{
+	m_stateOfCell = state;
+}
+
+int SkinCell::getStateCell() const
+{
+	return m_stateOfCell;
 }
 
 sf::RectangleShape SkinCell::getShape() const
