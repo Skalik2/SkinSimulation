@@ -100,7 +100,6 @@ int CellArray::handleMouseClick() {
             sf::RectangleShape currentCell = el.getShape();
             if (currentCell.getGlobalBounds().contains(static_cast<sf::Vector2f>(mousePosition)))
             {
-                el.setStateCell(1);
                 el.setTargetColor(sf::Color(255, 60, 0, 255));
                 std::cout << "color change";
             }
