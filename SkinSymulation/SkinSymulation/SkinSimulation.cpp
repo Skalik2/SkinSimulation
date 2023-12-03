@@ -175,9 +175,8 @@ void updateInput() {
 				if (stage == 0 || stage == 3)
 					stageSwitch(gameMenu.handleMouseClick());
 				else if (stage == 2)
- 					std::cout << "click captured in game" << std::endl;
-
-				skinTab.handleMouseClick();
+					skinTab.handleMouseClick();
+					
 				break;
 		}
 	}
