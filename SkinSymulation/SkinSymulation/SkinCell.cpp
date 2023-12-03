@@ -1,5 +1,10 @@
 #include "SkinCell.h"
 
+#define HEALTHY_COLOR sf::Color(34, 191, 76, 255)
+#define INFECTED_COLOR sf::Color(255, 60, 0, 255)
+#define RESISTANT_COLOR sf::Color(255, 174, 0, 255)
+
+
 SkinCell::SkinCell() 
 {
 
@@ -9,17 +14,27 @@ SkinCell::~SkinCell()
 
 }
 
+int checkState(sf::Color color)
+{
+	if (color == RESISTANT_COLOR)
+		return 0;
+	else if (color == INFECTED_COLOR)
+		return 1;
+	else if (color == HEALTHY_COLOR)
+		return 2;
+}
+
 sf::Color setStateColor(int state) 
 {
 	switch (state) {
-	case 0:  //resistant
-		return sf::Color(255, 174, 0, 255);
+	case 0:
+		return RESISTANT_COLOR;
 		break;
-	case 1:  //infected
-		return sf::Color(255, 60, 0, 255);
+	case 1:
+		return INFECTED_COLOR;
 		break;
-	case 2:  //healthy
-		return sf::Color(34, 191, 76, 255);
+	case 2:
+		return HEALTHY_COLOR;
 		break;
 	}
 }
@@ -111,8 +126,8 @@ void SkinCell::update()
 			m_shape.getFillColor().g == getTargetColor().g &&
 			m_shape.getFillColor().b == getTargetColor().b) 
 		{
-			//setTargetColor(sf::Color(0, 0, 0, 0));
-			m_stateOfCell = 1;
+
+			m_stateOfCell = checkState(m_shape.getFillColor());
 		}
 	}
 }
@@ -122,7 +137,7 @@ void SkinCell::randInfect()
 	int probability = 0;
 	probability = rand() % 2;
 	if (probability) {
-		m_targetColor = sf::Color(255, 60, 0, 255);
+		m_targetColor = INFECTED_COLOR;
 	}
 }
 
@@ -149,4 +164,14 @@ sf::Color SkinCell::getTargetColor() const
 void SkinCell::setTargetColor(const sf::Color& targetColor) 
 {
 	m_targetColor = targetColor;
+}
+
+void SkinCell::setTimeUnit(const int tUnit)
+{
+	m_timeUnit = tUnit;
+}
+
+int SkinCell::getTimeUnit() const
+{
+	return m_timeUnit;
 }

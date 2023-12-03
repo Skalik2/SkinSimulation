@@ -184,6 +184,7 @@ void updateInput() {
 }
 
 int main() {
+	int timeUnit = 2000;
 	skinTab.setSize(TABSIZE, TABSIZE);
 	srand(static_cast<unsigned>(time(NULL)));
 	sf::Clock clock;
@@ -199,7 +200,7 @@ int main() {
 			clock.restart();
 		}
 
-		if (clock2.getElapsedTime().asMilliseconds() > 2000) 
+		if (clock2.getElapsedTime().asMilliseconds() > timeUnit)
 		{
 			updateInfection();
 			clock2.restart();
