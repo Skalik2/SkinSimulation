@@ -183,7 +183,7 @@ void updateInput() {
 }
 
 int main() {
-	int timeUnit = 2000;
+	int timeUnit = 1000;
 	skinTab.setSize(TABSIZE, TABSIZE);
 	srand(static_cast<unsigned>(time(NULL)));
 	sf::Clock clock;

@@ -23,6 +23,7 @@ public:
 	int getStateCell() const;
 	void setStateCell(const int state);
 	void setTimeUnit(const int tUnit);
+	void addTimeUnit(const int tUnit);
 	int getTimeUnit() const;
 	
 };

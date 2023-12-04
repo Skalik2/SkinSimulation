@@ -1,9 +1,8 @@
 #include "SkinCell.h"
 
-#define HEALTHY_COLOR sf::Color(34, 191, 76, 255)
-#define INFECTED_COLOR sf::Color(255, 60, 0, 255)
-#define RESISTANT_COLOR sf::Color(255, 174, 0, 255)
-
+#define HEALTHY_COLOR sf::Color(0, 80, 0, 255)
+#define INFECTED_COLOR sf::Color(255, 0, 0, 255)
+#define RESISTANT_COLOR sf::Color(235, 177, 45, 255)
 
 SkinCell::SkinCell() 
 {
@@ -16,25 +15,25 @@ SkinCell::~SkinCell()
 
 int checkState(sf::Color color)
 {
-	if (color == RESISTANT_COLOR)
+	if (color == HEALTHY_COLOR)
 		return 0;
 	else if (color == INFECTED_COLOR)
 		return 1;
-	else if (color == HEALTHY_COLOR)
+	else if (color == RESISTANT_COLOR)
 		return 2;
 }
 
 sf::Color setStateColor(int state) 
 {
 	switch (state) {
-	case 0:
-		return RESISTANT_COLOR;
+	case 0: 
+		return HEALTHY_COLOR;
 		break;
 	case 1:
 		return INFECTED_COLOR;
 		break;
 	case 2:
-		return HEALTHY_COLOR;
+		return RESISTANT_COLOR;
 		break;
 	}
 }
@@ -43,7 +42,7 @@ void SkinCell::init(const sf::Vector2f& size,const sf::Vector2f& position, int s
 {
 	m_shape.setSize(size);
 	m_shape.setPosition(position);
-	m_shape.setFillColor(setStateColor(2));
+	m_shape.setFillColor(setStateColor(state));
 	m_shape.setOutlineColor(sf::Color::Black);
 	m_shape.setOutlineThickness(1);
 	setStateCell(0);
@@ -134,10 +133,13 @@ void SkinCell::update()
 
 void SkinCell::randInfect()
 {
-	int probability = 0;
-	probability = rand() % 2;
-	if (probability) {
-		m_targetColor = INFECTED_COLOR;
+	if (m_stateOfCell == 0)
+	{
+		int probability = 0;
+		probability = rand() % 2;
+		if (probability) {
+			m_targetColor = INFECTED_COLOR;
+		}
 	}
 }
 
@@ -171,7 +173,13 @@ void SkinCell::setTimeUnit(const int tUnit)
 	m_timeUnit = tUnit;
 }
 
+void SkinCell::addTimeUnit(const int tUnit)
+{
+	m_timeUnit += tUnit;
+}
+
 int SkinCell::getTimeUnit() const
 {
 	return m_timeUnit;
 }
+

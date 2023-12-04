@@ -1,5 +1,9 @@
 #include "CellArray.h"
 
+#define HEALTHY_COLOR sf::Color(0, 80, 0, 255)
+#define INFECTED_COLOR sf::Color(255, 0, 0, 255)
+#define RESISTANT_COLOR sf::Color(235, 177, 45, 255)
+
 CellArray::CellArray(sf::RenderWindow& window)
     : m_window(window)
 {
@@ -88,6 +92,18 @@ void CellArray::update()
         for (int j = 0; j < m_sizeY; j++)
         {
             m_skinCellTab[i][j].update();
+
+            if (m_skinCellTab[i][j].getTimeUnit() == 6 && m_skinCellTab[i][j].getStateCell() == 1)
+            {
+                m_skinCellTab[i][j].setTargetColor(RESISTANT_COLOR);
+                m_skinCellTab[i][j].setStateCell(2);
+            }
+            else if (m_skinCellTab[i][j].getTimeUnit() >= 10 && m_skinCellTab[i][j].getStateCell() == 2)
+            {
+                m_skinCellTab[i][j].setTargetColor(HEALTHY_COLOR);
+                m_skinCellTab[i][j].setTimeUnit(0);
+                m_skinCellTab[i][j].setStateCell(0);
+            }
         }
     }
 }
@@ -100,8 +116,7 @@ int CellArray::handleMouseClick() {
             sf::RectangleShape currentCell = el.getShape();
             if (currentCell.getGlobalBounds().contains(static_cast<sf::Vector2f>(mousePosition)))
             {
-                el.setTargetColor(sf::Color(255, 60, 0, 255));
-                std::cout << "color change";
+                el.setTargetColor(INFECTED_COLOR);
             }
         }
     }
@@ -114,7 +129,11 @@ void CellArray::updateInfect()
     {
         for (int j = 0; j < m_sizeY; j++)
         {
-            if (m_skinCellTab[i][j].getStateCell())
+            if (m_skinCellTab[i][j].getStateCell() == 1 || m_skinCellTab[i][j].getStateCell() == 2)
+            {
+                m_skinCellTab[i][j].addTimeUnit(1);
+            }
+            if (m_skinCellTab[i][j].getStateCell() == 1)
             {
                 if (i == 0 && j == 0)
                 {
