@@ -5,33 +5,33 @@ Menu::Menu(sf::RenderWindow& window)
     , m_selectedItemIndex(0)
     , m_selectedItemSettingsIndex(0)
 {
-    if (!m_font.loadFromFile("arial.ttf")) {
+    if (!m_font.loadFromFile("font.otf")) {
         std::cerr << "Couldn't load font" << std::endl;
     }
 
     m_title.setFont(m_font);
     m_title.setString("Problem liszaja");
-    m_title.setCharacterSize(50);
+    m_title.setCharacterSize(80);
     m_title.setFillColor(sf::Color::White);
     m_title.setStyle(sf::Text::Bold);
-    m_title.setPosition(window.getSize().x / 2 - m_title.getGlobalBounds().width / 2, 140);
+    m_title.setPosition(window.getSize().x / 2 - m_title.getGlobalBounds().width / 2, 120);
     
 
     for (int i = 0; i < m_MENU_ITEMS; ++i) {
         m_menu[i].setFont(m_font);
-        m_menu[i].setCharacterSize(40);
+        m_menu[i].setCharacterSize(50);
         m_menu[i].setFillColor(sf::Color::White);
         m_menu[i].setString(m_options[i]);
-        m_menu[i].setPosition(window.getSize().x / 2 - m_menu[i].getGlobalBounds().width / 2, 300 + i * 60);
+        m_menu[i].setPosition(window.getSize().x / 2 - m_menu[i].getGlobalBounds().width / 2, 300 + i * 80);
     }
     m_menu[0].setFillColor(sf::Color::Red);
 
     for (int i = 0; i < m_SETTINGS_ITEMS; ++i) {
         m_menu2[i].setFont(m_font);
-        m_menu2[i].setCharacterSize(40);
+        m_menu2[i].setCharacterSize(50);
         m_menu2[i].setFillColor(sf::Color::White);
         m_menu2[i].setString(m_options2[i]);
-        m_menu2[i].setPosition(window.getSize().x / 2 - m_menu2[i].getGlobalBounds().width / 2, 300 + i * 60);
+        m_menu2[i].setPosition(window.getSize().x / 2 - m_menu2[i].getGlobalBounds().width / 2, 300 + i * 80);
     }
     m_menu2[0].setFillColor(sf::Color::Red);
 }
@@ -153,7 +153,6 @@ void Menu::clearMenuLevel()
 
 int Menu::MenuChoice(int elementId) 
 {
-    std::cout << m_menuLevel <<  std::endl;
     switch (m_menuLevel)
     {
     case 0:
@@ -176,7 +175,6 @@ int Menu::MenuChoice(int elementId)
         switch (elementId)
         {
         case 0:
-            std::cout << "wybor";
             return 3;
         case 1:
 

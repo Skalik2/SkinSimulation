@@ -6,6 +6,7 @@
 #include "CellArray.h"
 #include "SkinCell.h"
 #include "menu.h"
+#include "Settings.h"
 
 #define TABSIZE 12
 
@@ -19,6 +20,7 @@ sf::Vector2u originalSize = window.getSize();
 
 Menu gameMenu(window);
 CellArray skinTab(window);
+Settings settings;
 
 bool gameActive = false;
 int stage = 0;
@@ -29,7 +31,7 @@ void init()
 }
 
 void draw(int stage) {
-	switch (stage)
+	switch (settings.getStage())
 	{
 		case 0:
 			gameMenu.draw();
@@ -59,23 +61,23 @@ void stageSwitch(int menuButton)
 	case 0: //continue
 		if (!gameActive)
 			break;
-		stage = 1;
-		draw(stage);
+		settings.setStage(1);
+		draw(settings.getStage());
 		break;
 	case 1: //new game
 		gameActive = true;
-		stage = 2;
+		settings.setStage(2);
 		init();
 		break;
 	case 2: // settings
-		stage = 3;
-		draw(stage);
+		settings.setStage(3);
+		draw(settings.getStage());
 		break;
 	case 3: //main menu 
-		stage = 0;
+		settings.setStage(0);
 		gameMenu.clearSelectedItem();
 		gameMenu.clearMenuLevel();
-		draw(stage);
+		draw(settings.getStage());
 		break;
 	}
 	
@@ -111,7 +113,7 @@ void updateInput() {
 				case sf::Keyboard::Up:
 					if (stage == 0 || stage == 3)
 						gameMenu.moveUp();
-					if (skinTab.getSizeY() != 1 && (stage != 0 && stage !=3))
+					if (skinTab.getSizeY() != 1 && (settings.getStage() != 0 && settings.getStage() != 3))
 					{
 						std::cout << "X: " << skinTab.getSizeX() << " Y: " << skinTab.getSizeY() << std::endl;
 						skinTab.setSize(skinTab.getSizeX(), skinTab.getSizeY() - 1);
@@ -121,7 +123,7 @@ void updateInput() {
 					break;
 				case sf::Keyboard::D:
 				case sf::Keyboard::Right:
-					if (skinTab.getSizeX() < 360 && (stage != 0 && stage != 3))
+					if (skinTab.getSizeX() < 360 && (settings.getStage() != 0 && settings.getStage() != 3))
 					{
 						std::cout << "X: " << skinTab.getSizeX() << " Y: " << skinTab.getSizeY() << std::endl;
 						skinTab.setSize(skinTab.getSizeX() + 1, skinTab.getSizeY());
@@ -131,7 +133,7 @@ void updateInput() {
 					break;
 				case sf::Keyboard::A:
 				case sf::Keyboard::Left:
-					if (skinTab.getSizeX() != 1 && (stage != 0 && stage != 3))
+					if (skinTab.getSizeX() != 1 && (settings.getStage() != 0 && settings.getStage() != 3))
 					{
 						std::cout << "X: " << skinTab.getSizeX() << " Y: " << skinTab.getSizeY() << std::endl;
 						skinTab.setSize(skinTab.getSizeX() - 1, skinTab.getSizeY());
@@ -141,9 +143,9 @@ void updateInput() {
 					break;
 				case sf::Keyboard::S:
 				case sf::Keyboard::Down:
-					if (stage == 0 || stage == 3)
+					if (settings.getStage() == 0 || settings.getStage() == 3)
 						gameMenu.moveDown();
-					if (skinTab.getSizeY() < 360 && (stage != 0 && stage != 3))
+					if (skinTab.getSizeY() < 360 && (settings.getStage() != 0 && settings.getStage() != 3))
 					{
 						std::cout << "X: " << skinTab.getSizeX() << " Y: " << skinTab.getSizeY() << std::endl;
 						skinTab.setSize(skinTab.getSizeX(), skinTab.getSizeY() + 1);
@@ -153,17 +155,17 @@ void updateInput() {
 					break;
 				case sf::Keyboard::Escape:
 				case sf::Keyboard::M:
-					if (stage == 0)
-						stage = 1;
+					if (settings.getStage() == 0)
+						settings.setStage(1);
 					else
 					{
 						gameMenu.clearSelectedItem();
 						gameMenu.clearMenuLevel();
-						stage = 0;
+						settings.setStage(0);
 					}	
 					break;
 				case sf::Keyboard::Enter:
-					if (stage == 0 || stage == 3)
+					if (settings.getStage() == 0 || settings.getStage() == 3)
 					{
 						stageSwitch(gameMenu.MenuChoice(gameMenu.getSelectedItemIndex()));
 					}
@@ -172,9 +174,9 @@ void updateInput() {
 			break;
 
 			case sf::Event::MouseButtonPressed:
-				if (stage == 0 || stage == 3)
+				if (settings.getStage() == 0 || settings.getStage() == 3)
 					stageSwitch(gameMenu.handleMouseClick());
-				else if (stage == 2)
+				else if (settings.getStage() == 2)
 					skinTab.handleMouseClick();
 					
 				break;
@@ -206,7 +208,7 @@ int main() {
 		}
 		window.clear(sf::Color::Black);
 
-		draw(stage);
+		draw(settings.getStage());
 
 		window.display();
 	}
