@@ -20,7 +20,7 @@ sf::Vector2u originalSize = window.getSize();
 
 Menu gameMenu(window);
 CellArray skinTab(window);
-Settings settings;
+Settings settings(window);
 
 bool gameActive = false;
 int stage = 0;
@@ -46,6 +46,7 @@ void draw(int stage) {
 					window.draw(skinTab.get(x, y));
 				}
 			}
+			settings.drawFpsNumber();
 			break;
 
 		case 3:
@@ -190,7 +191,7 @@ int main() {
 	srand(static_cast<unsigned>(time(NULL)));
 	sf::Clock clock;
 	sf::Clock clock2;
-	window.setFramerateLimit(60);
+	window.setFramerateLimit(settings.getFpsLimit());
 	while (window.isOpen()) 
 	{
 		updateInput();

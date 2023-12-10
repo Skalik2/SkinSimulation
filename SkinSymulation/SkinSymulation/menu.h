@@ -17,7 +17,7 @@ class Menu
     int m_selectedItemSettingsIndex;
     sf::RenderWindow& m_window;
     std::string m_options[m_MENU_ITEMS] = { "Kontynuuj","Nowa symulacja", "Ustawienia", "Wyjscie" };
-    std::string m_options2[m_SETTINGS_ITEMS] = { "Powrot","Zarazliwosc", "Szybkosc", "Zapisz"};
+    std::string m_options2[m_SETTINGS_ITEMS] = { "Powrot","Zarazliwosc", "Tryb zarazania", "Zapisz"};
 public:
 
     Menu(sf::RenderWindow& window);
