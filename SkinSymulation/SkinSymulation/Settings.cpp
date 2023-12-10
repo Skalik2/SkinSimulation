@@ -19,6 +19,7 @@ Settings::Settings(sf::RenderWindow& window)
 
 void Settings::drawFpsNumber()
 {
+	m_fpsNumber.setString(std::to_string(m_fpsLimit));
 	m_window.draw(m_fpsNumber);
 }
 
@@ -39,5 +40,5 @@ void Settings::setFpsLimit(const int number)
 
 int Settings::getFpsLimit() const
 {
-	return m_stage;
+	return m_fpsLimit;
 }

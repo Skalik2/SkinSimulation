@@ -171,7 +171,24 @@ void updateInput() {
 						stageSwitch(gameMenu.MenuChoice(gameMenu.getSelectedItemIndex()));
 					}
 					break;
+				case sf::Keyboard::PageUp:
+					if (settings.getFpsLimit() <= 110)
+					{
+						settings.setFpsLimit(settings.getFpsLimit() + 10);
+					}
+					window.setFramerateLimit(settings.getFpsLimit());
+					settings.drawFpsNumber();
+					break;
+				case sf::Keyboard::PageDown:
+					if (settings.getFpsLimit() >= 20)
+					{
+						settings.setFpsLimit(settings.getFpsLimit() - 10);
+					}
+					window.setFramerateLimit(settings.getFpsLimit());
+					settings.drawFpsNumber();
+					break;
 				}
+				
 			break;
 
 			case sf::Event::MouseButtonPressed:
