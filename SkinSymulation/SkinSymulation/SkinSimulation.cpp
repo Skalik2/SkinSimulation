@@ -116,7 +116,9 @@ void updateInput() {
 		switch (event.type) {
 			case sf::Event::KeyPressed:
 				switch (event.key.code) {
-
+				case sf::Keyboard::H:
+					std::cout << "Stage: " << settings.getStage() << std::endl;
+					break;
 				case sf::Keyboard::W:
 				case sf::Keyboard::Up:
 					if (settings.getStage() == 0 || settings.getStage() == 3 || settings.getStage() == 4)
@@ -203,7 +205,7 @@ void updateInput() {
 			case sf::Event::MouseButtonPressed:
 				if (settings.getStage() == 0 || settings.getStage() == 3 || settings.getStage() == 4)
 					stageSwitch(gameMenu.handleMouseClick());
-				else if (settings.getStage() == 2)
+				else if (settings.getStage() == 2 || settings.getStage() == 1)
 					skinTab.handleMouseClick();
 					
 				break;
