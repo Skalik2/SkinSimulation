@@ -165,7 +165,7 @@ void updateInput() {
 					break;
 				case sf::Keyboard::Escape:
 				case sf::Keyboard::M:
-					if (settings.getStage() == 0)
+					if (settings.getStage() == 0 && gameActive == true)
 						settings.setStage(1);
 					else
 					{
