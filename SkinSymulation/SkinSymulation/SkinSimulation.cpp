@@ -62,6 +62,8 @@ void stageSwitch(int menuButton)
 {
 	switch (menuButton)
 	{
+	case -1:
+		break;
 	case 0: // continue
 		if (!gameActive)
 			break;
@@ -75,6 +77,7 @@ void stageSwitch(int menuButton)
 		break;
 	case 2: // settings
 		settings.setStage(3);
+		gameMenu.clearMenuLevel();
 		draw(settings.getStage());
 		break;
 	case 3: // main menu 
@@ -84,11 +87,23 @@ void stageSwitch(int menuButton)
 		draw(settings.getStage());
 		break;
 	case 4: // infection model
+		gameMenu.setMenuLevel(2);
 		settings.setStage(4);
 		draw(settings.getStage());
 		break;
+	case 5:
+		gameMenu.setMenuLevel(1);
+		settings.setIsMultiInfect(true);
+		settings.setStage(3);
+		draw(settings.getStage());
+		break;
+	case 6:
+		gameMenu.setMenuLevel(1);
+		settings.setIsMultiInfect(false);
+		settings.setStage(3);
+		draw(settings.getStage());
+		break;
 	}
-	
 }
 
 void update() 
@@ -98,7 +113,7 @@ void update()
 
 void updateInfection()
 {
-	skinTab.updateInfect();
+	skinTab.updateInfect(settings.getIsMultiInfect());
 }
 
 void updateInput() {
@@ -118,6 +133,8 @@ void updateInput() {
 				switch (event.key.code) {
 				case sf::Keyboard::H:
 					std::cout << "Stage: " << settings.getStage() << std::endl;
+					std::cout << "MultiInfect: " << settings.getIsMultiInfect() << std::endl;
+					std::cout << "menu_level: " << gameMenu.getMenuLevel() << std::endl;
 					break;
 				case sf::Keyboard::W:
 				case sf::Keyboard::Up:
@@ -171,6 +188,7 @@ void updateInput() {
 					{
 						gameMenu.clearSelectedItem();
 						gameMenu.clearMenuLevel();
+						gameMenu.setMenuLevel(0);
 						settings.setStage(0);
 					}	
 					break;
@@ -204,7 +222,10 @@ void updateInput() {
 
 			case sf::Event::MouseButtonPressed:
 				if (settings.getStage() == 0 || settings.getStage() == 3 || settings.getStage() == 4)
+				{
+					std::cout << "kilk "<< gameMenu.handleMouseClick() << std::endl;
 					stageSwitch(gameMenu.handleMouseClick());
+				}
 				else if (settings.getStage() == 2 || settings.getStage() == 1)
 					skinTab.handleMouseClick();
 					

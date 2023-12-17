@@ -62,3 +62,13 @@ void Settings::subTimeUnit()
 {
 	m_timeInfectUnit -= 333;
 }
+
+bool Settings::getIsMultiInfect() const
+{
+	return m_isMultiInfect;
+}
+
+void Settings::setIsMultiInfect(const bool val)
+{
+	m_isMultiInfect = val;
+}

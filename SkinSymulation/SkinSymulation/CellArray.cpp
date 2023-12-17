@@ -123,8 +123,15 @@ int CellArray::handleMouseClick() {
     return 0;
 }
 
-void CellArray::updateInfect()
+void CellArray::updateInfect(bool isMultiInfect)
 {
+    for (int i = 0; i < m_sizeX; i++)
+    {
+        for (int j = 0; j < m_sizeY; j++)
+        {
+            m_skinCellTab[i][j].setinfectAttempt(false);
+        }
+    }
     for (int i = 0; i < m_sizeX; i++)
     {
         for (int j = 0; j < m_sizeY; j++)

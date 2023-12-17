@@ -16,10 +16,9 @@ class Menu
     sf::Text m_menu3[m_SETTINGS_ITEMS2];
     sf::Font m_font;
     int m_selectedItemIndex;
-    int m_selectedItemSettingsIndex;
     sf::RenderWindow& m_window;
     std::string m_options[m_MENU_ITEMS] = { "Kontynuuj","Nowa symulacja", "Ustawienia", "Wyjscie" };
-    std::string m_options2[m_SETTINGS_ITEMS] = { "Powrot","Tryb zarazania", "Zarazliwosc", "Zapisz" };
+    std::string m_options2[m_SETTINGS_ITEMS] = { "Powrot","Tryb zarazania", "Zarazliwosc", "Opcja 3" };
     std::string m_options3[m_SETTINGS_ITEMS2] = { "Powrot", "Wielokomorkowa", "Jednokomorkowa"};
 
     sf::Texture m_t1;
@@ -40,6 +39,8 @@ public:
     void clearSelectedItem();
     void clearMenuLevel();
     void drawSettingsInfectType();
+    int getMenuLevel();
+    void setMenuLevel(const int lvl);
 };
 
 #endif

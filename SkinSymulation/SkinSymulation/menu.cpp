@@ -3,7 +3,6 @@
 Menu::Menu(sf::RenderWindow& window) 
     : m_window(window)  
     , m_selectedItemIndex(0)
-    , m_selectedItemSettingsIndex(0)
 {
     if (!m_font.loadFromFile("font.otf")) 
     {
@@ -98,9 +97,11 @@ void Menu::drawSettings()
 void Menu::drawSettingsInfectType()
 {
     m_window.draw(m_title);
+
     for (int i = 0; i < m_SETTINGS_ITEMS2; ++i) {
         m_window.draw(m_menu3[i]);
     }
+
     m_window.draw(m_s1);
     m_window.draw(m_s2);
 }
@@ -173,10 +174,13 @@ int Menu::handleMouseClick() {
     switch (m_menuLevel)
     {
     case 0:
-        for (int i = 0; i < m_MENU_ITEMS; ++i) {
-            if (m_menu[i].getGlobalBounds().contains(static_cast<sf::Vector2f>(mousePosition))) {
+        for (int i = 0; i < m_MENU_ITEMS; ++i) 
+        {
+            if (m_menu[i].getGlobalBounds().contains(static_cast<sf::Vector2f>(mousePosition))) 
+            {
                 m_selectedItemIndex = i;
-                for (int j = 0; j < m_MENU_ITEMS; ++j) {
+                for (int j = 0; j < m_MENU_ITEMS; ++j) 
+                {
                     m_menu[j].setFillColor(sf::Color::White);
                 }
                 m_menu[m_selectedItemIndex].setFillColor(sf::Color::Red);
@@ -186,10 +190,13 @@ int Menu::handleMouseClick() {
         }
         break;
     case 1:
-        for (int i = 0; i < m_SETTINGS_ITEMS; ++i) {
-            if (m_menu2[i].getGlobalBounds().contains(static_cast<sf::Vector2f>(mousePosition))) {
+        for (int i = 0; i < m_SETTINGS_ITEMS; ++i) 
+        {
+            if (m_menu2[i].getGlobalBounds().contains(static_cast<sf::Vector2f>(mousePosition))) 
+            {
                 m_selectedItemIndex = i;
-                for (int j = 0; j < m_SETTINGS_ITEMS; ++j) {
+                for (int j = 0; j < m_SETTINGS_ITEMS; ++j) 
+                {
                     m_menu2[j].setFillColor(sf::Color::White);
                 }
                 m_menu2[m_selectedItemIndex].setFillColor(sf::Color::Red);
@@ -199,10 +206,13 @@ int Menu::handleMouseClick() {
         }
         break;
     case 2:
-        for (int i = 0; i < m_SETTINGS_ITEMS2; i++) {
-            if (m_menu3[i].getGlobalBounds().contains(static_cast<sf::Vector2f>(mousePosition))) {
+        for (int i = 0; i < m_SETTINGS_ITEMS2; ++i) 
+        {
+            if (m_menu3[i].getGlobalBounds().contains(static_cast<sf::Vector2f>(mousePosition))) 
+            {
                 m_selectedItemIndex = i;
-                for (int j = 0; j < m_SETTINGS_ITEMS2; j++) {
+                for (int j = 0; j < m_SETTINGS_ITEMS2; ++j) 
+                {
                     m_menu3[j].setFillColor(sf::Color::White);
                 }
                 m_menu3[m_selectedItemIndex].setFillColor(sf::Color::Red);
@@ -212,6 +222,7 @@ int Menu::handleMouseClick() {
         }
         break;
     }
+    return -1;
 }
 
 void Menu::clearSelectedItem()
@@ -221,7 +232,7 @@ void Menu::clearSelectedItem()
 
 void Menu::clearMenuLevel()
 {
-    m_menuLevel = 0;
+    m_selectedItemIndex = 0;
     for (int i = 0; i < m_MENU_ITEMS; ++i)
     {
         m_menu[i].setFillColor(sf::Color::White);
@@ -239,6 +250,15 @@ void Menu::clearMenuLevel()
     m_menu3[m_selectedItemIndex].setFillColor(sf::Color::Red);
 }
 
+int Menu::getMenuLevel() {
+    return m_menuLevel;
+}
+
+void Menu::setMenuLevel(const int lvl)
+{
+    m_menuLevel = lvl;
+}
+
 int Menu::MenuChoice(int elementId) 
 {
     switch (m_menuLevel)
@@ -248,15 +268,19 @@ int Menu::MenuChoice(int elementId)
         {
         case 0:
             return 0;
+            break;
         case 1:
             return 1;
+            break;
         case 2: 
             m_selectedItemIndex = 0;
             m_menuLevel = 1;
             return 2;
+            break;
         case 3:
             m_window.close();
             return 3;
+            break;
         }
     break;
     case 1:
@@ -267,7 +291,6 @@ int Menu::MenuChoice(int elementId)
             break;
         case 1:
             m_selectedItemIndex = 0;
-            m_menuLevel = 2;
             return 4;
             break;
         case 2:
@@ -279,14 +302,19 @@ int Menu::MenuChoice(int elementId)
     case 2:
         switch (elementId)
         {
-        case 0:
-            clearMenuLevel();
+        case 0: 
             m_menuLevel = 1;
             return 2;
             break;
         case 1:
+            clearSelectedItem();
+            clearMenuLevel();
+            return 5;
             break;
         case 2:
+            clearSelectedItem();
+            clearMenuLevel();
+            return 6;
             break;
         }
         break;

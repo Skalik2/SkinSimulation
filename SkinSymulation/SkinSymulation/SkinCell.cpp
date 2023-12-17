@@ -183,3 +183,12 @@ int SkinCell::getTimeUnit() const
 	return m_timeUnit;
 }
 
+bool SkinCell::getinfectAttempt() const
+{
+	return m_infectAttempt;
+}
+
+void SkinCell::setinfectAttempt(const bool val)
+{
+	m_infectAttempt = val;
+}

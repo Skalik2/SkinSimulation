@@ -9,6 +9,7 @@ class SkinCell
 	sf::Color m_targetColor;
 	int m_stateOfCell = 0;
 	int m_timeUnit = 0;
+	bool m_infectAttempt = false;
 public:
 	SkinCell();
 	~SkinCell();
@@ -25,5 +26,7 @@ public:
 	void setTimeUnit(const int tUnit);
 	void addTimeUnit(const int tUnit);
 	int getTimeUnit() const;
+	bool getinfectAttempt() const;
+	void setinfectAttempt(const bool val);
 	
 };
