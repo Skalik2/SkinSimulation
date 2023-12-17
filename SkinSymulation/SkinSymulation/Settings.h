@@ -10,6 +10,7 @@ class Settings
 	int m_fpsLimit;
 	sf::Text m_fpsNumber;
 	sf::Font m_font;
+	int m_timeInfectUnit;
 public:
 	Settings(sf::RenderWindow& window);
 	void setStage(const int number);
@@ -17,5 +18,9 @@ public:
 	void setFpsLimit(const int number);
 	int getFpsLimit() const;
 	void drawFpsNumber();
+	int getTimeUnit() const;
+	void setTimeUnit(const int t);
+	void addTimeUnit();
+	void subTimeUnit();
 };
 

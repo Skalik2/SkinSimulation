@@ -42,3 +42,23 @@ int Settings::getFpsLimit() const
 {
 	return m_fpsLimit;
 }
+
+int Settings::getTimeUnit() const
+{
+	return m_timeInfectUnit;
+}
+
+void Settings::setTimeUnit(const int t)
+{
+	m_timeInfectUnit = t;
+}
+
+void Settings::addTimeUnit()
+{
+	m_timeInfectUnit += 333;
+}
+
+void Settings::subTimeUnit()
+{
+	m_timeInfectUnit -= 333;
+}

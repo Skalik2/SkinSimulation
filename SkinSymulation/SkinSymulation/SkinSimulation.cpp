@@ -34,7 +34,7 @@ void draw(int stage) {
 	{
 		case 0:
 			gameMenu.draw();
-		break;
+			break;
 
 		case 1:
 		case 2:
@@ -50,7 +50,11 @@ void draw(int stage) {
 
 		case 3:
 			gameMenu.drawSettings();
-		break;
+			break;
+
+		case 4:
+			gameMenu.drawSettingsInfectType();
+			break;
 	}
 }
 
@@ -58,13 +62,13 @@ void stageSwitch(int menuButton)
 {
 	switch (menuButton)
 	{
-	case 0: //continue
+	case 0: // continue
 		if (!gameActive)
 			break;
 		settings.setStage(1);
 		draw(settings.getStage());
 		break;
-	case 1: //new game
+	case 1: // new game
 		gameActive = true;
 		settings.setStage(2);
 		init();
@@ -73,10 +77,14 @@ void stageSwitch(int menuButton)
 		settings.setStage(3);
 		draw(settings.getStage());
 		break;
-	case 3: //main menu 
+	case 3: // main menu 
 		settings.setStage(0);
 		gameMenu.clearSelectedItem();
 		gameMenu.clearMenuLevel();
+		draw(settings.getStage());
+		break;
+	case 4: // infection model
+		settings.setStage(4);
 		draw(settings.getStage());
 		break;
 	}
@@ -111,9 +119,9 @@ void updateInput() {
 
 				case sf::Keyboard::W:
 				case sf::Keyboard::Up:
-					if (settings.getStage() == 0 || settings.getStage() == 3)
+					if (settings.getStage() == 0 || settings.getStage() == 3 || settings.getStage() == 4)
 						gameMenu.moveUp();
-					if (skinTab.getSizeY() != 1 && (settings.getStage() != 0 && settings.getStage() != 3))
+					if (skinTab.getSizeY() != 1 && (settings.getStage() != 0 && settings.getStage() != 3 && settings.getStage() != 4))
 					{
 						std::cout << "X: " << skinTab.getSizeX() << " Y: " << skinTab.getSizeY() << std::endl;
 						skinTab.setSize(skinTab.getSizeX(), skinTab.getSizeY() - 1);
@@ -123,7 +131,7 @@ void updateInput() {
 					break;
 				case sf::Keyboard::D:
 				case sf::Keyboard::Right:
-					if (skinTab.getSizeX() < 239 && (settings.getStage() != 0 && settings.getStage() != 3))
+					if (skinTab.getSizeX() < 239 && (settings.getStage() != 0 && settings.getStage() != 3 && settings.getStage() != 4))
 					{
 						std::cout << "X: " << skinTab.getSizeX() << " Y: " << skinTab.getSizeY() << std::endl;
 						skinTab.setSize(skinTab.getSizeX() + 1, skinTab.getSizeY());
@@ -133,7 +141,7 @@ void updateInput() {
 					break;
 				case sf::Keyboard::A:
 				case sf::Keyboard::Left:
-					if (skinTab.getSizeX() != 1 && (settings.getStage() != 0 && settings.getStage() != 3))
+					if (skinTab.getSizeX() != 1 && (settings.getStage() != 0 && settings.getStage() != 3 && settings.getStage() != 4))
 					{
 						std::cout << "X: " << skinTab.getSizeX() << " Y: " << skinTab.getSizeY() << std::endl;
 						skinTab.setSize(skinTab.getSizeX() - 1, skinTab.getSizeY());
@@ -143,9 +151,9 @@ void updateInput() {
 					break;
 				case sf::Keyboard::S:
 				case sf::Keyboard::Down:
-					if (settings.getStage() == 0 || settings.getStage() == 3)
+					if (settings.getStage() == 0 || settings.getStage() == 3 || settings.getStage() == 4)
 						gameMenu.moveDown();
-					if (skinTab.getSizeY() < 239 && (settings.getStage() != 0 && settings.getStage() != 3))
+					if (skinTab.getSizeY() < 239 && (settings.getStage() != 0 && settings.getStage() != 3 && settings.getStage() != 4))
 					{
 						std::cout << "X: " << skinTab.getSizeX() << " Y: " << skinTab.getSizeY() << std::endl;
 						skinTab.setSize(skinTab.getSizeX(), skinTab.getSizeY() + 1);
@@ -165,15 +173,16 @@ void updateInput() {
 					}	
 					break;
 				case sf::Keyboard::Enter:
-					if (settings.getStage() == 0 || settings.getStage() == 3)
+					if (settings.getStage() == 0 || settings.getStage() == 3 || settings.getStage() == 4)
 					{
 						stageSwitch(gameMenu.MenuChoice(gameMenu.getSelectedItemIndex()));
 					}
 					break;
 				case sf::Keyboard::PageUp:
-					if (settings.getFpsLimit() <= 110)
+					if (settings.getFpsLimit() <= 80)
 					{
 						settings.setFpsLimit(settings.getFpsLimit() + 10);
+						settings.subTimeUnit();
 					}
 					window.setFramerateLimit(settings.getFpsLimit());
 					settings.drawFpsNumber();
@@ -182,6 +191,7 @@ void updateInput() {
 					if (settings.getFpsLimit() >= 20)
 					{
 						settings.setFpsLimit(settings.getFpsLimit() - 10);
+						settings.addTimeUnit();
 					}
 					window.setFramerateLimit(settings.getFpsLimit());
 					settings.drawFpsNumber();
@@ -191,7 +201,7 @@ void updateInput() {
 			break;
 
 			case sf::Event::MouseButtonPressed:
-				if (settings.getStage() == 0 || settings.getStage() == 3)
+				if (settings.getStage() == 0 || settings.getStage() == 3 || settings.getStage() == 4)
 					stageSwitch(gameMenu.handleMouseClick());
 				else if (settings.getStage() == 2)
 					skinTab.handleMouseClick();
@@ -202,7 +212,7 @@ void updateInput() {
 }
 
 int main() {
-	int timeUnit = 1000;
+	settings.setTimeUnit(2000);
 	skinTab.setSize(TABSIZE, TABSIZE);
 	srand(static_cast<unsigned>(time(NULL)));
 	sf::Clock clock;
@@ -218,7 +228,7 @@ int main() {
 			clock.restart();
 		}
 
-		if (clock2.getElapsedTime().asMilliseconds() > timeUnit)
+		if (clock2.getElapsedTime().asMilliseconds() > settings.getTimeUnit())
 		{
 			updateInfection();
 			clock2.restart();
