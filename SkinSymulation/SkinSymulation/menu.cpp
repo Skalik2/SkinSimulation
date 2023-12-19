@@ -287,7 +287,6 @@ int Menu::MenuChoice(int elementId)
         switch (elementId)
         {
         case 0:
-            m_menuLevel = 0;
             return 3;
             break;
         case 1:
@@ -299,7 +298,7 @@ int Menu::MenuChoice(int elementId)
         case 3:
             break;
         } 
-        break;
+    break;
     case 2:
         switch (elementId)
         {
@@ -309,15 +308,13 @@ int Menu::MenuChoice(int elementId)
             break;
         case 1:
             clearSelectedItem();
-            clearMenuLevel();
             return 5;
             break;
         case 2:
             clearSelectedItem();
-            clearMenuLevel();
             return 6;
             break;
         }
-        break;
+    break;
     }
 }

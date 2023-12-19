@@ -84,6 +84,7 @@ void stageSwitch(int menuButton)
 		settings.setStage(0);
 		gameMenu.clearSelectedItem();
 		gameMenu.clearMenuLevel();
+		gameMenu.setMenuLevel(0);
 		draw(settings.getStage());
 		break;
 	case 4: // infection model
@@ -92,15 +93,19 @@ void stageSwitch(int menuButton)
 		draw(settings.getStage());
 		break;
 	case 5: //multiInfect
-		gameMenu.setMenuLevel(1);
 		settings.setIsMultiInfect(true);
+		
+		gameMenu.clearMenuLevel();
 		settings.setStage(3);
+		gameMenu.setMenuLevel(1);
 		draw(settings.getStage());
 		break;
 	case 6:	//singleInfect
-		gameMenu.setMenuLevel(1);
 		settings.setIsMultiInfect(false);
+		
+		gameMenu.clearMenuLevel();
 		settings.setStage(3);
+		gameMenu.setMenuLevel(1);
 		draw(settings.getStage());
 		break;
 	}
@@ -135,6 +140,7 @@ void updateInput() {
 					std::cout << "Stage: " << settings.getStage() << std::endl;
 					std::cout << "MultiInfect: " << settings.getIsMultiInfect() << std::endl;
 					std::cout << "menu_level: " << gameMenu.getMenuLevel() << std::endl;
+					std::cout << "X: " << skinTab.getSizeX() << " Y: " << skinTab.getSizeY() << std::endl;
 					break;
 				case sf::Keyboard::W:
 				case sf::Keyboard::Up:
@@ -142,7 +148,6 @@ void updateInput() {
 						gameMenu.moveUp();
 					if (skinTab.getSizeY() != 1 && (settings.getStage() != 0 && settings.getStage() != 3 && settings.getStage() != 4))
 					{
-						std::cout << "X: " << skinTab.getSizeX() << " Y: " << skinTab.getSizeY() << std::endl;
 						skinTab.setSize(skinTab.getSizeX(), skinTab.getSizeY() - 1);
 						skinTab.resizeTab();
 						draw(1);
@@ -152,7 +157,6 @@ void updateInput() {
 				case sf::Keyboard::Right:
 					if (skinTab.getSizeX() < 239 && (settings.getStage() != 0 && settings.getStage() != 3 && settings.getStage() != 4))
 					{
-						std::cout << "X: " << skinTab.getSizeX() << " Y: " << skinTab.getSizeY() << std::endl;
 						skinTab.setSize(skinTab.getSizeX() + 1, skinTab.getSizeY());
 						skinTab.initRight();
 						draw(1);
@@ -162,7 +166,6 @@ void updateInput() {
 				case sf::Keyboard::Left:
 					if (skinTab.getSizeX() != 1 && (settings.getStage() != 0 && settings.getStage() != 3 && settings.getStage() != 4))
 					{
-						std::cout << "X: " << skinTab.getSizeX() << " Y: " << skinTab.getSizeY() << std::endl;
 						skinTab.setSize(skinTab.getSizeX() - 1, skinTab.getSizeY());
 						skinTab.resizeTab();
 						draw(1);
@@ -174,7 +177,6 @@ void updateInput() {
 						gameMenu.moveDown();
 					if (skinTab.getSizeY() < 239 && (settings.getStage() != 0 && settings.getStage() != 3 && settings.getStage() != 4))
 					{
-						std::cout << "X: " << skinTab.getSizeX() << " Y: " << skinTab.getSizeY() << std::endl;
 						skinTab.setSize(skinTab.getSizeX(), skinTab.getSizeY() + 1);
 						skinTab.initDown();
 						draw(1);
@@ -223,7 +225,6 @@ void updateInput() {
 			case sf::Event::MouseButtonPressed:
 				if (settings.getStage() == 0 || settings.getStage() == 3 || settings.getStage() == 4)
 				{
-					std::cout << "kilk "<< gameMenu.handleMouseClick() << std::endl;
 					stageSwitch(gameMenu.handleMouseClick());
 				}
 				else if (settings.getStage() == 2 || settings.getStage() == 1)
