@@ -19,6 +19,8 @@ public:
 	void resizeTab();
 	void update();
 	void updateInfect(bool isMultiInfect);
+	void updateInfectMulti();
+	void updateInfectSingle();
 	sf::RectangleShape get(int x, int y);
 	int getSizeX() const;
 	int getSizeY() const;

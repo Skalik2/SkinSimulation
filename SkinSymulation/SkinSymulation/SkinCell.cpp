@@ -131,6 +131,19 @@ void SkinCell::update()
 	}
 }
 
+void SkinCell::randInfect(bool val)
+{
+	if (m_stateOfCell == 0 && m_infectAttempt == false)
+	{
+		int probability = 0;
+		probability = rand() % 2;
+		if (probability) {
+			m_targetColor = INFECTED_COLOR;
+		}
+		m_infectAttempt = true;
+	}
+}
+
 void SkinCell::randInfect()
 {
 	if (m_stateOfCell == 0)

@@ -91,13 +91,13 @@ void stageSwitch(int menuButton)
 		settings.setStage(4);
 		draw(settings.getStage());
 		break;
-	case 5:
+	case 5: //multiInfect
 		gameMenu.setMenuLevel(1);
 		settings.setIsMultiInfect(true);
 		settings.setStage(3);
 		draw(settings.getStage());
 		break;
-	case 6:
+	case 6:	//singleInfect
 		gameMenu.setMenuLevel(1);
 		settings.setIsMultiInfect(false);
 		settings.setStage(3);
