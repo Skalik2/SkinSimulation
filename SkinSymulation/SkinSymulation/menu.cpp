@@ -287,6 +287,7 @@ int Menu::MenuChoice(int elementId)
         switch (elementId)
         {
         case 0:
+            m_menuLevel = 0;
             return 3;
             break;
         case 1:
