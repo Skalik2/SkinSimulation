@@ -151,53 +151,70 @@ void CellArray::updateInfectMulti()
                 {
                     m_skinCellTab[1][0].randInfect();
                     m_skinCellTab[0][1].randInfect();
+                    m_skinCellTab[1][1].randInfect();
                 }
-                else if (i == m_sizeX - 1 && j == m_sizeY - 1)
+                if (i == m_sizeX - 1 && j == m_sizeY - 1)
                 {
                     m_skinCellTab[m_sizeX - 2][m_sizeY - 1].randInfect();
                     m_skinCellTab[m_sizeX - 1][m_sizeY - 2].randInfect();
+                    m_skinCellTab[m_sizeX - 2][m_sizeY - 2].randInfect();
                 }
-                else if (i == m_sizeX - 1 && j == 0)
+                if (i == m_sizeX - 1 && j == 0)
                 {
                     m_skinCellTab[m_sizeX - 2][0].randInfect();
                     m_skinCellTab[m_sizeX - 1][1].randInfect();
+                    m_skinCellTab[m_sizeX - 2][1].randInfect();
                 }
-                else if (i == 0 && j == m_sizeY - 1)
+                if (i == 0 && j == m_sizeY - 1)
                 {
                     m_skinCellTab[0][m_sizeY - 2].randInfect();
                     m_skinCellTab[1][m_sizeY - 1].randInfect();
+                    m_skinCellTab[1][m_sizeY - 2].randInfect();
                 }
 
-                else if (i == 0 && j != 0 && j != m_sizeY - 1)
+                if (i == 0 && j != 0 && j != m_sizeY - 1)
                 {
                     m_skinCellTab[0][j - 1].randInfect();
                     m_skinCellTab[0][j + 1].randInfect();
                     m_skinCellTab[1][j].randInfect();
+                    m_skinCellTab[1][j + 1].randInfect();
+                    m_skinCellTab[1][j - 1].randInfect();
                 }
-                else if (i == m_sizeX -1 && j != 0 && j != m_sizeY - 1)
+                if (i == m_sizeX -1 && j != 0 && j != m_sizeY - 1)
                 {
                     m_skinCellTab[i][j - 1].randInfect();
                     m_skinCellTab[i][j + 1].randInfect();
                     m_skinCellTab[i - 1][j].randInfect();
+                    m_skinCellTab[i - 1][j - 1].randInfect();
+                    m_skinCellTab[i - 1][j + 1].randInfect();
                 }
-                else if (j == 0 && i != 0 && i != m_sizeX - 1)
+                if (j == 0 && i != 0 && i != m_sizeX - 1)
                 {
                     m_skinCellTab[i - 1][0].randInfect();
                     m_skinCellTab[i + 1][0].randInfect();
                     m_skinCellTab[i][1].randInfect();
+                    m_skinCellTab[i - 1][1].randInfect();
+                    m_skinCellTab[i + 1][1].randInfect();
                 }
-                else if (j == m_sizeY - 1 && i != 0 && i != m_sizeX - 1)
+                if (j == m_sizeY - 1 && i != 0 && i != m_sizeX - 1)
                 {
                     m_skinCellTab[i - 1][j].randInfect();
                     m_skinCellTab[i + 1][j].randInfect();
                     m_skinCellTab[i][j - 1].randInfect();
+                    m_skinCellTab[i - 1][j - 1].randInfect();
+                    m_skinCellTab[i + 1][j - 1].randInfect();
                 }
-                else if (j != 0 && j != m_sizeY - 1 && i != 0 && i != m_sizeX - 1)
+                if (j != 0 && j != m_sizeY - 1 && i != 0 && i != m_sizeX - 1)
                 {
                     m_skinCellTab[i - 1][j].randInfect();
                     m_skinCellTab[i + 1][j].randInfect();
                     m_skinCellTab[i][j - 1].randInfect();
                     m_skinCellTab[i][j + 1].randInfect();
+
+                    m_skinCellTab[i + 1][j - 1].randInfect();
+                    m_skinCellTab[i - 1][j - 1].randInfect();
+                    m_skinCellTab[i - 1][j + 1].randInfect();
+                    m_skinCellTab[i + 1][j + 1].randInfect();
                 }
             }
         }
