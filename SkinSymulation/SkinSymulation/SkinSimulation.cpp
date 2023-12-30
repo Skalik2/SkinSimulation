@@ -236,7 +236,7 @@ void updateInput() {
 }
 
 int main() {
-	settings.setTimeUnit(2000);
+	settings.setTimeUnit(300);
 	skinTab.setSize(TABSIZE, TABSIZE);
 	srand(static_cast<unsigned>(time(NULL)));
 	sf::Clock clock;
@@ -248,13 +248,15 @@ int main() {
 
 		if (clock.getElapsedTime().asMilliseconds() > 10) 
 		{
-			update();
+			
 			clock.restart();
 		}
 
 		if (clock2.getElapsedTime().asMilliseconds() > settings.getTimeUnit())
 		{
+			update();
 			updateInfection();
+			
 			clock2.restart();
 		}
 		window.clear(sf::Color::Black);

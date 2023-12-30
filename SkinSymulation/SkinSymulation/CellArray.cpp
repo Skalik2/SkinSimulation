@@ -117,6 +117,8 @@ int CellArray::handleMouseClick() {
             if (currentCell.getGlobalBounds().contains(static_cast<sf::Vector2f>(mousePosition)))
             {
                 el.setTargetColor(INFECTED_COLOR);
+                el.setStateCell(1);
+                el.setAbleToInfect(1);
             }
         }
     }
@@ -141,11 +143,25 @@ void CellArray::updateInfectMulti()
     {
         for (int j = 0; j < m_sizeY; j++)
         {
+            if (m_skinCellTab[i][j].getStateCell())
+            {
+                m_skinCellTab[i][j].setAbleToInfect(1);
+            }
+            else
+            {
+                m_skinCellTab[i][j].setAbleToInfect(0);
+            }
+        }
+    }
+    for (int i = 0; i < m_sizeX; i++)
+    {
+        for (int j = 0; j < m_sizeY; j++)
+        {
             if (m_skinCellTab[i][j].getStateCell() == 1 || m_skinCellTab[i][j].getStateCell() == 2)
             {
                 m_skinCellTab[i][j].addTimeUnit(1);
             }
-            if (m_skinCellTab[i][j].getStateCell() == 1)
+            if (m_skinCellTab[i][j].getStateCell() == 1 && m_skinCellTab[i][j].getAbleToInfect())
             {
                 if (i == 0 && j == 0)
                 {
@@ -227,7 +243,7 @@ void CellArray::updateInfectSingle()
     {
         for (int j = 0; j < m_sizeY; j++)
         {
-            m_skinCellTab[i][j].setinfectAttempt(false);
+            //m_skinCellTab[i][j].setinfectAttempt(false);
         }
     }
     for (int i = 0; i < m_sizeX; i++)

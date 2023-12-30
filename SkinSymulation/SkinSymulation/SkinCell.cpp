@@ -46,6 +46,7 @@ void SkinCell::init(const sf::Vector2f& size,const sf::Vector2f& position, int s
 	m_shape.setOutlineColor(sf::Color::Black);
 	m_shape.setOutlineThickness(1);
 	setStateCell(0);
+	setAbleToInfect(0);
 	setTargetColor(sf::Color(0, 0, 0, 255));
 }
 
@@ -62,85 +63,63 @@ void SkinCell::updateSize(sf::Vector2f size)
 
 void SkinCell::update() 
 {
+	int resistTime = 4;
+	int infectTime = 6;
+
 	if (getTargetColor().r == 0 &&
 		getTargetColor().g == 0 &&
 		getTargetColor().b == 0)
 	{
-		//setTargetColor(setStateColor(0));
+
 	}
 	else
 	{
-		if (m_shape.getFillColor().r < getTargetColor().r)
+		if (m_timeUnit <= infectTime)
 		{
 			m_shape.setFillColor(sf::Color(
-				std::min(255, m_shape.getFillColor().r + 1),
-							  m_shape.getFillColor().g,
-							  m_shape.getFillColor().b,
-							  255));
-		}
-		else if (m_shape.getFillColor().r > getTargetColor().r)
-		{
-			m_shape.setFillColor(sf::Color(
-				std::max(0, m_shape.getFillColor().r - 1),
-							m_shape.getFillColor().g,
-							m_shape.getFillColor().b,
-							255));
-		}
-			
-		if (m_shape.getFillColor().g < getTargetColor().g)
-		{
-			m_shape.setFillColor(sf::Color(
-							  m_shape.getFillColor().r,
-				std::min(255, m_shape.getFillColor().g + 1),
-							  m_shape.getFillColor().b,
-							  255));
-		}
-		else if (m_shape.getFillColor().g > getTargetColor().g)
-		{
-			m_shape.setFillColor(sf::Color(
-							m_shape.getFillColor().r,
-				std::max(0, m_shape.getFillColor().g - 1),
-							m_shape.getFillColor().b,
-							255));
-		}
-			
-		if (m_shape.getFillColor().b < getTargetColor().b)
-		{
-			m_shape.setFillColor(sf::Color(
-						  	  m_shape.getFillColor().r,
-							  m_shape.getFillColor().g,
-				std::min(255, m_shape.getFillColor().b + 1),
+				m_shape.getFillColor().r + std::floor(((m_targetColor.r - m_shape.getFillColor().r) / infectTime)),
+				m_shape.getFillColor().g + std::floor(((m_targetColor.g - m_shape.getFillColor().g) / infectTime)),
+				m_shape.getFillColor().b + std::floor(((m_targetColor.b - m_shape.getFillColor().b) / infectTime)),
 				255));
+			if (m_timeUnit == infectTime)
+			{
+				m_shape.setFillColor(sf::Color(
+					m_targetColor.r,
+					m_targetColor.g,
+					m_targetColor.b,
+					255));
+				m_stateOfCell = 1;
+			}
 		}
-		else if (m_shape.getFillColor().b > getTargetColor().b)
+		else if (m_timeUnit > infectTime && m_timeUnit < infectTime + resistTime)
 		{
 			m_shape.setFillColor(sf::Color(
-							m_shape.getFillColor().r,
-							m_shape.getFillColor().g,
-				std::max(0, m_shape.getFillColor().b - 1),
+				m_shape.getFillColor().r + std::floor(((m_targetColor.r - m_shape.getFillColor().r) / resistTime)),
+				m_shape.getFillColor().g + std::floor(((m_targetColor.g - m_shape.getFillColor().g) / resistTime)),
+				m_shape.getFillColor().b + std::floor(((m_targetColor.b - m_shape.getFillColor().b) / resistTime)),
 				255));
-		}
-			
-		if (m_shape.getFillColor().r == getTargetColor().r &&
-			m_shape.getFillColor().g == getTargetColor().g &&
-			m_shape.getFillColor().b == getTargetColor().b) 
-		{
-
-			m_stateOfCell = checkState(m_shape.getFillColor());
+			if (m_timeUnit == infectTime + resistTime)
+			{
+				m_shape.setFillColor(sf::Color(
+					m_targetColor.r,
+					m_targetColor.g,
+					m_targetColor.b,
+					255));
+				m_stateOfCell = 2;
+			}
 		}
 	}
 }
 
 void SkinCell::randInfect(bool val)
 {
-	if (m_stateOfCell == 0 && m_infectAttempt == false)
+	if (m_stateOfCell == 0)
 	{
 		int probability = 0;
 		probability = rand() % 2;
 		if (probability) {
 			m_targetColor = INFECTED_COLOR;
 		}
-		m_infectAttempt = true;
 	}
 }
 
@@ -152,6 +131,7 @@ void SkinCell::randInfect()
 		probability = rand() % 2;
 		if (probability) {
 			m_targetColor = INFECTED_COLOR;
+			m_stateOfCell = 1;	
 		}
 	}
 }
@@ -196,12 +176,12 @@ int SkinCell::getTimeUnit() const
 	return m_timeUnit;
 }
 
-bool SkinCell::getinfectAttempt() const
+bool SkinCell::getAbleToInfect() const
 {
-	return m_infectAttempt;
+	return m_ableToInfect;
 }
 
-void SkinCell::setinfectAttempt(const bool val)
+void SkinCell::setAbleToInfect(const bool val)
 {
-	m_infectAttempt = val;
+	m_ableToInfect = val;
 }
