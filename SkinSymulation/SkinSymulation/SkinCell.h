@@ -29,5 +29,4 @@ public:
 	int getTimeUnit() const;
 	bool getAbleToInfect() const;
 	void setAbleToInfect(const bool val);
-	
 };

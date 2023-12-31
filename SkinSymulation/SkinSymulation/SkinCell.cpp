@@ -38,15 +38,16 @@ sf::Color setStateColor(int state)
 	}
 }
 
-void SkinCell::init(const sf::Vector2f& size,const sf::Vector2f& position, int state) 
+void SkinCell::init(const sf::Vector2f& size,const sf::Vector2f& position, int state)
 {
 	m_shape.setSize(size);
 	m_shape.setPosition(position);
 	m_shape.setFillColor(setStateColor(state));
 	m_shape.setOutlineColor(sf::Color::Black);
 	m_shape.setOutlineThickness(1);
-	setStateCell(0);
+	setStateCell(state);
 	setAbleToInfect(0);
+	setTimeUnit(0);
 	setTargetColor(sf::Color(0, 0, 0, 255));
 }
 

@@ -240,24 +240,17 @@ int main() {
 	skinTab.setSize(TABSIZE, TABSIZE);
 	srand(static_cast<unsigned>(time(NULL)));
 	sf::Clock clock;
-	sf::Clock clock2;
 	window.setFramerateLimit(settings.getFpsLimit());
 	while (window.isOpen()) 
 	{
 		updateInput();
 
-		if (clock.getElapsedTime().asMilliseconds() > 10) 
-		{
-			
-			clock.restart();
-		}
-
-		if (clock2.getElapsedTime().asMilliseconds() > settings.getTimeUnit())
+		if (clock.getElapsedTime().asMilliseconds() > settings.getTimeUnit())
 		{
 			update();
 			updateInfection();
 			
-			clock2.restart();
+			clock.restart();
 		}
 		window.clear(sf::Color::Black);
 

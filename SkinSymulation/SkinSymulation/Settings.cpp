@@ -4,6 +4,8 @@ Settings::Settings(sf::RenderWindow& window)
 	: m_window(window)
 	, m_stage(0)
 	, m_fpsLimit(60)
+	, m_infectionTime(8)
+	, m_resistantTime(4)
 {
 	if (!m_font.loadFromFile("arial.ttf")) {
 		std::cerr << "Couldn't load font" << std::endl;
@@ -45,22 +47,22 @@ int Settings::getFpsLimit() const
 
 int Settings::getTimeUnit() const
 {
-	return m_timeInfectUnit;
+	return m_timeUnit;
 }
 
 void Settings::setTimeUnit(const int t)
 {
-	m_timeInfectUnit = t;
+	m_timeUnit = t;
 }
 
 void Settings::addTimeUnit()
 {
-	m_timeInfectUnit += 333;
+	m_timeUnit += 333;
 }
 
 void Settings::subTimeUnit()
 {
-	m_timeInfectUnit -= 333;
+	m_timeUnit -= 333;
 }
 
 bool Settings::getIsMultiInfect() const
@@ -71,4 +73,24 @@ bool Settings::getIsMultiInfect() const
 void Settings::setIsMultiInfect(const bool val)
 {
 	m_isMultiInfect = val;
+}
+
+int Settings::getInfectionTime() const
+{
+	return m_infectionTime;
+}
+
+void Settings::setInfetcionTime(const int number)
+{
+	m_infectionTime = number;
+}
+
+int Settings::getResistantTime() const
+{
+	return m_resistantTime;
+}
+
+void Settings::setResistantTime(const int number)
+{
+	m_resistantTime = number;
 }
