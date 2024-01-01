@@ -18,8 +18,8 @@ class Menu
     int m_selectedItemIndex;
     sf::RenderWindow& m_window;
     std::string m_options[m_MENU_ITEMS] = { "Kontynuuj","Nowa symulacja", "Ustawienia", "Wyjscie" };
-    std::string m_options2[m_SETTINGS_ITEMS] = { "Powrot","Tryb zarazania", "Zarazliwosc", "Opcja 3" };
-    std::string m_options3[m_SETTINGS_ITEMS2] = { "Powrot", "Wielokomorkowa", "Jednokomorkowa"};
+    std::string m_options2[m_SETTINGS_ITEMS] = { "Powrot","Rozmiar planszy", "Zarazliwosc", "Opcja 3" };
+    std::string m_options3[m_SETTINGS_ITEMS2] = { "Powrot", "25x25", "75x75"};
 
     sf::Texture m_t1;
     sf::Sprite m_s1;

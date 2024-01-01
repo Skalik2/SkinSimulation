@@ -8,8 +8,6 @@
 #include "menu.h"
 #include "Settings.h"
 
-#define TABSIZE 12
-
 sf::Vector2f viewSize(720, 720);
 sf::VideoMode vm(viewSize.x, viewSize.y);
 sf::RenderWindow window(vm, "Symulacja tkanki", sf::Style::Default);
@@ -87,20 +85,22 @@ void stageSwitch(int menuButton)
 		gameMenu.setMenuLevel(0);
 		draw(settings.getStage());
 		break;
-	case 4: // infection model
+	case 4: // tab size 
 		gameMenu.setMenuLevel(2);
 		settings.setStage(4);
 		draw(settings.getStage());
 		break;
-	case 5: //multiInfect
-		
+	case 5: //25x25
+		skinTab.setSize(25, 25);
+		init();
 		gameMenu.clearMenuLevel();
 		settings.setStage(3);
 		gameMenu.setMenuLevel(1);
 		draw(settings.getStage());
 		break;
-	case 6:	//singleInfect
-		
+	case 6:	//75x75
+		skinTab.setSize(75, 75);
+		init();
 		gameMenu.clearMenuLevel();
 		settings.setStage(3);
 		gameMenu.setMenuLevel(1);
@@ -203,7 +203,7 @@ void updateInput() {
 				case sf::Keyboard::P:
 					settings.addProbability();
 					break;
-				case sf::Keyboard::PageUp:
+				case sf::Keyboard::L:
 					if (settings.getFpsLimit() <= 64)
 					{
 						settings.setFpsLimit(settings.getFpsLimit() * 2);
@@ -211,7 +211,7 @@ void updateInput() {
 					}
 					settings.drawFpsNumber();
 					break;
-				case sf::Keyboard::PageDown:
+				case sf::Keyboard::K:
 					if (settings.getFpsLimit() >= 2)
 					{
 						settings.setFpsLimit(settings.getFpsLimit() / 2);
@@ -238,11 +238,10 @@ void updateInput() {
 
 int main() {
 	settings.setTimeUnit(300);
-	skinTab.setSize(30, 30);
+	skinTab.setSize(12, 12);
 	srand(static_cast<unsigned>(time(NULL)));
 	sf::Clock clock;
 	window.setFramerateLimit(128);
-	settings.setInfectionProbability(90);
 	while (window.isOpen()) 
 	{
 		updateInput();

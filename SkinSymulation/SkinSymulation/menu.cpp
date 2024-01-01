@@ -37,14 +37,14 @@ Menu::Menu(sf::RenderWindow& window)
     }
     m_menu2[0].setFillColor(sf::Color::Red);
 
-    if (!m_t1.loadFromFile("Assets/graphics/multiple.png"))
+    if (!m_t1.loadFromFile("Assets/graphics/25.png"))
     {
         std::cerr << "Texture load error" << std::endl;
     }
     m_s1.setTexture(m_t1);
     m_s1.setPosition(m_window.getSize().x / 2 - 75 - 120, m_window.getSize().y / 2 + 50);
 
-    if (!m_t2.loadFromFile("Assets/graphics/single.png"))
+    if (!m_t2.loadFromFile("Assets/graphics/75.png"))
     {
         std::cerr << "Texture load error" << std::endl;
     }
