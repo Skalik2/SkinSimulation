@@ -17,8 +17,7 @@ public:
 	void updatePositon(sf::Vector2f position);
 	void updateSize(sf::Vector2f size);
 	void update(int resistTime, int infectTime);
-	void randInfect(bool val);
-	void randInfect();
+	void randInfect(int chance);
 	sf::RectangleShape getShape() const;
 	sf::Color getTargetColor() const;
 	void setTargetColor(const sf::Color&);

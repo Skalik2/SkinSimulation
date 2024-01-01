@@ -19,8 +19,8 @@ sf::Vector2i centerPosition(desktop.width / 2 - viewSize.x / 2, desktop.height /
 sf::Vector2u originalSize = window.getSize();
 
 Menu gameMenu(window);
-CellArray skinTab(window);
 Settings settings(window);
+CellArray skinTab(window, settings);
 
 bool gameActive = false;
 
@@ -93,7 +93,6 @@ void stageSwitch(int menuButton)
 		draw(settings.getStage());
 		break;
 	case 5: //multiInfect
-		settings.setIsMultiInfect(true);
 		
 		gameMenu.clearMenuLevel();
 		settings.setStage(3);
@@ -101,7 +100,6 @@ void stageSwitch(int menuButton)
 		draw(settings.getStage());
 		break;
 	case 6:	//singleInfect
-		settings.setIsMultiInfect(false);
 		
 		gameMenu.clearMenuLevel();
 		settings.setStage(3);
@@ -118,7 +116,7 @@ void update()
 
 void updateInfection()
 {
-	skinTab.updateInfect(settings.getIsMultiInfect());
+	skinTab.updateInfect();
 }
 
 void updateInput() {
@@ -138,7 +136,6 @@ void updateInput() {
 				switch (event.key.code) {
 				case sf::Keyboard::H:
 					std::cout << "Stage: " << settings.getStage() << std::endl;
-					std::cout << "MultiInfect: " << settings.getIsMultiInfect() << std::endl;
 					std::cout << "menu_level: " << gameMenu.getMenuLevel() << std::endl;
 					std::cout << "X: " << skinTab.getSizeX() << " Y: " << skinTab.getSizeY() << std::endl;
 					break;
@@ -200,6 +197,12 @@ void updateInput() {
 						stageSwitch(gameMenu.MenuChoice(gameMenu.getSelectedItemIndex()));
 					}
 					break;
+				case sf::Keyboard::O:
+					settings.subProbability();
+					break;
+				case sf::Keyboard::P:
+					settings.addProbability();
+					break;
 				case sf::Keyboard::PageUp:
 					if (settings.getFpsLimit() <= 64)
 					{
@@ -235,10 +238,11 @@ void updateInput() {
 
 int main() {
 	settings.setTimeUnit(300);
-	skinTab.setSize(TABSIZE, TABSIZE);
+	skinTab.setSize(30, 30);
 	srand(static_cast<unsigned>(time(NULL)));
 	sf::Clock clock;
 	window.setFramerateLimit(128);
+	settings.setInfectionProbability(90);
 	while (window.isOpen()) 
 	{
 		updateInput();

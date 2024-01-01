@@ -4,8 +4,9 @@
 #define INFECTED_COLOR sf::Color(255, 0, 0, 255)
 #define RESISTANT_COLOR sf::Color(235, 177, 45, 255)
 
-CellArray::CellArray(sf::RenderWindow& window)
+CellArray::CellArray(sf::RenderWindow& window, Settings& settings)
     : m_window(window)
+    , m_settings(settings)
 {
 
 }
@@ -91,19 +92,18 @@ void CellArray::update(int infectTime, int resistTime)
     {
         for (int j = 0; j < m_sizeY; j++)
         {
-            m_skinCellTab[i][j].update(infectTime, resistTime);
-
             if (m_skinCellTab[i][j].getTimeUnit() == infectTime && m_skinCellTab[i][j].getStateCell() == 1)
             {
                 m_skinCellTab[i][j].setTargetColor(RESISTANT_COLOR);
                 m_skinCellTab[i][j].setStateCell(2);
             }
-            else if (m_skinCellTab[i][j].getTimeUnit() > (infectTime + resistTime) && m_skinCellTab[i][j].getStateCell() == 2)
+            if (m_skinCellTab[i][j].getTimeUnit() > (infectTime + resistTime) && m_skinCellTab[i][j].getStateCell() == 2)
             {
                 m_skinCellTab[i][j].setTargetColor(HEALTHY_COLOR);
                 m_skinCellTab[i][j].setTimeUnit(0);
                 m_skinCellTab[i][j].setStateCell(0);
             }
+            m_skinCellTab[i][j].update(infectTime, resistTime);
         }
     }
 }
@@ -125,16 +125,9 @@ int CellArray::handleMouseClick() {
     return 0;
 }
 
-void CellArray::updateInfect(bool isMultiInfect)
+void CellArray::updateInfect()
 {
-    if (isMultiInfect)
-    {
-        updateInfectMulti();
-    }
-    else
-    {
-        updateInfectSingle();
-    }
+    updateInfectMulti();
 }
 
 void CellArray::updateInfectMulti()
@@ -165,148 +158,72 @@ void CellArray::updateInfectMulti()
             {
                 if (i == 0 && j == 0)
                 {
-                    m_skinCellTab[1][0].randInfect();
-                    m_skinCellTab[0][1].randInfect();
-                    m_skinCellTab[1][1].randInfect();
+                    m_skinCellTab[1][0].randInfect(m_settings.getInfectionProbability());
+                    m_skinCellTab[0][1].randInfect(m_settings.getInfectionProbability());
+                    m_skinCellTab[1][1].randInfect(m_settings.getInfectionProbability());
                 }
                 if (i == m_sizeX - 1 && j == m_sizeY - 1)
                 {
-                    m_skinCellTab[m_sizeX - 2][m_sizeY - 1].randInfect();
-                    m_skinCellTab[m_sizeX - 1][m_sizeY - 2].randInfect();
-                    m_skinCellTab[m_sizeX - 2][m_sizeY - 2].randInfect();
+                    m_skinCellTab[m_sizeX - 2][m_sizeY - 1].randInfect(m_settings.getInfectionProbability());
+                    m_skinCellTab[m_sizeX - 1][m_sizeY - 2].randInfect(m_settings.getInfectionProbability());
+                    m_skinCellTab[m_sizeX - 2][m_sizeY - 2].randInfect(m_settings.getInfectionProbability());
                 }
                 if (i == m_sizeX - 1 && j == 0)
                 {
-                    m_skinCellTab[m_sizeX - 2][0].randInfect();
-                    m_skinCellTab[m_sizeX - 1][1].randInfect();
-                    m_skinCellTab[m_sizeX - 2][1].randInfect();
+                    m_skinCellTab[m_sizeX - 2][0].randInfect(m_settings.getInfectionProbability());
+                    m_skinCellTab[m_sizeX - 1][1].randInfect(m_settings.getInfectionProbability());
+                    m_skinCellTab[m_sizeX - 2][1].randInfect(m_settings.getInfectionProbability());
                 }
                 if (i == 0 && j == m_sizeY - 1)
                 {
-                    m_skinCellTab[0][m_sizeY - 2].randInfect();
-                    m_skinCellTab[1][m_sizeY - 1].randInfect();
-                    m_skinCellTab[1][m_sizeY - 2].randInfect();
+                    m_skinCellTab[0][m_sizeY - 2].randInfect(m_settings.getInfectionProbability());
+                    m_skinCellTab[1][m_sizeY - 1].randInfect(m_settings.getInfectionProbability());
+                    m_skinCellTab[1][m_sizeY - 2].randInfect(m_settings.getInfectionProbability());
                 }
 
                 if (i == 0 && j != 0 && j != m_sizeY - 1)
                 {
-                    m_skinCellTab[0][j - 1].randInfect();
-                    m_skinCellTab[0][j + 1].randInfect();
-                    m_skinCellTab[1][j].randInfect();
-                    m_skinCellTab[1][j + 1].randInfect();
-                    m_skinCellTab[1][j - 1].randInfect();
+                    m_skinCellTab[0][j - 1].randInfect(m_settings.getInfectionProbability());
+                    m_skinCellTab[0][j + 1].randInfect(m_settings.getInfectionProbability());
+                    m_skinCellTab[1][j].randInfect(m_settings.getInfectionProbability());
+                    m_skinCellTab[1][j + 1].randInfect(m_settings.getInfectionProbability());
+                    m_skinCellTab[1][j - 1].randInfect(m_settings.getInfectionProbability());
                 }
                 if (i == m_sizeX -1 && j != 0 && j != m_sizeY - 1)
                 {
-                    m_skinCellTab[i][j - 1].randInfect();
-                    m_skinCellTab[i][j + 1].randInfect();
-                    m_skinCellTab[i - 1][j].randInfect();
-                    m_skinCellTab[i - 1][j - 1].randInfect();
-                    m_skinCellTab[i - 1][j + 1].randInfect();
+                    m_skinCellTab[i][j - 1].randInfect(m_settings.getInfectionProbability());
+                    m_skinCellTab[i][j + 1].randInfect(m_settings.getInfectionProbability());
+                    m_skinCellTab[i - 1][j].randInfect(m_settings.getInfectionProbability());
+                    m_skinCellTab[i - 1][j - 1].randInfect(m_settings.getInfectionProbability());
+                    m_skinCellTab[i - 1][j + 1].randInfect(m_settings.getInfectionProbability());
                 }
                 if (j == 0 && i != 0 && i != m_sizeX - 1)
                 {
-                    m_skinCellTab[i - 1][0].randInfect();
-                    m_skinCellTab[i + 1][0].randInfect();
-                    m_skinCellTab[i][1].randInfect();
-                    m_skinCellTab[i - 1][1].randInfect();
-                    m_skinCellTab[i + 1][1].randInfect();
+                    m_skinCellTab[i - 1][0].randInfect(m_settings.getInfectionProbability());
+                    m_skinCellTab[i + 1][0].randInfect(m_settings.getInfectionProbability());
+                    m_skinCellTab[i][1].randInfect(m_settings.getInfectionProbability());
+                    m_skinCellTab[i - 1][1].randInfect(m_settings.getInfectionProbability());
+                    m_skinCellTab[i + 1][1].randInfect(m_settings.getInfectionProbability());
                 }
                 if (j == m_sizeY - 1 && i != 0 && i != m_sizeX - 1)
                 {
-                    m_skinCellTab[i - 1][j].randInfect();
-                    m_skinCellTab[i + 1][j].randInfect();
-                    m_skinCellTab[i][j - 1].randInfect();
-                    m_skinCellTab[i - 1][j - 1].randInfect();
-                    m_skinCellTab[i + 1][j - 1].randInfect();
+                    m_skinCellTab[i - 1][j].randInfect(m_settings.getInfectionProbability());
+                    m_skinCellTab[i + 1][j].randInfect(m_settings.getInfectionProbability());
+                    m_skinCellTab[i][j - 1].randInfect(m_settings.getInfectionProbability());
+                    m_skinCellTab[i - 1][j - 1].randInfect(m_settings.getInfectionProbability());
+                    m_skinCellTab[i + 1][j - 1].randInfect(m_settings.getInfectionProbability());
                 }
                 if (j != 0 && j != m_sizeY - 1 && i != 0 && i != m_sizeX - 1)
                 {
-                    m_skinCellTab[i - 1][j].randInfect();
-                    m_skinCellTab[i + 1][j].randInfect();
-                    m_skinCellTab[i][j - 1].randInfect();
-                    m_skinCellTab[i][j + 1].randInfect();
+                    m_skinCellTab[i - 1][j].randInfect(m_settings.getInfectionProbability());
+                    m_skinCellTab[i + 1][j].randInfect(m_settings.getInfectionProbability());
+                    m_skinCellTab[i][j - 1].randInfect(m_settings.getInfectionProbability());
+                    m_skinCellTab[i][j + 1].randInfect(m_settings.getInfectionProbability());
 
-                    m_skinCellTab[i + 1][j - 1].randInfect();
-                    m_skinCellTab[i - 1][j - 1].randInfect();
-                    m_skinCellTab[i - 1][j + 1].randInfect();
-                    m_skinCellTab[i + 1][j + 1].randInfect();
-                }
-            }
-        }
-    }
-}
-
-void CellArray::updateInfectSingle()
-{
-    for (int i = 0; i < m_sizeX; i++)
-    {
-        for (int j = 0; j < m_sizeY; j++)
-        {
-            //m_skinCellTab[i][j].setinfectAttempt(false);
-        }
-    }
-    for (int i = 0; i < m_sizeX; i++)
-    {
-        for (int j = 0; j < m_sizeY; j++)
-        {
-            if (m_skinCellTab[i][j].getStateCell() == 1 || m_skinCellTab[i][j].getStateCell() == 2)
-            {
-                m_skinCellTab[i][j].addTimeUnit(1);
-            }
-            if (m_skinCellTab[i][j].getStateCell() == 1)
-            {
-                if (i == 0 && j == 0)
-                {
-                    m_skinCellTab[1][0].randInfect(true);
-                    m_skinCellTab[0][1].randInfect(true);
-                }
-                else if (i == m_sizeX - 1 && j == m_sizeY - 1)
-                {
-                    m_skinCellTab[m_sizeX - 2][m_sizeY - 1].randInfect(true);
-                    m_skinCellTab[m_sizeX - 1][m_sizeY - 2].randInfect(true);
-                }
-                else if (i == m_sizeX - 1 && j == 0)
-                {
-                    m_skinCellTab[m_sizeX - 2][0].randInfect(true);
-                    m_skinCellTab[m_sizeX - 1][1].randInfect(true);
-                }
-                else if (i == 0 && j == m_sizeY - 1)
-                {
-                    m_skinCellTab[0][m_sizeY - 2].randInfect(true);
-                    m_skinCellTab[1][m_sizeY - 1].randInfect(true);
-                }
-
-                else if (i == 0 && j != 0 && j != m_sizeY - 1)
-                {
-                    m_skinCellTab[0][j - 1].randInfect(true);
-                    m_skinCellTab[0][j + 1].randInfect(true);
-                    m_skinCellTab[1][j].randInfect(true);
-                }
-                else if (i == m_sizeX - 1 && j != 0 && j != m_sizeY - 1)
-                {
-                    m_skinCellTab[i][j - 1].randInfect(true);
-                    m_skinCellTab[i][j + 1].randInfect(true);
-                    m_skinCellTab[i - 1][j].randInfect(true);
-                }
-                else if (j == 0 && i != 0 && i != m_sizeX - 1)
-                {
-                    m_skinCellTab[i - 1][0].randInfect(true);
-                    m_skinCellTab[i + 1][0].randInfect(true);
-                    m_skinCellTab[i][1].randInfect(true);
-                }
-                else if (j == m_sizeY - 1 && i != 0 && i != m_sizeX - 1)
-                {
-                    m_skinCellTab[i - 1][j].randInfect(true);
-                    m_skinCellTab[i + 1][j].randInfect(true);
-                    m_skinCellTab[i][j - 1].randInfect(true);
-                }
-                else if (j != 0 && j != m_sizeY - 1 && i != 0 && i != m_sizeX - 1)
-                {
-                    m_skinCellTab[i - 1][j].randInfect(true);
-                    m_skinCellTab[i + 1][j].randInfect(true);
-                    m_skinCellTab[i][j - 1].randInfect(true);
-                    m_skinCellTab[i][j + 1].randInfect(true);
+                    m_skinCellTab[i + 1][j - 1].randInfect(m_settings.getInfectionProbability());
+                    m_skinCellTab[i - 1][j - 1].randInfect(m_settings.getInfectionProbability());
+                    m_skinCellTab[i - 1][j + 1].randInfect(m_settings.getInfectionProbability());
+                    m_skinCellTab[i + 1][j + 1].randInfect(m_settings.getInfectionProbability());
                 }
             }
         }

@@ -80,7 +80,7 @@ void SkinCell::update(int infectTime, int resistTime)
 				m_shape.getFillColor().b + std::floor(((m_targetColor.b - m_shape.getFillColor().b) / 2)),
 				255));
 		}
-		else if (m_timeUnit <= infectTime && m_stateOfCell == 1)
+		if (m_timeUnit <= infectTime && m_stateOfCell == 1)
 		{
 			m_shape.setFillColor(sf::Color(
 				m_shape.getFillColor().r + std::floor(((m_targetColor.r - m_shape.getFillColor().r) / infectTime)),
@@ -97,7 +97,7 @@ void SkinCell::update(int infectTime, int resistTime)
 				m_stateOfCell = 1;
 			}
 		}																																											
-		else if (m_timeUnit > infectTime && m_timeUnit <= (infectTime + resistTime))
+		if (m_timeUnit > infectTime && m_timeUnit <= (infectTime + resistTime))
 		{
 			m_shape.setFillColor(sf::Color(
 				m_shape.getFillColor().r + std::floor(((m_targetColor.r - m_shape.getFillColor().r) / resistTime)),
@@ -117,27 +117,15 @@ void SkinCell::update(int infectTime, int resistTime)
 	}
 }
 
-void SkinCell::randInfect(bool val)
+void SkinCell::randInfect(int chance)
 {
 	if (m_stateOfCell == 0)
 	{
-		int probability = 0;
-		probability = rand() % 2;
-		if (probability) {
+		int randNum = 0;
+		randNum = rand() % 100;
+		if (randNum < chance) {
 			m_targetColor = INFECTED_COLOR;
-		}
-	}
-}
-
-void SkinCell::randInfect()
-{
-	if (m_stateOfCell == 0)
-	{
-		int probability = 0;
-		probability = rand() % 2;
-		if (probability) {
-			m_targetColor = INFECTED_COLOR;
-			m_stateOfCell = 1;	
+			m_stateOfCell = 1;
 		}
 	}
 }
