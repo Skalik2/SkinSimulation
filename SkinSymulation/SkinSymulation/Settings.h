@@ -23,8 +23,7 @@ public:
 	void drawFpsNumber();
 	int getTimeUnit() const;
 	void setTimeUnit(const int t);
-	void addTimeUnit();
-	void subTimeUnit();
+	void setTimeUnit();
 	bool getIsMultiInfect() const;
 	void setIsMultiInfect(const bool val);
 	int getInfectionTime() const;

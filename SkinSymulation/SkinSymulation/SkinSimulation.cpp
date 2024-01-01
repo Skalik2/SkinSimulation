@@ -201,21 +201,19 @@ void updateInput() {
 					}
 					break;
 				case sf::Keyboard::PageUp:
-					if (settings.getFpsLimit() <= 80)
+					if (settings.getFpsLimit() <= 64)
 					{
-						settings.setFpsLimit(settings.getFpsLimit() + 10);
-						settings.subTimeUnit();
+						settings.setFpsLimit(settings.getFpsLimit() * 2);
+						settings.setTimeUnit();
 					}
-					window.setFramerateLimit(settings.getFpsLimit());
 					settings.drawFpsNumber();
 					break;
 				case sf::Keyboard::PageDown:
-					if (settings.getFpsLimit() >= 20)
+					if (settings.getFpsLimit() >= 2)
 					{
-						settings.setFpsLimit(settings.getFpsLimit() - 10);
-						settings.addTimeUnit();
+						settings.setFpsLimit(settings.getFpsLimit() / 2);
+						settings.setTimeUnit();
 					}
-					window.setFramerateLimit(settings.getFpsLimit());
 					settings.drawFpsNumber();
 					break;
 				}
@@ -240,7 +238,7 @@ int main() {
 	skinTab.setSize(TABSIZE, TABSIZE);
 	srand(static_cast<unsigned>(time(NULL)));
 	sf::Clock clock;
-	window.setFramerateLimit(settings.getFpsLimit());
+	window.setFramerateLimit(128);
 	while (window.isOpen()) 
 	{
 		updateInput();

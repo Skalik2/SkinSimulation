@@ -91,14 +91,14 @@ void CellArray::update(int infectTime, int resistTime)
     {
         for (int j = 0; j < m_sizeY; j++)
         {
-            m_skinCellTab[i][j].update(8,4);
+            m_skinCellTab[i][j].update(infectTime, resistTime);
 
             if (m_skinCellTab[i][j].getTimeUnit() == infectTime && m_skinCellTab[i][j].getStateCell() == 1)
             {
                 m_skinCellTab[i][j].setTargetColor(RESISTANT_COLOR);
                 m_skinCellTab[i][j].setStateCell(2);
             }
-            else if (m_skinCellTab[i][j].getTimeUnit() >= infectTime + resistTime && m_skinCellTab[i][j].getStateCell() == 2)
+            else if (m_skinCellTab[i][j].getTimeUnit() > (infectTime + resistTime) && m_skinCellTab[i][j].getStateCell() == 2)
             {
                 m_skinCellTab[i][j].setTargetColor(HEALTHY_COLOR);
                 m_skinCellTab[i][j].setTimeUnit(0);
