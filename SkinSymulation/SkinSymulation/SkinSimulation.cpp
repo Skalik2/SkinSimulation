@@ -113,7 +113,7 @@ void stageSwitch(int menuButton)
 
 void update() 
 {
-	skinTab.update();
+	skinTab.update(settings.getInfectionTime(), settings.getResistantTime());
 }
 
 void updateInfection()

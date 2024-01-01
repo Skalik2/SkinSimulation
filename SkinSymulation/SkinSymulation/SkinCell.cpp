@@ -62,11 +62,8 @@ void SkinCell::updateSize(sf::Vector2f size)
 	m_shape.setSize(size);
 }
 
-void SkinCell::update() 
+void SkinCell::update(int infectTime, int resistTime)
 {
-	int resistTime = 4;
-	int infectTime = 6;
-
 	if (getTargetColor().r == 0 &&
 		getTargetColor().g == 0 &&
 		getTargetColor().b == 0)

@@ -85,20 +85,20 @@ void CellArray::resizeTab()
     }
 }
 
-void CellArray::update()
+void CellArray::update(int infectTime, int resistTime)
 {
     for (int i = 0; i < m_sizeX; i++)
     {
         for (int j = 0; j < m_sizeY; j++)
         {
-            m_skinCellTab[i][j].update();
+            m_skinCellTab[i][j].update(8,4);
 
-            if (m_skinCellTab[i][j].getTimeUnit() == 6 && m_skinCellTab[i][j].getStateCell() == 1)
+            if (m_skinCellTab[i][j].getTimeUnit() == infectTime && m_skinCellTab[i][j].getStateCell() == 1)
             {
                 m_skinCellTab[i][j].setTargetColor(RESISTANT_COLOR);
                 m_skinCellTab[i][j].setStateCell(2);
             }
-            else if (m_skinCellTab[i][j].getTimeUnit() >= 10 && m_skinCellTab[i][j].getStateCell() == 2)
+            else if (m_skinCellTab[i][j].getTimeUnit() >= infectTime + resistTime && m_skinCellTab[i][j].getStateCell() == 2)
             {
                 m_skinCellTab[i][j].setTargetColor(HEALTHY_COLOR);
                 m_skinCellTab[i][j].setTimeUnit(0);

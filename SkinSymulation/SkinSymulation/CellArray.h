@@ -17,7 +17,7 @@ public:
 	void initRight();
 	void initDown();
 	void resizeTab();
-	void update();
+	void update(int infectTime, int resistTime);
 	void updateInfect(bool isMultiInfect);
 	void updateInfectMulti();
 	void updateInfectSingle();

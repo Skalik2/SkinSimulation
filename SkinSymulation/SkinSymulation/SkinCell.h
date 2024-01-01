@@ -16,7 +16,7 @@ public:
 	void init(const sf::Vector2f& size, const sf::Vector2f& position, int state);
 	void updatePositon(sf::Vector2f position);
 	void updateSize(sf::Vector2f size);
-	void update();
+	void update(int resistTime, int infectTime);
 	void randInfect(bool val);
 	void randInfect();
 	sf::RectangleShape getShape() const;
