@@ -76,9 +76,9 @@ void CellArray::resizeTab()
         for (int j = 0; j < m_sizeY; j++)
         {
             m_skinCellTab[i][j].updatePositon(
-                sf::Vector2f(round(720.0f / m_sizeX * i), round(720.0f / m_sizeY * j)));
+                sf::Vector2f(round(m_window.getSize().x * 1.0f / m_sizeX * i), round(m_window.getSize().y * 1.0f / m_sizeY * j)));
             m_skinCellTab[i][j].updateSize(
-                sf::Vector2f(round(720.0f / m_sizeX), round(720.0f / m_sizeY)));
+                sf::Vector2f(round(m_window.getSize().x * 1.0f / m_sizeX), round(m_window.getSize().y * 1.0f / m_sizeY)));
         }
     }
 }

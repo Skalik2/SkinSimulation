@@ -11,10 +11,7 @@
 sf::Vector2f viewSize(720, 720);
 sf::VideoMode vm(viewSize.x, viewSize.y);
 sf::RenderWindow window(vm, "Symulacja tkanki", sf::Style::Default);
-
-sf::VideoMode desktop = sf::VideoMode::getDesktopMode();
-sf::Vector2i centerPosition(desktop.width / 2 - viewSize.x / 2, desktop.height / 2 - viewSize.y / 2);
-sf::Vector2u originalSize = window.getSize();
+sf::View view = window.getDefaultView();
 
 Menu gameMenu(window);
 Settings settings(window);
@@ -25,6 +22,14 @@ bool gameActive = false;
 void init() 
 {
 	skinTab.init();
+}
+
+void ResizeView()
+{
+	float aspectRatio = (float)window.getSize().x / (float)window.getSize().y;
+
+	view.setSize((float)window.getSize().y * aspectRatio, window.getSize().y);
+	window.setView(view);
 }
 
 void draw(int stage) {
@@ -126,9 +131,11 @@ void updateInput() {
 		if (event.type == sf::Event::Closed)
 			window.close();
 
-		if (window.getSize() != originalSize) {
-			window.setSize(originalSize);
-			window.setPosition(centerPosition);
+		if (event.type == sf::Event::Resized) {
+			sf::FloatRect visibleArea(0, 0, event.size.width, event.size.height);
+			window.setView(sf::View(visibleArea));
+			window.setSize(sf::Vector2u(event.size.width, event.size.height));
+			skinTab.resizeTab();
 		}
 
 		switch (event.type) {
