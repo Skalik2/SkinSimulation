@@ -67,9 +67,9 @@ Menu::Menu(sf::RenderWindow& window)
             :
             m_window.getSize().x / 2 - m_menu3[i].getGlobalBounds().width / 2 + 120),
             i == 0 ? 
-            300
+            m_window.getSize().y / 3.0f
             :
-            600
+            m_window.getSize().y / 2.0f
         );
     }
     m_menu3[0].setFillColor(sf::Color::Red);
@@ -294,9 +294,9 @@ void Menu::resize()
                 :
                 m_window.getSize().x / 2 - m_menu3[i].getGlobalBounds().width / 2 + 120),
             i == 0 ?
-            300
+            m_window.getSize().y / 3.0f
             :
-            600
+            m_window.getSize().y / 2.0f
         );
     }
 }
