@@ -136,6 +136,7 @@ void updateInput() {
 			window.setView(sf::View(visibleArea));
 			window.setSize(sf::Vector2u(event.size.width, event.size.height));
 			skinTab.resizeTab();
+			gameMenu.resize();
 		}
 
 		switch (event.type) {

@@ -259,6 +259,48 @@ void Menu::setMenuLevel(const int lvl)
     m_menuLevel = lvl;
 }
 
+void Menu::resize()
+{
+    m_title.setCharacterSize(80);
+    m_title.setPosition(m_window.getSize().x / 2 - m_title.getGlobalBounds().width / 2, 120);
+
+
+    for (int i = 0; i < m_MENU_ITEMS; ++i)
+    {
+        m_menu[i].setCharacterSize(50);
+        m_menu[i].setPosition(m_window.getSize().x / 2 - m_menu[i].getGlobalBounds().width / 2, 300 + i * 80);
+    }
+
+    for (int i = 0; i < m_SETTINGS_ITEMS; ++i)
+    {
+        m_menu2[i].setCharacterSize(50);
+        m_menu2[i].setPosition(m_window.getSize().x / 2 - m_menu2[i].getGlobalBounds().width / 2, 300 + i * 80);
+    }
+
+    m_s1.setPosition(m_window.getSize().x / 2 - 75 - 120, m_window.getSize().y / 2 + 50);
+
+    m_s2.setPosition(m_window.getSize().x / 2 - 75 + 120, m_window.getSize().y / 2 + 50);
+
+
+    for (int i = 0; i < m_SETTINGS_ITEMS2; i++)
+    {
+        m_menu3[i].setCharacterSize(i == 0 ? 50 : 30);
+        m_menu3[i].setPosition(
+            i == 0 ?
+            m_window.getSize().x / 2 - m_menu3[i].getGlobalBounds().width / 2
+            :
+            (i == 1 ?
+                m_window.getSize().x / 2 - m_menu3[i].getGlobalBounds().width / 2 - 120
+                :
+                m_window.getSize().x / 2 - m_menu3[i].getGlobalBounds().width / 2 + 120),
+            i == 0 ?
+            300
+            :
+            600
+        );
+    }
+}
+
 int Menu::MenuChoice(int elementId) 
 {
     switch (m_menuLevel)
