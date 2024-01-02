@@ -111,6 +111,9 @@ void EventCapture::updateInput() {
 		switch (event.type) {
 		case sf::Event::KeyPressed:
 			switch (event.key.code) {
+			case sf::Keyboard::I:
+				m_settings.toggleInfoVisibility();
+				break;
 			case sf::Keyboard::W:
 			case sf::Keyboard::Up:
 				if (m_settings.getStage() == 0 || m_settings.getStage() == 3 || m_settings.getStage() == 4)

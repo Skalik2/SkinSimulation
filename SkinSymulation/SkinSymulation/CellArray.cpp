@@ -8,7 +8,7 @@ CellArray::CellArray(sf::RenderWindow& window, Settings& settings)
     : m_window(window)
     , m_settings(settings)
 {
-
+    setSize(12, 12);
 }
 
 

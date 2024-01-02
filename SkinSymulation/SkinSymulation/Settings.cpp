@@ -8,6 +8,7 @@ Settings::Settings(sf::RenderWindow& window)
 	, m_resistantTime(4)
 	, m_timeUnit(500)
 	, m_infectionProbability(50)
+	, m_infoVisibility(true)
 {
 	if (!m_font.loadFromFile("arial.ttf")) {
 		std::cerr << "Couldn't load font" << std::endl;
@@ -31,11 +32,13 @@ Settings::Settings(sf::RenderWindow& window)
 
 void Settings::drawFpsNumber()
 {
-	m_fpsNumber.setString(std::to_string(m_fpsLimit) + "Fps");
-	m_infectionProbabilityNumber.setString(std::to_string(m_infectionProbability) + "%");
-	m_window.draw(m_infectionProbabilityNumber);
-	m_window.draw(m_fpsNumber);
-	
+	if (m_infoVisibility)
+	{
+		m_fpsNumber.setString(std::to_string(m_fpsLimit) + "Fps");
+		m_infectionProbabilityNumber.setString(std::to_string(m_infectionProbability) + "%");
+		m_window.draw(m_infectionProbabilityNumber);
+		m_window.draw(m_fpsNumber);
+	}
 }
 
 void Settings::setStage(const int number)
@@ -117,4 +120,12 @@ void Settings::subProbability()
 {
 	if (m_infectionProbability >= 10)
 		m_infectionProbability -= 10;
+}
+
+void Settings::toggleInfoVisibility()
+{
+	if (m_infoVisibility)
+		m_infoVisibility = false;
+	else
+		m_infoVisibility = true;
 }

@@ -15,6 +15,7 @@ class Settings
 	int m_infectionTime;
 	int m_resistantTime;
 	int m_infectionProbability;
+	bool m_infoVisibility;
 public:
 	Settings(sf::RenderWindow& window);
 	void setStage(const int number);
@@ -33,6 +34,6 @@ public:
 	void setInfectionProbability(const int number);
 	void addProbability();
 	void subProbability();
-	
+	void toggleInfoVisibility();
 };
 

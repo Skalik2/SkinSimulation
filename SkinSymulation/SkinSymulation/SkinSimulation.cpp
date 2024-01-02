@@ -11,15 +11,12 @@ int WinMain() {
 	sf::Vector2f viewSize(720, 720);
 	sf::VideoMode vm(viewSize.x, viewSize.y);
 	sf::RenderWindow window(vm, "Symulacja tkanki", sf::Style::Default);
-	sf::View view = window.getDefaultView();
 
 	Menu gameMenu(window);
 	Settings settings(window);
 	CellArray skinTab(window, settings);
 	EventCapture eventCapture(window, settings, skinTab, gameMenu);
 
-	settings.setTimeUnit(300);
-	skinTab.setSize(12, 12);
 	srand(static_cast<unsigned>(time(NULL)));
 	sf::Clock clock;
 	window.setFramerateLimit(128);
