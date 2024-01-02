@@ -71,15 +71,56 @@ void CellArray::initDown()
 
 void CellArray::resizeTab()
 {
-    for (int i = 0; i < m_sizeX; i++)
+
+    if (!m_settings.getIfCellSymetricAspectRatio())
     {
-        for (int j = 0; j < m_sizeY; j++)
+        for (int i = 0; i < m_sizeX; i++)
         {
-            m_skinCellTab[i][j].updatePositon(
-                sf::Vector2f(round(m_window.getSize().x * 1.0f / m_sizeX * i), round(m_window.getSize().y * 1.0f / m_sizeY * j)));
-            m_skinCellTab[i][j].updateSize(
-                sf::Vector2f(round(m_window.getSize().x * 1.0f / m_sizeX), round(m_window.getSize().y * 1.0f / m_sizeY)));
+            for (int j = 0; j < m_sizeY; j++)
+            {
+                m_skinCellTab[i][j].updatePositon(
+                    sf::Vector2f(round(m_window.getSize().x * 1.0f / m_sizeX * i), round(m_window.getSize().y * 1.0f / m_sizeY * j)));
+                m_skinCellTab[i][j].updateSize(
+                    sf::Vector2f(round(m_window.getSize().x * 1.0f / m_sizeX), round(m_window.getSize().y * 1.0f / m_sizeY)));
+            }
         }
+    }
+    else
+    {
+        double offset = 0;
+        if ((m_window.getSize().x * 1.0f / m_sizeX) > m_window.getSize().y * 1.0f / m_sizeY)
+        {
+            offset = ((m_window.getSize().y * 1.0f / m_sizeY) * (m_sizeY - m_sizeX) / 2) + 
+                ((m_window.getSize().x - ((m_window.getSize().y * 1.0f / m_sizeX)) * m_sizeX)) / 2;
+            for (int i = 0; i < m_sizeX; i++)
+            {
+                for (int j = 0; j < m_sizeY; j++)
+                {
+                    m_skinCellTab[i][j].updatePositon(
+                        sf::Vector2f(round(m_window.getSize().y * 1.0f / m_sizeY * i) + offset,
+                            round(m_window.getSize().y * 1.0f / m_sizeY * j)));
+                    m_skinCellTab[i][j].updateSize(
+                        sf::Vector2f(round(m_window.getSize().y * 1.0f / m_sizeY),
+                            round(m_window.getSize().y * 1.0f / m_sizeY)));
+                }
+            }
+        }
+        else
+        {
+            offset = (m_window.getSize().x * 1.0f / m_sizeX) * (m_sizeX - m_sizeY) / 2 +
+                ((m_window.getSize().y - ((m_window.getSize().x * 1.0f / m_sizeY)) * m_sizeY)) / 2;;
+            for (int i = 0; i < m_sizeX; i++)
+            {
+                for (int j = 0; j < m_sizeY; j++)
+                {
+                    m_skinCellTab[i][j].updatePositon(
+                        sf::Vector2f(round(m_window.getSize().x * 1.0f / m_sizeX * i), round(m_window.getSize().x * 1.0f / m_sizeX * j) + offset));
+                    m_skinCellTab[i][j].updateSize(
+                        sf::Vector2f(round(m_window.getSize().x * 1.0f / m_sizeX), round(m_window.getSize().x * 1.0f / m_sizeX)));
+                }
+            }
+        }
+
     }
 }
 

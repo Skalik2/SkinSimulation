@@ -6,7 +6,6 @@
 #include "Settings.h"
 #include "EventCapture.h"
 
-
 int WinMain() {
 	sf::Vector2f viewSize(720, 720);
 	sf::VideoMode vm(viewSize.x, viewSize.y);
@@ -23,18 +22,14 @@ int WinMain() {
 	while (window.isOpen()) 
 	{
 		eventCapture.updateInput();
-
 		if (clock.getElapsedTime().asMilliseconds() > settings.getTimeUnit())
 		{
 			skinTab.update(settings.getInfectionTime(), settings.getResistantTime());
 			skinTab.updateInfect();
-			
 			clock.restart();
 		}
 		window.clear(sf::Color::Black);
-
 		eventCapture.drawStage(settings.getStage());
-
 		window.display();
 	}
 	return 0;

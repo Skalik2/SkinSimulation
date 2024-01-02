@@ -9,6 +9,7 @@ Settings::Settings(sf::RenderWindow& window)
 	, m_timeUnit(500)
 	, m_infectionProbability(50)
 	, m_infoVisibility(true)
+	, m_cellSymetricAspectRatio(false)
 {
 	if (!m_font.loadFromFile("arial.ttf")) {
 		std::cerr << "Couldn't load font" << std::endl;
@@ -128,4 +129,17 @@ void Settings::toggleInfoVisibility()
 		m_infoVisibility = false;
 	else
 		m_infoVisibility = true;
+}
+
+bool Settings::getIfCellSymetricAspectRatio()
+{
+	return m_cellSymetricAspectRatio;
+}
+
+void Settings::toggleSymetricAspectRatio()
+{
+	if (m_cellSymetricAspectRatio)
+		m_cellSymetricAspectRatio = false;
+	else
+		m_cellSymetricAspectRatio = true;
 }

@@ -16,6 +16,7 @@ class Settings
 	int m_resistantTime;
 	int m_infectionProbability;
 	bool m_infoVisibility;
+	bool m_cellSymetricAspectRatio;
 public:
 	Settings(sf::RenderWindow& window);
 	void setStage(const int number);
@@ -35,5 +36,7 @@ public:
 	void addProbability();
 	void subProbability();
 	void toggleInfoVisibility();
+	bool getIfCellSymetricAspectRatio();
+	void toggleSymetricAspectRatio();
 };
 

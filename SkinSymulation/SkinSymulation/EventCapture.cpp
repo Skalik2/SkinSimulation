@@ -104,8 +104,8 @@ void EventCapture::updateInput() {
 			sf::FloatRect visibleArea(0, 0, event.size.width, event.size.height);
 			m_window.setView(sf::View(visibleArea));
 			m_window.setSize(sf::Vector2u(event.size.width, event.size.height));
-			m_skinTab.resizeTab();
 			m_gameMenu.resize();
+			m_skinTab.resizeTab();
 		}
 
 		switch (event.type) {
@@ -113,6 +113,10 @@ void EventCapture::updateInput() {
 			switch (event.key.code) {
 			case sf::Keyboard::I:
 				m_settings.toggleInfoVisibility();
+				break;
+			case sf::Keyboard::R:
+				m_settings.toggleSymetricAspectRatio();
+				m_skinTab.resizeTab();
 				break;
 			case sf::Keyboard::W:
 			case sf::Keyboard::Up:
