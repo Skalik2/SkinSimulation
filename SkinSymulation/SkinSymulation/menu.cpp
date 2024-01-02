@@ -336,8 +336,10 @@ int Menu::MenuChoice(int elementId)
             return 4;
             break;
         case 2:
+            return 7;
             break;
         case 3:
+            return 8;
             break;
         } 
     break;

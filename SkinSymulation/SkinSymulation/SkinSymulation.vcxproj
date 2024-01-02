@@ -126,7 +126,7 @@
       <AdditionalIncludeDirectories>$(SolutionDir)\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
-      <SubSystem>Console</SubSystem>
+      <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalLibraryDirectories>$(SolutionDir)\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalDependencies>sfml-system-d.lib;sfml-window-d.lib;sfml-audio-d.lib;sfml-graphics-d.lib;%(AdditionalDependencies)</AdditionalDependencies>
@@ -153,6 +153,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="CellArray.cpp" />
+    <ClCompile Include="EventCapture.cpp" />
     <ClCompile Include="menu.cpp" />
     <ClCompile Include="Settings.cpp" />
     <ClCompile Include="SkinCell.cpp" />
@@ -160,6 +161,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CellArray.h" />
+    <ClInclude Include="EventCapture.h" />
     <ClInclude Include="menu.h" />
     <ClInclude Include="Settings.h" />
     <ClInclude Include="SkinCell.h" />
