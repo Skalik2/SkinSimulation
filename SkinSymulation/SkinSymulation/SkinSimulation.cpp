@@ -7,7 +7,7 @@
 #include "EventCapture.h"
 
 
-int main() {
+int WinMain() {
 	sf::Vector2f viewSize(720, 720);
 	sf::VideoMode vm(viewSize.x, viewSize.y);
 	sf::RenderWindow window(vm, "Symulacja tkanki", sf::Style::Default);
