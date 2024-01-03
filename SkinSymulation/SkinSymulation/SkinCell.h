@@ -13,14 +13,14 @@ class SkinCell
 public:
 	SkinCell();
 	~SkinCell();
-	void init(const sf::Vector2f& size, const sf::Vector2f& position, int state);
+	void init(const sf::Vector2f& size, const sf::Vector2f& position, int state, sf::Color basicHealthyColor);
 	void updatePositon(sf::Vector2f position);
 	void updateSize(sf::Vector2f size);
 	void update(int resistTime, int infectTime);
-	void randInfect(int chance);
+	void randInfect(const int chance, sf::Color color);
 	sf::RectangleShape getShape() const;
 	sf::Color getTargetColor() const;
-	void setTargetColor(const sf::Color&);
+	void setTargetColor(const sf::Color color);
 	int getStateCell() const;
 	void setStateCell(const int state);
 	void setTimeUnit(const int tUnit);

@@ -8,6 +8,9 @@ class Settings
 	sf::RenderWindow& m_window;
 	int m_stage;
 	int m_fpsLimit;
+	sf::Color m_healthyColor;
+	sf::Color m_infectedColor;
+	sf::Color m_resistantColor;
 	sf::Text m_fpsNumber;
 	sf::Text m_infectionProbabilityNumber;
 	sf::Font m_font;
@@ -38,5 +41,12 @@ public:
 	void toggleInfoVisibility();
 	bool getIfCellSymetricAspectRatio();
 	void toggleSymetricAspectRatio();
+	void setInfectedColor(const sf::Color color);
+	void setResistantColor(const sf::Color color);
+	void setHealthyColor(const sf::Color color);
+	sf::Color getInfectedColor() const;
+	sf::Color getResistantColor() const;
+	sf::Color getHealthyColor() const;
+
 };
 

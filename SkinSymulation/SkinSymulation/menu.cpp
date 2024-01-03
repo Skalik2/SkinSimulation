@@ -1,8 +1,9 @@
 #include "menu.h"
 
-Menu::Menu(sf::RenderWindow& window) 
+Menu::Menu(sf::RenderWindow& window, Settings& settings)
     : m_window(window)  
     , m_selectedItemIndex(0)
+    , m_settings(settings)
 {
     if (!m_font.loadFromFile("font.otf")) 
     {
@@ -74,6 +75,67 @@ Menu::Menu(sf::RenderWindow& window)
     }
     m_menu3[0].setFillColor(sf::Color::Red);
 
+    for (int i = 0; i < m_SETTINGS_ITEMS3; i++)
+    {
+        m_menu4[i].setFont(m_font);
+        m_menu4[i].setCharacterSize(i == 0 ? 50 : 30);
+        m_menu4[i].setFillColor(sf::Color::White);
+        m_menu4[i].setString(m_options4[i]);
+        m_menu4[i].setPosition(
+            i == 0 ?
+            m_window.getSize().x / 2 - m_menu4[i].getGlobalBounds().width / 2
+            :
+            (i == 1 ?
+                m_window.getSize().x / 2 - m_menu4[i].getGlobalBounds().width / 2 - 150
+                :
+                (i == 2 ?
+                    m_window.getSize().x / 2 - m_menu4[i].getGlobalBounds().width / 2 + 0
+                    :
+                    m_window.getSize().x / 2 - m_menu3[i].getGlobalBounds().width / 2 + 150)),
+            i == 0 ?
+            m_window.getSize().y / 3.0f
+            :
+            m_window.getSize().y / 2.0f
+        );
+    }
+    m_menu4[0].setFillColor(sf::Color::Red);
+
+    for (int i = 0; i < m_SETTINGS_ITEMS4; i++)
+    {
+        m_menu5[i].setFont(m_font);
+        m_menu5[i].setCharacterSize(i == 0 ? 50 : 30);
+        m_menu5[i].setFillColor(sf::Color::White);
+        m_menu5[i].setString(m_options5[i]);
+        m_menu5[i].setPosition(
+            i == 0 ?
+            m_window.getSize().x / 2 - m_menu5[i].getGlobalBounds().width / 2
+            :
+            (i == 1 ?
+                m_window.getSize().x / 2 - m_menu5[i].getGlobalBounds().width / 2 - 150
+                :
+                (i == 2 ?
+                    m_window.getSize().x / 2 - m_menu5[i].getGlobalBounds().width / 2 + 0
+                    :
+                    m_window.getSize().x / 2 - m_menu5[i].getGlobalBounds().width / 2 + 150)),
+            i == 0 ?
+            m_window.getSize().y / 3.0f
+            :
+            m_window.getSize().y / 2.0f
+        );
+    }
+    m_menu5[0].setFillColor(sf::Color::Red);
+
+    m_rec1.setSize(sf::Vector2f(50, 50));
+    m_rec1.setPosition(m_window.getSize().x / 2 - m_rec1.getGlobalBounds().width / 2 - 150, m_window.getSize().y / 1.6f);
+    m_rec1.setFillColor(m_settings.getHealthyColor());
+
+    m_rec2.setSize(sf::Vector2f(50, 50));
+    m_rec2.setPosition(m_window.getSize().x / 2 - m_rec1.getGlobalBounds().width / 2, m_window.getSize().y / 1.6f);
+    m_rec2.setFillColor(m_settings.getInfectedColor());
+
+    m_rec3.setSize(sf::Vector2f(50, 50));
+    m_rec3.setPosition(m_window.getSize().x / 2 - m_rec1.getGlobalBounds().width / 2 + 150, m_window.getSize().y / 1.6f);
+    m_rec3.setFillColor(m_settings.getResistantColor());
 }
 
 void Menu::draw() 
@@ -106,6 +168,25 @@ void Menu::drawSettingsInfectType()
     m_window.draw(m_s2);
 }
 
+void Menu::drawSettingsColorPicker()
+{
+    m_window.draw(m_title);
+    for (int i = 0; i < m_SETTINGS_ITEMS3; ++i) {
+        m_window.draw(m_menu4[i]);
+    }
+    m_window.draw(m_rec1);
+    m_window.draw(m_rec2);
+    m_window.draw(m_rec3);
+}
+
+void Menu::drawChooseSetingsColor(int number)
+{
+    m_window.draw(m_title);
+    for (int i = 0; i < m_SETTINGS_ITEMS4; ++i) {
+        m_window.draw(m_menu5[i]);
+    }
+    m_window.draw(number == 1 ? m_rec1 : number == 2 ? m_rec2 : m_rec3);
+}
 
 void Menu::moveUp() 
 {
@@ -130,6 +211,20 @@ void Menu::moveUp()
             m_menu3[m_selectedItemIndex].setFillColor(sf::Color::White);
             m_selectedItemIndex--;
             m_menu3[m_selectedItemIndex].setFillColor(sf::Color::Red);
+        }
+        break;
+    case 3:
+        if (m_selectedItemIndex - 1 >= 0) {
+            m_menu4[m_selectedItemIndex].setFillColor(sf::Color::White);
+            m_selectedItemIndex--;
+            m_menu4[m_selectedItemIndex].setFillColor(sf::Color::Red);
+        }
+        break;
+    case 4:
+        if (m_selectedItemIndex - 1 >= 0) {
+            m_menu5[m_selectedItemIndex].setFillColor(sf::Color::White);
+            m_selectedItemIndex--;
+            m_menu5[m_selectedItemIndex].setFillColor(sf::Color::Red);
         }
         break;
     }
@@ -158,6 +253,20 @@ void Menu::moveDown() {
             m_menu3[m_selectedItemIndex].setFillColor(sf::Color::White);
             m_selectedItemIndex++;
             m_menu3[m_selectedItemIndex].setFillColor(sf::Color::Red);
+        }
+        break;
+    case 3:
+        if (m_selectedItemIndex + 1 < m_SETTINGS_ITEMS3) {
+            m_menu4[m_selectedItemIndex].setFillColor(sf::Color::White);
+            m_selectedItemIndex++;
+            m_menu4[m_selectedItemIndex].setFillColor(sf::Color::Red);
+        }
+        break;
+    case 4:
+        if (m_selectedItemIndex + 1 < m_SETTINGS_ITEMS4) {
+            m_menu5[m_selectedItemIndex].setFillColor(sf::Color::White);
+            m_selectedItemIndex++;
+            m_menu5[m_selectedItemIndex].setFillColor(sf::Color::Red);
         }
         break;
     }
@@ -221,6 +330,38 @@ int Menu::handleMouseClick() {
            }
         }
         break;
+    case 3:
+        for (int i = 0; i < m_SETTINGS_ITEMS3; ++i)
+        {
+            if (m_menu4[i].getGlobalBounds().contains(static_cast<sf::Vector2f>(mousePosition)))
+            {
+                m_selectedItemIndex = i;
+                for (int j = 0; j < m_SETTINGS_ITEMS3; ++j)
+                {
+                    m_menu4[j].setFillColor(sf::Color::White);
+                }
+                m_menu4[m_selectedItemIndex].setFillColor(sf::Color::Red);
+                return MenuChoice(m_selectedItemIndex);
+                break;
+            }
+        }
+        break;
+    case 4:
+        for (int i = 0; i < m_SETTINGS_ITEMS4; ++i)
+        {
+            if (m_menu5[i].getGlobalBounds().contains(static_cast<sf::Vector2f>(mousePosition)))
+            {
+                m_selectedItemIndex = i;
+                for (int j = 0; j < m_SETTINGS_ITEMS4; ++j)
+                {
+                    m_menu5[j].setFillColor(sf::Color::White);
+                }
+                m_menu5[m_selectedItemIndex].setFillColor(sf::Color::Red);
+                return MenuChoice(m_selectedItemIndex);
+                break;
+            }
+        }
+        break;
     }
     return -1;
 }
@@ -248,6 +389,16 @@ void Menu::clearMenuLevel()
         m_menu3[i].setFillColor(sf::Color::White);
     }
     m_menu3[m_selectedItemIndex].setFillColor(sf::Color::Red);
+    for (int i = 0; i < m_SETTINGS_ITEMS3; ++i)
+    {
+        m_menu4[i].setFillColor(sf::Color::White);
+    }
+    m_menu4[m_selectedItemIndex].setFillColor(sf::Color::Red);
+    for (int i = 0; i < m_SETTINGS_ITEMS4; ++i)
+    {
+        m_menu5[i].setFillColor(sf::Color::White);
+    }
+    m_menu5[m_selectedItemIndex].setFillColor(sf::Color::Red);
 }
 
 int Menu::getMenuLevel() {
@@ -261,30 +412,24 @@ void Menu::setMenuLevel(const int lvl)
 
 void Menu::resize()
 {
-    m_title.setCharacterSize(80);
     m_title.setPosition(m_window.getSize().x / 2 - m_title.getGlobalBounds().width / 2, 120);
 
 
     for (int i = 0; i < m_MENU_ITEMS; ++i)
     {
-        m_menu[i].setCharacterSize(50);
         m_menu[i].setPosition(m_window.getSize().x / 2 - m_menu[i].getGlobalBounds().width / 2, 300 + i * 80);
     }
 
     for (int i = 0; i < m_SETTINGS_ITEMS; ++i)
     {
-        m_menu2[i].setCharacterSize(50);
         m_menu2[i].setPosition(m_window.getSize().x / 2 - m_menu2[i].getGlobalBounds().width / 2, 300 + i * 80);
     }
 
     m_s1.setPosition(m_window.getSize().x / 2 - 75 - 120, m_window.getSize().y / 2 + 50);
-
     m_s2.setPosition(m_window.getSize().x / 2 - 75 + 120, m_window.getSize().y / 2 + 50);
-
 
     for (int i = 0; i < m_SETTINGS_ITEMS2; i++)
     {
-        m_menu3[i].setCharacterSize(i == 0 ? 50 : 30);
         m_menu3[i].setPosition(
             i == 0 ?
             m_window.getSize().x / 2 - m_menu3[i].getGlobalBounds().width / 2
@@ -299,7 +444,77 @@ void Menu::resize()
             m_window.getSize().y / 2.0f
         );
     }
+    for (int i = 0; i < m_SETTINGS_ITEMS3; i++)
+    {
+        m_menu4[i].setPosition(
+            i == 0 ?
+            m_window.getSize().x / 2 - m_menu4[i].getGlobalBounds().width / 2
+            :
+            (i == 1 ?
+                m_window.getSize().x / 2 - m_menu4[i].getGlobalBounds().width / 2 - 150
+                :
+                (i == 2 ?
+                    m_window.getSize().x / 2 - m_menu4[i].getGlobalBounds().width / 2 + 0
+                    :
+                    m_window.getSize().x / 2 - m_menu4[i].getGlobalBounds().width / 2 + 150)),
+            i == 0 ?
+            m_window.getSize().y / 3.0f
+            :
+            m_window.getSize().y / 2.0f
+        );
+    }
+    for (int i = 0; i < m_SETTINGS_ITEMS4; i++)
+    {
+        m_menu5[i].setCharacterSize(i == 0 ? 50 : 30);
+        m_menu5[i].setPosition(
+            i == 0 ?
+            m_window.getSize().x / 2 - m_menu5[i].getGlobalBounds().width / 2
+            :
+            (i == 1 ?
+                m_window.getSize().x / 2 - m_menu5[i].getGlobalBounds().width / 2 - 150
+                :
+                (i == 2 ?
+                    m_window.getSize().x / 2 - m_menu5[i].getGlobalBounds().width / 2 + 0
+                    :
+                    m_window.getSize().x / 2 - m_menu5[i].getGlobalBounds().width / 2 + 150)),
+            i == 0 ?
+            m_window.getSize().y / 3.0f
+            :
+            m_window.getSize().y / 2.0f
+        );
+    }
+
+    m_rec1.setPosition(m_window.getSize().x / 2 - m_rec1.getGlobalBounds().width / 2 - 150, m_window.getSize().y / 1.6f);
+    m_rec2.setPosition(m_window.getSize().x / 2 - m_rec1.getGlobalBounds().width / 2, m_window.getSize().y / 1.6f);
+    m_rec3.setPosition(m_window.getSize().x / 2 - m_rec1.getGlobalBounds().width / 2 + 150, m_window.getSize().y / 1.6f);
+
 }
+
+void Menu::updateColorNumbers()
+{
+    switch (m_colorPick)
+    {
+    case 1:
+        m_menu5[1].setString("R: " + std::to_string(m_settings.getHealthyColor().r));
+        m_menu5[2].setString("G: " + std::to_string(m_settings.getHealthyColor().g));
+        m_menu5[3].setString("B: " + std::to_string(m_settings.getHealthyColor().b));
+        m_rec1.setFillColor(m_settings.getHealthyColor());
+        break;
+    case 2:
+        m_menu5[1].setString("R: " + std::to_string(m_settings.getInfectedColor().r));
+        m_menu5[2].setString("G: " + std::to_string(m_settings.getInfectedColor().g));
+        m_menu5[3].setString("B: " + std::to_string(m_settings.getInfectedColor().b));
+        m_rec2.setFillColor(m_settings.getInfectedColor());
+        break;
+    case 3:
+        m_menu5[1].setString("R: " + std::to_string(m_settings.getResistantColor().r));
+        m_menu5[2].setString("G: " + std::to_string(m_settings.getResistantColor().g));
+        m_menu5[3].setString("B: " + std::to_string(m_settings.getResistantColor().b));
+        m_rec3.setFillColor(m_settings.getResistantColor());
+        break;
+    }
+}
+
 
 int Menu::MenuChoice(int elementId) 
 {
@@ -339,11 +554,12 @@ int Menu::MenuChoice(int elementId)
             return 7;
             break;
         case 3:
+            m_selectedItemIndex = 0;
             return 8;
             break;
         } 
     break;
-    case 2:
+    case 2: // simulation size
         switch (elementId)
         {
         case 0: 
@@ -359,6 +575,92 @@ int Menu::MenuChoice(int elementId)
             return 6;
             break;
         }
-    break;
+        break;
+    case 3: // color settings
+        switch (elementId)
+        {
+        case 0: 
+            m_menuLevel = 1;
+            return 2;
+            break;
+        case 1:
+            resize();
+            setColorPick(1);
+            updateColorNumbers();
+            return 9;
+            break;
+        case 2:
+            resize();
+            setColorPick(2);
+            updateColorNumbers();
+            return 9;
+            break;
+        case 3:
+            resize();
+            setColorPick(3);
+            updateColorNumbers();
+            return 9;
+            break;
+        }
+        break;
+    case 4: // color picker
+        switch (elementId)
+        {
+        case 0:
+            m_menuLevel = 3;
+            return 8;
+            break;
+        case 1:
+
+            break;
+        case 2:
+
+            break;
+        case 3:
+
+            break;
+        }
+        break;
     }
+}
+
+
+sf::RectangleShape Menu::getRect1()
+{
+    return m_rec1;
+}
+
+void Menu::SetRect1(const sf::RectangleShape shape)
+{
+    m_rec1 = shape;
+}
+
+sf::RectangleShape Menu::getRect2()
+{
+    return m_rec2;
+}
+
+void Menu::SetRect2(const sf::RectangleShape shape)
+{
+    m_rec1 = shape;
+}
+
+sf::RectangleShape Menu::getRect3()
+{
+    return m_rec3;
+}
+
+void Menu::SetRect3(const sf::RectangleShape shape)
+{
+    m_rec1 = shape;
+}
+
+int Menu::getColorPick() const
+{
+    return m_colorPick;
+}
+
+void Menu::setColorPick(int num)
+{
+    m_colorPick = num;
 }

@@ -1,5 +1,9 @@
 #include "Settings.h"
 
+#define DEFAULT_HEALTHY_COLOR sf::Color(0, 80, 0, 255)
+#define DEFAULT_INFECTED_COLOR sf::Color(255, 0, 0, 255)
+#define DEFAULT_RESISTANT_COLOR sf::Color(235, 177, 45, 255)
+
 Settings::Settings(sf::RenderWindow& window)
 	: m_window(window)
 	, m_stage(0)
@@ -10,6 +14,9 @@ Settings::Settings(sf::RenderWindow& window)
 	, m_infectionProbability(50)
 	, m_infoVisibility(true)
 	, m_cellSymetricAspectRatio(false)
+	, m_healthyColor(DEFAULT_HEALTHY_COLOR)
+	, m_infectedColor(DEFAULT_INFECTED_COLOR)
+	, m_resistantColor(DEFAULT_RESISTANT_COLOR)
 {
 	if (!m_font.loadFromFile("arial.ttf")) {
 		std::cerr << "Couldn't load font" << std::endl;
@@ -142,4 +149,34 @@ void Settings::toggleSymetricAspectRatio()
 		m_cellSymetricAspectRatio = false;
 	else
 		m_cellSymetricAspectRatio = true;
+}
+
+void Settings::setInfectedColor(const sf::Color color)
+{
+	m_infectedColor = color;
+}
+
+void Settings::setResistantColor(const sf::Color color)
+{
+	m_resistantColor = color;
+}
+
+void Settings::setHealthyColor(const sf::Color color)
+{
+	m_healthyColor = color;
+}
+
+sf::Color Settings::getInfectedColor() const
+{
+	return m_infectedColor;
+}
+
+sf::Color Settings::getResistantColor() const
+{
+	return m_resistantColor;
+}
+
+sf::Color Settings::getHealthyColor() const
+{
+	return m_healthyColor;
 }

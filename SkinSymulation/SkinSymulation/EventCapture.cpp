@@ -5,6 +5,7 @@ EventCapture::EventCapture(sf::RenderWindow& window, Settings& settings, CellArr
 	, m_settings(settings)
 	, m_skinTab(skinTab)
 	, m_window(window)
+	, m_gameActive(false)
 {
 
 }
@@ -35,6 +36,12 @@ void EventCapture::drawStage(int stage) {
 	case 4:
 		m_gameMenu.drawSettingsInfectType();
 		break;
+	case 5:
+		m_gameMenu.drawSettingsColorPicker();
+		break;
+	case 6:
+		m_gameMenu.drawChooseSetingsColor(m_gameMenu.getColorPick());
+		break;
 	}
 }
 
@@ -58,6 +65,7 @@ void EventCapture::stageSwitch(int menuButton)
 	case 2: // settings
 		m_settings.setStage(3);
 		m_gameMenu.clearMenuLevel();
+		m_gameMenu.setMenuLevel(1);
 		drawStage(m_settings.getStage());
 		break;
 	case 3: // main menu 
@@ -88,10 +96,127 @@ void EventCapture::stageSwitch(int menuButton)
 		m_gameMenu.setMenuLevel(1);
 		drawStage(m_settings.getStage());
 		break;
-	case 7:
+	case 7: 
+		break;
+	case 8: // color menu
+		m_skinTab.resizeTab();
+		m_gameMenu.clearMenuLevel();
+		m_gameMenu.setMenuLevel(3);
+		m_settings.setStage(5);
+		drawStage(m_settings.getStage());
+		break;
+	case 9: //color pick
+		m_gameMenu.clearMenuLevel();
+		m_gameMenu.setMenuLevel(4);
+		m_settings.setStage(6);
+		drawStage(m_settings.getStage());
 		break;
 	}
 }
+
+void EventCapture::changeColor(int numberOfRect, bool add)
+{
+	switch (numberOfRect)
+	{
+	case 1:
+		if (add)
+		{
+			switch (m_gameMenu.getSelectedItemIndex()) 
+			{
+			case 1:
+				m_settings.setHealthyColor(sf::Color(m_settings.getHealthyColor().r + 1, m_settings.getHealthyColor().g, m_settings.getHealthyColor().b));
+				break;
+			case 2:
+				m_settings.setHealthyColor(sf::Color(m_settings.getHealthyColor().r, m_settings.getHealthyColor().g + 1, m_settings.getHealthyColor().b));
+				break;
+			case 3:
+				m_settings.setHealthyColor(sf::Color(m_settings.getHealthyColor().r, m_settings.getHealthyColor().g, m_settings.getHealthyColor().b + 1));
+				break;
+			}
+		}
+		else
+		{
+			switch (m_gameMenu.getSelectedItemIndex())
+			{
+			case 1:
+				m_settings.setHealthyColor(sf::Color(m_settings.getHealthyColor().r - 1, m_settings.getHealthyColor().g, m_settings.getHealthyColor().b));
+				break;
+			case 2:
+				m_settings.setHealthyColor(sf::Color(m_settings.getHealthyColor().r, m_settings.getHealthyColor().g - 1, m_settings.getHealthyColor().b));
+				break;
+			case 3:
+				m_settings.setHealthyColor(sf::Color(m_settings.getHealthyColor().r, m_settings.getHealthyColor().g, m_settings.getHealthyColor().b - 1));
+				break;
+			}
+		}
+		break;
+	case 2:
+		if (add)
+		{
+			switch (m_gameMenu.getSelectedItemIndex())
+			{
+			case 1:
+				m_settings.setInfectedColor(sf::Color(m_settings.getInfectedColor().r + 1, m_settings.getInfectedColor().g, m_settings.getInfectedColor().b));
+				break;
+			case 2:
+				m_settings.setInfectedColor(sf::Color(m_settings.getInfectedColor().r, m_settings.getInfectedColor().g + 1, m_settings.getInfectedColor().b));
+				break;
+			case 3:
+				m_settings.setInfectedColor(sf::Color(m_settings.getInfectedColor().r, m_settings.getInfectedColor().g, m_settings.getInfectedColor().b + 1));
+				break;
+			}
+		}
+		else
+		{
+			switch (m_gameMenu.getSelectedItemIndex())
+			{
+			case 1:
+				m_settings.setInfectedColor(sf::Color(m_settings.getInfectedColor().r - 1, m_settings.getInfectedColor().g, m_settings.getInfectedColor().b));
+				break;
+			case 2:
+				m_settings.setInfectedColor(sf::Color(m_settings.getInfectedColor().r, m_settings.getInfectedColor().g - 1, m_settings.getInfectedColor().b));
+				break;
+			case 3:
+				m_settings.setInfectedColor(sf::Color(m_settings.getInfectedColor().r, m_settings.getInfectedColor().g, m_settings.getInfectedColor().b - 1));
+				break;
+			}
+		}
+		break;
+	case 3:
+		if (add)
+		{
+			switch (m_gameMenu.getSelectedItemIndex())
+			{
+			case 1:
+				m_settings.setResistantColor(sf::Color(m_settings.getResistantColor().r + 1, m_settings.getResistantColor().g, m_settings.getResistantColor().b));
+				break;
+			case 2:
+				m_settings.setResistantColor(sf::Color(m_settings.getResistantColor().r, m_settings.getResistantColor().g + 1, m_settings.getResistantColor().b));
+				break;
+			case 3:
+				m_settings.setResistantColor(sf::Color(m_settings.getResistantColor().r, m_settings.getResistantColor().g, m_settings.getResistantColor().b + 1));
+				break;
+			}
+		}
+		else
+		{
+			switch (m_gameMenu.getSelectedItemIndex())
+			{
+			case 1:
+				m_settings.setResistantColor(sf::Color(m_settings.getResistantColor().r - 1, m_settings.getResistantColor().g, m_settings.getResistantColor().b));
+				break;
+			case 2:
+				m_settings.setResistantColor(sf::Color(m_settings.getResistantColor().r, m_settings.getResistantColor().g - 1, m_settings.getResistantColor().b));
+				break;
+			case 3:
+				m_settings.setResistantColor(sf::Color(m_settings.getResistantColor().r, m_settings.getResistantColor().g, m_settings.getResistantColor().b - 1));
+				break;
+			}
+		}
+		break;
+	}
+}
+
 
 void EventCapture::updateInput() {
 	sf::Event event;
@@ -111,6 +236,10 @@ void EventCapture::updateInput() {
 		switch (event.type) {
 		case sf::Event::KeyPressed:
 			switch (event.key.code) {
+			case sf::Keyboard::H:
+				std::cout << "menu level: " << m_gameMenu.getMenuLevel() << std::endl;
+				std::cout << "stage: " << m_settings.getStage() << std::endl;
+				break;
 			case sf::Keyboard::I:
 				m_settings.toggleInfoVisibility();
 				break;
@@ -120,9 +249,9 @@ void EventCapture::updateInput() {
 				break;
 			case sf::Keyboard::W:
 			case sf::Keyboard::Up:
-				if (m_settings.getStage() == 0 || m_settings.getStage() == 3 || m_settings.getStage() == 4)
+				if (m_settings.getStage() == 0 || m_settings.getStage() == 3 || m_settings.getStage() == 4 || m_settings.getStage() == 5 || m_settings.getStage() == 6)
 					m_gameMenu.moveUp();
-				if (m_skinTab.getSizeY() != 1 && (m_settings.getStage() != 0 && m_settings.getStage() != 3 && m_settings.getStage() != 4))
+				if (m_skinTab.getSizeY() != 1 && (m_settings.getStage() != 0 && m_settings.getStage() != 3 && m_settings.getStage() != 4 && m_settings.getStage() != 5 && m_settings.getStage() != 6))
 				{
 					m_skinTab.setSize(m_skinTab.getSizeX(), m_skinTab.getSizeY() - 1);
 					m_skinTab.resizeTab();
@@ -131,27 +260,37 @@ void EventCapture::updateInput() {
 				break;
 			case sf::Keyboard::D:
 			case sf::Keyboard::Right:
-				if (m_skinTab.getSizeX() < 239 && (m_settings.getStage() != 0 && m_settings.getStage() != 3 && m_settings.getStage() != 4))
+				if (m_skinTab.getSizeX() < 239 && (m_settings.getStage() != 0 && m_settings.getStage() != 3 && m_settings.getStage() != 4 && m_settings.getStage() != 5 && m_settings.getStage() != 6))
 				{
 					m_skinTab.setSize(m_skinTab.getSizeX() + 1, m_skinTab.getSizeY());
 					m_skinTab.initRight();
 					drawStage(1);
 				}
+				if (m_settings.getStage() == 6)
+				{
+					changeColor(m_gameMenu.getColorPick(), true);
+					m_gameMenu.updateColorNumbers();
+				}
 				break;
 			case sf::Keyboard::A:
 			case sf::Keyboard::Left:
-				if (m_skinTab.getSizeX() != 1 && (m_settings.getStage() != 0 && m_settings.getStage() != 3 && m_settings.getStage() != 4))
+				if (m_skinTab.getSizeX() != 1 && (m_settings.getStage() != 0 && m_settings.getStage() != 3 && m_settings.getStage() != 4 && m_settings.getStage() != 5 && m_settings.getStage() != 6))
 				{
 					m_skinTab.setSize(m_skinTab.getSizeX() - 1, m_skinTab.getSizeY());
 					m_skinTab.resizeTab();
 					drawStage(1);
 				}
+				if (m_settings.getStage() == 6)
+				{
+					changeColor(m_gameMenu.getColorPick(), false);
+					m_gameMenu.updateColorNumbers();
+				}
 				break;
 			case sf::Keyboard::S:
 			case sf::Keyboard::Down:
-				if (m_settings.getStage() == 0 || m_settings.getStage() == 3 || m_settings.getStage() == 4)
+				if (m_settings.getStage() == 0 || m_settings.getStage() == 3 || m_settings.getStage() == 4 || m_settings.getStage() == 5 || m_settings.getStage() == 6)
 					m_gameMenu.moveDown();
-				if (m_skinTab.getSizeY() < 239 && (m_settings.getStage() != 0 && m_settings.getStage() != 3 && m_settings.getStage() != 4))
+				if (m_skinTab.getSizeY() < 239 && (m_settings.getStage() != 0 && m_settings.getStage() != 3 && m_settings.getStage() != 4 && m_settings.getStage() != 5 && m_settings.getStage() != 6))
 				{
 					m_skinTab.setSize(m_skinTab.getSizeX(), m_skinTab.getSizeY() + 1);
 					m_skinTab.initDown();
@@ -171,7 +310,7 @@ void EventCapture::updateInput() {
 				}
 				break;
 			case sf::Keyboard::Enter:
-				if (m_settings.getStage() == 0 || m_settings.getStage() == 3 || m_settings.getStage() == 4)
+				if (m_settings.getStage() == 0 || m_settings.getStage() == 3 || m_settings.getStage() == 4 || m_settings.getStage() == 5 || m_settings.getStage() == 6)
 				{
 					stageSwitch(m_gameMenu.MenuChoice(m_gameMenu.getSelectedItemIndex()));
 				}
@@ -203,12 +342,18 @@ void EventCapture::updateInput() {
 			break;
 
 		case sf::Event::MouseButtonPressed:
-			if (m_settings.getStage() == 0 || m_settings.getStage() == 3 || m_settings.getStage() == 4)
-			{
-				stageSwitch(m_gameMenu.handleMouseClick());
+			if (event.mouseButton.button == sf::Mouse::Left) {
+				if (m_settings.getStage() == 0 || m_settings.getStage() == 3 || m_settings.getStage() == 4 || m_settings.getStage() == 5)
+				{
+					stageSwitch(m_gameMenu.handleMouseClick());
+				}
+				else if (m_settings.getStage() == 2 || m_settings.getStage() == 1)
+					m_skinTab.handleMouseClick();
 			}
-			else if (m_settings.getStage() == 2 || m_settings.getStage() == 1)
-				m_skinTab.handleMouseClick();
+			else
+			{
+				
+			}
 			break;
 		}
 	}

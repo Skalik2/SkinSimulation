@@ -11,8 +11,8 @@ int WinMain() {
 	sf::VideoMode vm(viewSize.x, viewSize.y);
 	sf::RenderWindow window(vm, "Symulacja tkanki", sf::Style::Default);
 
-	Menu gameMenu(window);
 	Settings settings(window);
+	Menu gameMenu(window,settings);
 	CellArray skinTab(window, settings);
 	EventCapture eventCapture(window, settings, skinTab, gameMenu);
 
@@ -30,6 +30,7 @@ int WinMain() {
 		}
 		window.clear(sf::Color::Black);
 		eventCapture.drawStage(settings.getStage());
+
 		window.display();
 	}
 	return 0;

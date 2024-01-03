@@ -20,5 +20,6 @@ public:
 	void stageSwitch(int menuButton);
 	void drawStage(const int stage);
 	void updateInput();
+	void changeColor(int numberOfRect, bool add);
 };
 
