@@ -37,6 +37,22 @@ Settings::Settings(sf::RenderWindow& window)
 	m_infectionProbabilityNumber.setCharacterSize(20);
 	m_infectionProbabilityNumber.setPosition(sf::Vector2f(0, 20));
 
+	m_infectionTimeNumber.setFont(m_font);
+	m_infectionTimeNumber.setString(std::to_string(m_infectionTime));
+	m_infectionTimeNumber.setFillColor(sf::Color(0, 0, 0));
+	m_infectionTimeNumber.setOutlineColor(sf::Color(255, 255, 255));
+	m_infectionTimeNumber.setOutlineThickness(1);
+	m_infectionTimeNumber.setCharacterSize(20);
+	m_infectionTimeNumber.setPosition(sf::Vector2f(window.getSize().x - m_infectionTimeNumber.getGlobalBounds().getSize().x, 20));
+
+	m_resistantTimeNumber.setFont(m_font);
+	m_resistantTimeNumber.setString(std::to_string(m_infectionTime));
+	m_resistantTimeNumber.setFillColor(sf::Color(0, 0, 0));
+	m_resistantTimeNumber.setOutlineColor(sf::Color(255, 255, 255));
+	m_resistantTimeNumber.setOutlineThickness(1);
+	m_resistantTimeNumber.setCharacterSize(20);
+	m_resistantTimeNumber.setPosition(sf::Vector2f(window.getSize().x - m_resistantTimeNumber.getGlobalBounds().getSize().x, 20));
+
 	
 	m_aspectRatioInfo.setFont(m_font);
 	if (m_cellSymetricAspectRatio == true)
@@ -57,6 +73,12 @@ void Settings::drawFpsNumber()
 		m_fpsNumber.setString(std::to_string(m_fpsLimit) + "Fps");
 		m_infectionProbabilityNumber.setString(std::to_string(m_infectionProbability) + "%");
 		m_aspectRatioInfo.setPosition(sf::Vector2f(0, m_window.getSize().y - 30));
+		m_infectionTimeNumber.setString("czas infekcji: "+std::to_string(m_infectionTime));
+		m_resistantTimeNumber.setString("czas odpornosci: "+std::to_string(m_resistantTime));
+
+		m_infectionTimeNumber.setPosition(sf::Vector2f(m_window.getSize().x - m_infectionTimeNumber.getGlobalBounds().getSize().x, 10));
+
+		m_resistantTimeNumber.setPosition(sf::Vector2f(m_window.getSize().x - m_resistantTimeNumber.getGlobalBounds().getSize().x, 30));
 		if (m_cellSymetricAspectRatio == true)
 			m_aspectRatioInfo.setString("AspectRatio : true");
 		else
@@ -64,6 +86,8 @@ void Settings::drawFpsNumber()
 		m_window.draw(m_infectionProbabilityNumber);
 		m_window.draw(m_fpsNumber);
 		m_window.draw(m_aspectRatioInfo);
+		m_window.draw(m_infectionTimeNumber);
+		m_window.draw(m_resistantTimeNumber);
 
 	}
 }
@@ -110,7 +134,8 @@ int Settings::getInfectionTime() const
 
 void Settings::setInfetcionTime(const int number)
 {
-	m_infectionTime = number;
+	if (number >= 1)
+		m_infectionTime = number;
 }
 
 int Settings::getResistantTime() const
@@ -120,7 +145,8 @@ int Settings::getResistantTime() const
 
 void Settings::setResistantTime(const int number)
 {
-	m_resistantTime = number;
+	if (number >= 1)
+		m_resistantTime = number;
 }
 
 int Settings::getInfectionProbability() const

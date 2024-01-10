@@ -302,7 +302,6 @@ void EventCapture::updateInput() {
 				}
 				break;
 			case sf::Keyboard::Escape:
-			case sf::Keyboard::M:
 				if (m_settings.getStage() == 0 && m_gameActive == true)
 					m_settings.setStage(1);
 				else
@@ -318,6 +317,18 @@ void EventCapture::updateInput() {
 				{
 					stageSwitch(m_gameMenu.MenuChoice(m_gameMenu.getSelectedItemIndex()));
 				}
+				break;
+			case sf::Keyboard::N:
+				m_settings.setResistantTime(m_settings.getResistantTime() - 1);
+				break;
+			case sf::Keyboard::M:
+				m_settings.setResistantTime(m_settings.getResistantTime() + 1);
+				break;
+			case sf::Keyboard::V:
+				m_settings.setInfetcionTime(m_settings.getInfectionTime() - 1);
+				break;
+			case sf::Keyboard::B:
+				m_settings.setInfetcionTime(m_settings.getInfectionTime() + 1);
 				break;
 			case sf::Keyboard::O:
 				m_settings.subProbability();

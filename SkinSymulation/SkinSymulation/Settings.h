@@ -14,6 +14,8 @@ class Settings
 	sf::Text m_fpsNumber;
 	sf::Text m_infectionProbabilityNumber;
 	sf::Text m_aspectRatioInfo;
+	sf::Text m_infectionTimeNumber;
+	sf::Text m_resistantTimeNumber;
 	sf::Font m_font;
 	int m_timeUnit;
 	int m_infectionTime;
