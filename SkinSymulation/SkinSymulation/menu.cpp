@@ -25,7 +25,7 @@ void Menu::menuInit()
     }
     m_menu[0].setFillColor(sf::Color::Red);
 
-    for (int i = 0; i < m_SETTINGS_ITEMS; ++i)
+    for (int i = 0; i < m_SETTINGS_ITEMS2; ++i)
     {
         m_menu2[i].setFont(m_font);
         m_menu2[i].setCharacterSize(50);
@@ -50,7 +50,7 @@ void Menu::menuInit()
     m_s2.setPosition(m_window.getSize().x / 2 - 75 + 120, m_window.getSize().y / 2 + 50);
 
 
-    for (int i = 0; i < m_SETTINGS_ITEMS2; i++)
+    for (int i = 0; i < m_SETTINGS_ITEMS3; i++)
     {
         m_menu3[i].setFont(m_font);
         m_menu3[i].setCharacterSize(i == 0 ? 50 : 30);
@@ -72,7 +72,7 @@ void Menu::menuInit()
     }
     m_menu3[0].setFillColor(sf::Color::Red);
 
-    for (int i = 0; i < m_SETTINGS_ITEMS3; i++)
+    for (int i = 0; i < m_SETTINGS_ITEMS4; i++)
     {
         m_menu4[i].setFont(m_font);
         m_menu4[i].setCharacterSize(i == 0 ? 50 : 30);
@@ -97,7 +97,7 @@ void Menu::menuInit()
     }
     m_menu4[0].setFillColor(sf::Color::Red);
 
-    for (int i = 0; i < m_SETTINGS_ITEMS4; i++)
+    for (int i = 0; i < m_SETTINGS_ITEMS5; i++)
     {
         m_menu5[i].setFont(m_font);
         m_menu5[i].setCharacterSize(i == 0 ? 50 : 30);
@@ -134,7 +134,7 @@ void Menu::menuInit()
     m_rec3.setPosition(m_window.getSize().x / 2 - m_rec1.getGlobalBounds().width / 2 + 150, m_window.getSize().y / 1.6f);
     m_rec3.setFillColor(m_settings.getResistantColor());
 
-    for (int i = 0; i < m_SETTINGS_ITEMS5; i++)
+    for (int i = 0; i < m_SETTINGS_ITEMS6; i++)
     {
         m_menu6[i].setFont(m_font);
         m_menu6[i].setCharacterSize(50);
@@ -166,7 +166,7 @@ void Menu::drawSettings()
 {
     m_window.draw(m_title);
 
-    for (int i = 0; i < m_SETTINGS_ITEMS; ++i) {
+    for (int i = 0; i < m_SETTINGS_ITEMS2; ++i) {
         m_window.draw(m_menu2[i]);
     }
 }
@@ -175,7 +175,7 @@ void Menu::drawSettingsInfectType()
 {
     m_window.draw(m_title);
 
-    for (int i = 0; i < m_SETTINGS_ITEMS2; ++i) {
+    for (int i = 0; i < m_SETTINGS_ITEMS3; ++i) {
         m_window.draw(m_menu3[i]);
     }
 
@@ -186,7 +186,7 @@ void Menu::drawSettingsInfectType()
 void Menu::drawSettingsColorPicker()
 {
     m_window.draw(m_title);
-    for (int i = 0; i < m_SETTINGS_ITEMS3; ++i) {
+    for (int i = 0; i < m_SETTINGS_ITEMS4; ++i) {
         m_window.draw(m_menu4[i]);
     }
     m_window.draw(m_rec1);
@@ -197,7 +197,7 @@ void Menu::drawSettingsColorPicker()
 void Menu::drawChooseSetingsColor(int number)
 {
     m_window.draw(m_title);
-    for (int i = 0; i < m_SETTINGS_ITEMS4; ++i) {
+    for (int i = 0; i < m_SETTINGS_ITEMS5; ++i) {
         m_window.draw(m_menu5[i]);
     }
     m_window.draw(number == 1 ? m_rec1 : number == 2 ? m_rec2 : m_rec3);
@@ -206,7 +206,7 @@ void Menu::drawChooseSetingsColor(int number)
 void Menu::drawAdvancedSettings()
 {
     m_window.draw(m_title);
-    for (int i = 0; i < m_SETTINGS_ITEMS5; ++i) {
+    for (int i = 0; i < m_SETTINGS_ITEMS6; ++i) {
         m_window.draw(m_menu6[i]);
     }
 }
@@ -272,35 +272,35 @@ void Menu::moveDown() {
         }
     break;
     case 1:
-        if (m_selectedItemIndex + 1 < m_SETTINGS_ITEMS) {
+        if (m_selectedItemIndex + 1 < m_SETTINGS_ITEMS2) {
             m_menu2[m_selectedItemIndex].setFillColor(sf::Color::White);
             m_selectedItemIndex++;
             m_menu2[m_selectedItemIndex].setFillColor(sf::Color::Red);
         }
     break;
     case 2:
-        if (m_selectedItemIndex + 1 < m_SETTINGS_ITEMS2) {
+        if (m_selectedItemIndex + 1 < m_SETTINGS_ITEMS3) {
             m_menu3[m_selectedItemIndex].setFillColor(sf::Color::White);
             m_selectedItemIndex++;
             m_menu3[m_selectedItemIndex].setFillColor(sf::Color::Red);
         }
         break;
     case 3:
-        if (m_selectedItemIndex + 1 < m_SETTINGS_ITEMS3) {
+        if (m_selectedItemIndex + 1 < m_SETTINGS_ITEMS4) {
             m_menu4[m_selectedItemIndex].setFillColor(sf::Color::White);
             m_selectedItemIndex++;
             m_menu4[m_selectedItemIndex].setFillColor(sf::Color::Red);
         }
         break;
     case 4:
-        if (m_selectedItemIndex + 1 < m_SETTINGS_ITEMS4) {
+        if (m_selectedItemIndex + 1 < m_SETTINGS_ITEMS5) {
             m_menu5[m_selectedItemIndex].setFillColor(sf::Color::White);
             m_selectedItemIndex++;
             m_menu5[m_selectedItemIndex].setFillColor(sf::Color::Red);
         }
         break;
     case 5:
-        if (m_selectedItemIndex + 1 < m_SETTINGS_ITEMS5) {
+        if (m_selectedItemIndex + 1 < m_SETTINGS_ITEMS6) {
             m_menu6[m_selectedItemIndex].setFillColor(sf::Color::White);
             m_selectedItemIndex++;
             m_menu6[m_selectedItemIndex].setFillColor(sf::Color::Red);
@@ -336,12 +336,12 @@ int Menu::handleMouseClick() {
         }
         break;
     case 1:
-        for (int i = 0; i < m_SETTINGS_ITEMS; ++i) 
+        for (int i = 0; i < m_SETTINGS_ITEMS2; ++i) 
         {
             if (m_menu2[i].getGlobalBounds().contains(static_cast<sf::Vector2f>(mousePosition))) 
             {
                 m_selectedItemIndex = i;
-                for (int j = 0; j < m_SETTINGS_ITEMS; ++j) 
+                for (int j = 0; j < m_SETTINGS_ITEMS2; ++j) 
                 {
                     m_menu2[j].setFillColor(sf::Color::White);
                 }
@@ -352,12 +352,12 @@ int Menu::handleMouseClick() {
         }
         break;
     case 2:
-        for (int i = 0; i < m_SETTINGS_ITEMS2; ++i) 
+        for (int i = 0; i < m_SETTINGS_ITEMS3; ++i) 
         {
             if (m_menu3[i].getGlobalBounds().contains(static_cast<sf::Vector2f>(mousePosition))) 
             {
                 m_selectedItemIndex = i;
-                for (int j = 0; j < m_SETTINGS_ITEMS2; ++j) 
+                for (int j = 0; j < m_SETTINGS_ITEMS3; ++j) 
                 {
                     m_menu3[j].setFillColor(sf::Color::White);
                 }
@@ -368,12 +368,12 @@ int Menu::handleMouseClick() {
         }
         break;
     case 3:
-        for (int i = 0; i < m_SETTINGS_ITEMS3; ++i)
+        for (int i = 0; i < m_SETTINGS_ITEMS4; ++i)
         {
             if (m_menu4[i].getGlobalBounds().contains(static_cast<sf::Vector2f>(mousePosition)))
             {
                 m_selectedItemIndex = i;
-                for (int j = 0; j < m_SETTINGS_ITEMS3; ++j)
+                for (int j = 0; j < m_SETTINGS_ITEMS4; ++j)
                 {
                     m_menu4[j].setFillColor(sf::Color::White);
                 }
@@ -384,12 +384,12 @@ int Menu::handleMouseClick() {
         }
         break;
     case 4:
-        for (int i = 0; i < m_SETTINGS_ITEMS4; ++i)
+        for (int i = 0; i < m_SETTINGS_ITEMS5; ++i)
         {
             if (m_menu5[i].getGlobalBounds().contains(static_cast<sf::Vector2f>(mousePosition)))
             {
                 m_selectedItemIndex = i;
-                for (int j = 0; j < m_SETTINGS_ITEMS4; ++j)
+                for (int j = 0; j < m_SETTINGS_ITEMS5; ++j)
                 {
                     m_menu5[j].setFillColor(sf::Color::White);
                 }
@@ -401,12 +401,12 @@ int Menu::handleMouseClick() {
         }
         break;
     case 5:
-        for (int i = 0; i < m_SETTINGS_ITEMS5; ++i)
+        for (int i = 0; i < m_SETTINGS_ITEMS6; ++i)
         {
             if (m_menu6[i].getGlobalBounds().contains(static_cast<sf::Vector2f>(mousePosition)))
             {
                 m_selectedItemIndex = i;
-                for (int j = 0; j < m_SETTINGS_ITEMS5; ++j)
+                for (int j = 0; j < m_SETTINGS_ITEMS6; ++j)
                 {
                     m_menu6[j].setFillColor(sf::Color::White);
                 }
@@ -434,27 +434,27 @@ void Menu::clearMenuLevel()
         m_menu[i].setFillColor(sf::Color::White);
     }
     m_menu[m_selectedItemIndex].setFillColor(sf::Color::Red);
-    for (int i = 0; i < m_SETTINGS_ITEMS; ++i)
+    for (int i = 0; i < m_SETTINGS_ITEMS2; ++i)
     {
         m_menu2[i].setFillColor(sf::Color::White);
     }
     m_menu2[m_selectedItemIndex].setFillColor(sf::Color::Red);
-    for (int i = 0; i < m_SETTINGS_ITEMS2; ++i)
+    for (int i = 0; i < m_SETTINGS_ITEMS3; ++i)
     {
         m_menu3[i].setFillColor(sf::Color::White);
     }
     m_menu3[m_selectedItemIndex].setFillColor(sf::Color::Red);
-    for (int i = 0; i < m_SETTINGS_ITEMS3; ++i)
+    for (int i = 0; i < m_SETTINGS_ITEMS4; ++i)
     {
         m_menu4[i].setFillColor(sf::Color::White);
     }
     m_menu4[m_selectedItemIndex].setFillColor(sf::Color::Red);
-    for (int i = 0; i < m_SETTINGS_ITEMS4; ++i)
+    for (int i = 0; i < m_SETTINGS_ITEMS5; ++i)
     {
         m_menu5[i].setFillColor(sf::Color::White);
     }
     m_menu5[m_selectedItemIndex].setFillColor(sf::Color::Red);
-    for (int i = 0; i < m_SETTINGS_ITEMS5; ++i)
+    for (int i = 0; i < m_SETTINGS_ITEMS6; ++i)
     {
         m_menu6[i].setFillColor(sf::Color::White);
     }
@@ -480,7 +480,7 @@ void Menu::resize()
         m_menu[i].setPosition(m_window.getSize().x / 2 - m_menu[i].getGlobalBounds().width / 2, 300 + i * 80);
     }
 
-    for (int i = 0; i < m_SETTINGS_ITEMS; ++i)
+    for (int i = 0; i < m_SETTINGS_ITEMS2; ++i)
     {
         m_menu2[i].setPosition(m_window.getSize().x / 2 - m_menu2[i].getGlobalBounds().width / 2, 300 + i * 80);
     }
@@ -488,7 +488,7 @@ void Menu::resize()
     m_s1.setPosition(m_window.getSize().x / 2 - 75 - 120, m_window.getSize().y / 2 + 50);
     m_s2.setPosition(m_window.getSize().x / 2 - 75 + 120, m_window.getSize().y / 2 + 50);
 
-    for (int i = 0; i < m_SETTINGS_ITEMS2; i++)
+    for (int i = 0; i < m_SETTINGS_ITEMS3; i++)
     {
         m_menu3[i].setPosition(
             i == 0 ?
@@ -504,7 +504,7 @@ void Menu::resize()
             m_window.getSize().y / 2.0f
         );
     }
-    for (int i = 0; i < m_SETTINGS_ITEMS3; i++)
+    for (int i = 0; i < m_SETTINGS_ITEMS4; i++)
     {
         m_menu4[i].setPosition(
             i == 0 ?
@@ -523,7 +523,7 @@ void Menu::resize()
             m_window.getSize().y / 2.0f
         );
     }
-    for (int i = 0; i < m_SETTINGS_ITEMS4; i++)
+    for (int i = 0; i < m_SETTINGS_ITEMS5; i++)
     {
         m_menu5[i].setCharacterSize(i == 0 ? 50 : 30);
         m_menu5[i].setPosition(
