@@ -109,13 +109,11 @@ void EventCapture::stageSwitch(int menuButton)
 		m_gameMenu.clearMenuLevel();
 		m_gameMenu.setMenuLevel(3);
 		m_settings.setStage(5);
-		drawStage(m_settings.getStage());
 		break;
 	case 9: //color pick
 		m_gameMenu.clearMenuLevel();
 		m_gameMenu.setMenuLevel(4);
 		m_settings.setStage(6);
-		drawStage(m_settings.getStage());
 		break;
 	}
 }

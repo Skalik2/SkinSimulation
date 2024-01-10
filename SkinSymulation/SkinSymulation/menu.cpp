@@ -90,9 +90,9 @@ void Menu::menuInit()
                     :
                     m_window.getSize().x / 2 - m_menu3[i].getGlobalBounds().width / 2 + 150)),
             i == 0 ?
-            m_window.getSize().y / 3.0f
+            300
             :
-            m_window.getSize().y / 2.0f
+            m_window.getSize().y / 1.8f
         );
     }
     m_menu4[0].setFillColor(sf::Color::Red);
@@ -115,9 +115,9 @@ void Menu::menuInit()
                     :
                     m_window.getSize().x / 2 - m_menu5[i].getGlobalBounds().width / 2 + 150)),
             i == 0 ?
-            m_window.getSize().y / 3.0f
+            300
             :
-            m_window.getSize().y / 2.0f
+            m_window.getSize().y / 1.8f
         );
     }
     m_menu5[0].setFillColor(sf::Color::Red);
@@ -518,9 +518,9 @@ void Menu::resize()
                     :
                     m_window.getSize().x / 2 - m_menu4[i].getGlobalBounds().width / 2 + 150)),
             i == 0 ?
-            m_window.getSize().y / 3.0f
+            300
             :
-            m_window.getSize().y / 2.0f
+            m_window.getSize().y / 1.8f
         );
     }
     for (int i = 0; i < m_SETTINGS_ITEMS5; i++)
@@ -538,9 +538,9 @@ void Menu::resize()
                     :
                     m_window.getSize().x / 2 - m_menu5[i].getGlobalBounds().width / 2 + 150)),
             i == 0 ?
-            m_window.getSize().y / 3.0f
+            300
             :
-            m_window.getSize().y / 2.0f
+            m_window.getSize().y / 1.8f
         );
     }
 
@@ -548,6 +548,10 @@ void Menu::resize()
     m_rec2.setPosition(m_window.getSize().x / 2 - m_rec1.getGlobalBounds().width / 2, m_window.getSize().y / 1.6f);
     m_rec3.setPosition(m_window.getSize().x / 2 - m_rec1.getGlobalBounds().width / 2 + 150, m_window.getSize().y / 1.6f);
 
+    for (int i = 0; i < m_SETTINGS_ITEMS6; i++)
+    {
+        m_menu6[i].setPosition(m_window.getSize().x / 2 - m_menu6[i].getGlobalBounds().width / 2, 300 + i * 60);
+    }
 }
 
 void Menu::updateColorNumbers()
