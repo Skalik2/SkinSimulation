@@ -36,6 +36,18 @@ Settings::Settings(sf::RenderWindow& window)
 	m_infectionProbabilityNumber.setOutlineThickness(1);
 	m_infectionProbabilityNumber.setCharacterSize(20);
 	m_infectionProbabilityNumber.setPosition(sf::Vector2f(0, 20));
+
+	
+	m_aspectRatioInfo.setFont(m_font);
+	if (m_cellSymetricAspectRatio == true)
+		m_aspectRatioInfo.setString("AspectRatio : true");
+	else
+		m_aspectRatioInfo.setString("AspectRatio : false");
+	m_aspectRatioInfo.setFillColor(sf::Color(0, 0, 0));
+	m_aspectRatioInfo.setOutlineColor(sf::Color(255, 255, 255));
+	m_aspectRatioInfo.setOutlineThickness(1);
+	m_aspectRatioInfo.setCharacterSize(20);
+	m_aspectRatioInfo.setPosition(sf::Vector2f(0, m_window.getSize().y - 30));
 }
 
 void Settings::drawFpsNumber()
@@ -44,8 +56,15 @@ void Settings::drawFpsNumber()
 	{
 		m_fpsNumber.setString(std::to_string(m_fpsLimit) + "Fps");
 		m_infectionProbabilityNumber.setString(std::to_string(m_infectionProbability) + "%");
+		m_aspectRatioInfo.setPosition(sf::Vector2f(0, m_window.getSize().y - 30));
+		if (m_cellSymetricAspectRatio == true)
+			m_aspectRatioInfo.setString("AspectRatio : true");
+		else
+			m_aspectRatioInfo.setString("AspectRatio : false");
 		m_window.draw(m_infectionProbabilityNumber);
 		m_window.draw(m_fpsNumber);
+		m_window.draw(m_aspectRatioInfo);
+
 	}
 }
 

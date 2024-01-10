@@ -42,6 +42,9 @@ void EventCapture::drawStage(int stage) {
 	case 6:
 		m_gameMenu.drawChooseSetingsColor(m_gameMenu.getColorPick());
 		break;
+	case 7:
+		m_gameMenu.drawAdvancedSettings();
+		break;
 	}
 }
 
@@ -97,6 +100,9 @@ void EventCapture::stageSwitch(int menuButton)
 		drawStage(m_settings.getStage());
 		break;
 	case 7: 
+		m_gameMenu.clearMenuLevel();
+		m_gameMenu.setMenuLevel(5);
+		m_settings.setStage(7);
 		break;
 	case 8: // color menu
 		m_skinTab.resizeTab();
@@ -249,9 +255,9 @@ void EventCapture::updateInput() {
 				break;
 			case sf::Keyboard::W:
 			case sf::Keyboard::Up:
-				if (m_settings.getStage() == 0 || m_settings.getStage() == 3 || m_settings.getStage() == 4 || m_settings.getStage() == 5 || m_settings.getStage() == 6)
+				if (m_settings.getStage() != 1 && m_settings.getStage() != 2)
 					m_gameMenu.moveUp();
-				if (m_skinTab.getSizeY() != 1 && (m_settings.getStage() != 0 && m_settings.getStage() != 3 && m_settings.getStage() != 4 && m_settings.getStage() != 5 && m_settings.getStage() != 6))
+				if (m_skinTab.getSizeY() != 1 && (m_settings.getStage() == 2 || m_settings.getStage() == 1))
 				{
 					m_skinTab.setSize(m_skinTab.getSizeX(), m_skinTab.getSizeY() - 1);
 					m_skinTab.resizeTab();
@@ -260,7 +266,7 @@ void EventCapture::updateInput() {
 				break;
 			case sf::Keyboard::D:
 			case sf::Keyboard::Right:
-				if (m_skinTab.getSizeX() < 239 && (m_settings.getStage() != 0 && m_settings.getStage() != 3 && m_settings.getStage() != 4 && m_settings.getStage() != 5 && m_settings.getStage() != 6))
+				if (m_skinTab.getSizeX() < 239 && (m_settings.getStage() == 1 || m_settings.getStage() == 2))
 				{
 					m_skinTab.setSize(m_skinTab.getSizeX() + 1, m_skinTab.getSizeY());
 					m_skinTab.initRight();
@@ -274,7 +280,7 @@ void EventCapture::updateInput() {
 				break;
 			case sf::Keyboard::A:
 			case sf::Keyboard::Left:
-				if (m_skinTab.getSizeX() != 1 && (m_settings.getStage() != 0 && m_settings.getStage() != 3 && m_settings.getStage() != 4 && m_settings.getStage() != 5 && m_settings.getStage() != 6))
+				if (m_skinTab.getSizeX() != 1 && (m_settings.getStage() == 1 || m_settings.getStage() == 2))
 				{
 					m_skinTab.setSize(m_skinTab.getSizeX() - 1, m_skinTab.getSizeY());
 					m_skinTab.resizeTab();
@@ -288,9 +294,9 @@ void EventCapture::updateInput() {
 				break;
 			case sf::Keyboard::S:
 			case sf::Keyboard::Down:
-				if (m_settings.getStage() == 0 || m_settings.getStage() == 3 || m_settings.getStage() == 4 || m_settings.getStage() == 5 || m_settings.getStage() == 6)
+				if (m_settings.getStage() != 1 && m_settings.getStage() != 2)
 					m_gameMenu.moveDown();
-				if (m_skinTab.getSizeY() < 239 && (m_settings.getStage() != 0 && m_settings.getStage() != 3 && m_settings.getStage() != 4 && m_settings.getStage() != 5 && m_settings.getStage() != 6))
+				if (m_skinTab.getSizeY() < 239 && (m_settings.getStage() == 2 || m_settings.getStage() == 1))
 				{
 					m_skinTab.setSize(m_skinTab.getSizeX(), m_skinTab.getSizeY() + 1);
 					m_skinTab.initDown();
@@ -310,7 +316,7 @@ void EventCapture::updateInput() {
 				}
 				break;
 			case sf::Keyboard::Enter:
-				if (m_settings.getStage() == 0 || m_settings.getStage() == 3 || m_settings.getStage() == 4 || m_settings.getStage() == 5 || m_settings.getStage() == 6)
+				if (m_settings.getStage() != 1 && m_settings.getStage() != 2)
 				{
 					stageSwitch(m_gameMenu.MenuChoice(m_gameMenu.getSelectedItemIndex()));
 				}
@@ -343,16 +349,17 @@ void EventCapture::updateInput() {
 
 		case sf::Event::MouseButtonPressed:
 			if (event.mouseButton.button == sf::Mouse::Left) {
-				if (m_settings.getStage() == 0 || m_settings.getStage() == 3 || m_settings.getStage() == 4 || m_settings.getStage() == 5)
+				if (m_settings.getStage() != 1 && m_settings.getStage() != 2)
 				{
 					stageSwitch(m_gameMenu.handleMouseClick());
 				}
 				else if (m_settings.getStage() == 2 || m_settings.getStage() == 1)
-					m_skinTab.handleMouseClick();
+					m_skinTab.handleMouseClick(0);
 			}
-			else
+			else if (event.mouseButton.button == sf::Mouse::Right)
 			{
-				
+				if (m_settings.getStage() == 2 || m_settings.getStage() == 1)
+					m_skinTab.handleMouseClick(1);
 			}
 			break;
 		}
