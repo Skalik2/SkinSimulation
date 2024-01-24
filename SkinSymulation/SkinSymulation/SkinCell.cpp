@@ -19,7 +19,7 @@ void SkinCell::init(const sf::Vector2f& size,const sf::Vector2f& position, int s
 	setStateCell(state);
 	setAbleToInfect(0);
 	setTimeUnit(0);
-	m_targetColor = sf::Color(0, 0, 0, 255);
+	m_targetColor = basicHealthyColor;
 }
 
 
@@ -35,9 +35,9 @@ void SkinCell::updateSize(sf::Vector2f size)
 
 void SkinCell::update(int infectTime, int resistTime)
 {
-	if (getTargetColor().r == 0 &&
-		getTargetColor().g == 0 &&
-		getTargetColor().b == 0)
+	if (getTargetColor().r == m_shape.getFillColor().r &&
+		getTargetColor().g == m_shape.getFillColor().g &&
+		getTargetColor().b == m_shape.getFillColor().b)
 	{
 
 	}
@@ -68,7 +68,7 @@ void SkinCell::update(int infectTime, int resistTime)
 				m_stateOfCell = 1;
 			}
 		}																																											
-		else if (m_timeUnit > infectTime && m_timeUnit <= (infectTime + resistTime))
+		else if (m_timeUnit -1 > infectTime && m_timeUnit <= (infectTime + resistTime))
 		{
 			m_shape.setFillColor(sf::Color(
 				m_shape.getFillColor().r + std::floor(((m_targetColor.r - m_shape.getFillColor().r) / resistTime)),
@@ -76,7 +76,7 @@ void SkinCell::update(int infectTime, int resistTime)
 				m_shape.getFillColor().b + std::floor(((m_targetColor.b - m_shape.getFillColor().b) / resistTime)),
 				255));
 			if (m_timeUnit == (infectTime + resistTime))
-			{
+			{ 
 				m_shape.setFillColor(sf::Color(
 					m_targetColor.r,
 					m_targetColor.g,

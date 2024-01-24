@@ -23,6 +23,7 @@ class Settings
 	int m_infectionProbability;
 	bool m_infoVisibility;
 	bool m_cellSymetricAspectRatio;
+	bool m_isHelpWindowOpen;
 public:
 	Settings(sf::RenderWindow& window);
 	void setStage(const int number);
@@ -44,6 +45,8 @@ public:
 	void toggleInfoVisibility();
 	bool getIfCellSymetricAspectRatio();
 	void toggleSymetricAspectRatio();
+	bool getIsWindowHelpOpen();
+	void toggleIsWindowHelpOpen();
 	void setInfectedColor(const sf::Color color);
 	void setResistantColor(const sf::Color color);
 	void setHealthyColor(const sf::Color color);

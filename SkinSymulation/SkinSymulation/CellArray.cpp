@@ -148,7 +148,7 @@ void CellArray::update(int infectTime, int resistTime)
     }
 }
 
-int CellArray::handleMouseClick(bool mode) {
+int CellArray::handleMouseClick() {
     sf::Vector2i mousePosition = sf::Mouse::getPosition(m_window);
 
     for (auto& innerTab : m_skinCellTab) {
@@ -156,18 +156,9 @@ int CellArray::handleMouseClick(bool mode) {
             sf::RectangleShape currentCell = el.getShape();
             if (currentCell.getGlobalBounds().contains(static_cast<sf::Vector2f>(mousePosition)))
             {
-                if (mode)
-                {
-                    el.setTimeUnit(m_settings.getResistantTime() + m_settings.getInfectionTime()+1);
-                    el.setStateCell(1);
-                    el.setAbleToInfect(1);
-                }
-                else
-                {
-                    el.setTargetColor(m_settings.getInfectedColor());
-                    el.setStateCell(1);
-                    el.setAbleToInfect(1);
-                } 
+                el.setTargetColor(m_settings.getInfectedColor());
+                el.setStateCell(1);
+                el.setAbleToInfect(1);
             }
         }
     }

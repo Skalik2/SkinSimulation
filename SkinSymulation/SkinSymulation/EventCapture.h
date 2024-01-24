@@ -3,10 +3,12 @@
 #include <string.h>
 #include <iostream>
 #include <vector>
+#include <thread>
 
 #include "CellArray.h"
 #include "menu.h"
 #include "Settings.h"
+#include "windowHelp.h"
 
 class EventCapture
 {

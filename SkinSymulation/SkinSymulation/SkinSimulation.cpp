@@ -5,12 +5,14 @@
 #include "menu.h"
 #include "Settings.h"
 #include "EventCapture.h"
+#include "windowHelp.h"
+
 
 int WinMain() {
 	sf::Vector2f viewSize(720, 720);
 	sf::VideoMode vm(viewSize.x, viewSize.y);
 	sf::RenderWindow window(vm, "Symulacja tkanki", sf::Style::Default);
-
+	
 	Settings settings(window);
 	Menu gameMenu(window,settings);
 	CellArray skinTab(window, settings);
@@ -19,6 +21,7 @@ int WinMain() {
 	srand(static_cast<unsigned>(time(NULL)));
 	sf::Clock clock;
 	window.setFramerateLimit(128);
+
 	while (window.isOpen()) 
 	{
 		eventCapture.updateInput();

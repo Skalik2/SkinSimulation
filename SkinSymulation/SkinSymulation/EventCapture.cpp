@@ -241,8 +241,8 @@ void EventCapture::updateInput() {
 		case sf::Event::KeyPressed:
 			switch (event.key.code) {
 			case sf::Keyboard::H:
-				std::cout << "menu level: " << m_gameMenu.getMenuLevel() << std::endl;
-				std::cout << "stage: " << m_settings.getStage() << std::endl;
+				m_settings.toggleIsWindowHelpOpen();
+				secondWindow(m_settings);
 				break;
 			case sf::Keyboard::I:
 				m_settings.toggleInfoVisibility();
@@ -363,12 +363,7 @@ void EventCapture::updateInput() {
 					stageSwitch(m_gameMenu.handleMouseClick());
 				}
 				else if (m_settings.getStage() == 2 || m_settings.getStage() == 1)
-					m_skinTab.handleMouseClick(0);
-			}
-			else if (event.mouseButton.button == sf::Mouse::Right)
-			{
-				if (m_settings.getStage() == 2 || m_settings.getStage() == 1)
-					m_skinTab.handleMouseClick(1);
+					m_skinTab.handleMouseClick();
 			}
 			break;
 		}

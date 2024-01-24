@@ -158,11 +158,13 @@
     <ClCompile Include="Settings.cpp" />
     <ClCompile Include="SkinCell.cpp" />
     <ClCompile Include="SkinSimulation.cpp" />
+    <ClCompile Include="windowHelp.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CellArray.h" />
     <ClInclude Include="EventCapture.h" />
     <ClInclude Include="menu.h" />
+    <ClInclude Include="windowHelp.h" />
     <ClInclude Include="Settings.h" />
     <ClInclude Include="SkinCell.h" />
   </ItemGroup>

@@ -12,7 +12,7 @@ class CellArray
 	std::vector<std::vector<SkinCell>> m_skinCellTab;
 public:
 	CellArray(sf::RenderWindow& window, Settings& settings);
-	int handleMouseClick(bool mode);
+	int handleMouseClick();
 	void setSize(int x, int y);
 	void init();
 	void initRight();

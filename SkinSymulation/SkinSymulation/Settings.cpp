@@ -10,8 +10,9 @@ Settings::Settings(sf::RenderWindow& window)
 	, m_fpsLimit(2)
 	, m_infectionTime(8)
 	, m_resistantTime(4)
-	, m_timeUnit(500)
+	, m_timeUnit(500) 
 	, m_infectionProbability(50)
+	, m_isHelpWindowOpen(true)
 	, m_infoVisibility(true)
 	, m_cellSymetricAspectRatio(false)
 	, m_healthyColor(DEFAULT_HEALTHY_COLOR)
@@ -209,6 +210,19 @@ void Settings::setResistantColor(const sf::Color color)
 void Settings::setHealthyColor(const sf::Color color)
 {
 	m_healthyColor = color;
+}
+
+bool Settings::getIsWindowHelpOpen()
+{
+	return m_isHelpWindowOpen;
+}
+
+void Settings::toggleIsWindowHelpOpen()
+{
+	if (m_isHelpWindowOpen)
+		m_isHelpWindowOpen = false;
+	else
+		m_isHelpWindowOpen = true;	
 }
 
 sf::Color Settings::getInfectedColor() const
