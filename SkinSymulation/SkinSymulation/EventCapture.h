@@ -18,6 +18,8 @@ class EventCapture
 	CellArray& m_skinTab;
 	sf::RenderWindow& m_window;
 public:
+	std::thread thread;
+	bool isRunning = false;
 	EventCapture(sf::RenderWindow& window, Settings& settings, CellArray& skinTab, Menu& gameMenu);
 	void stageSwitch(int menuButton);
 	void drawStage(const int stage);

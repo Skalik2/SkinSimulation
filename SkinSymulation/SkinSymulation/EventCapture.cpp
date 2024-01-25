@@ -42,9 +42,6 @@ void EventCapture::drawStage(int stage) {
 	case 6:
 		m_gameMenu.drawChooseSetingsColor(m_gameMenu.getColorPick());
 		break;
-	case 7:
-		m_gameMenu.drawAdvancedSettings();
-		break;
 	}
 }
 
@@ -224,6 +221,11 @@ void EventCapture::changeColor(int numberOfRect, bool add)
 
 void EventCapture::updateInput() {
 	sf::Event event;
+	if (!m_settings.getIsWindowHelpOpen() and isRunning)
+	{
+		isRunning = false;
+		thread.join();
+	}
 	while (m_window.pollEvent(event)) {
 
 		if (event.type == sf::Event::Closed)
@@ -241,8 +243,21 @@ void EventCapture::updateInput() {
 		case sf::Event::KeyPressed:
 			switch (event.key.code) {
 			case sf::Keyboard::H:
-				m_settings.toggleIsWindowHelpOpen();
-				secondWindow(m_settings);
+				if (!isRunning)
+				{
+					m_settings.toggleIsWindowHelpOpen();
+					isRunning = true;
+					thread = std::thread (OpenWindow, std::ref(m_settings));
+				}
+				else
+				{
+					if (m_settings.getIsWindowHelpOpen())
+					{
+						m_settings.toggleIsWindowHelpOpen();
+					}
+					isRunning = false;
+					thread.join();
+				}
 				break;
 			case sf::Keyboard::I:
 				m_settings.toggleInfoVisibility();

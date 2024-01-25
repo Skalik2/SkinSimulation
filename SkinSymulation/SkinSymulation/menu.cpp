@@ -133,16 +133,6 @@ void Menu::menuInit()
     m_rec3.setSize(sf::Vector2f(50, 50));
     m_rec3.setPosition(m_window.getSize().x / 2 - m_rec1.getGlobalBounds().width / 2 + 150, m_window.getSize().y / 1.6f);
     m_rec3.setFillColor(m_settings.getResistantColor());
-
-    for (int i = 0; i < m_SETTINGS_ITEMS6; i++)
-    {
-        m_menu6[i].setFont(m_font);
-        m_menu6[i].setCharacterSize(50);
-        m_menu6[i].setFillColor(sf::Color::White);
-        m_menu6[i].setString(m_options6[i]);
-        m_menu6[i].setPosition(m_window.getSize().x / 2 - m_menu6[i].getGlobalBounds().width / 2, 300 + i * 60);
-    }
-    m_menu6[0].setFillColor(sf::Color::Red);
 }
 
 Menu::Menu(sf::RenderWindow& window, Settings& settings)
@@ -203,14 +193,6 @@ void Menu::drawChooseSetingsColor(int number)
     m_window.draw(number == 1 ? m_rec1 : number == 2 ? m_rec2 : m_rec3);
 }
 
-void Menu::drawAdvancedSettings()
-{
-    m_window.draw(m_title);
-    for (int i = 0; i < m_SETTINGS_ITEMS6; ++i) {
-        m_window.draw(m_menu6[i]);
-    }
-}
-
 void Menu::moveUp() 
 {
     switch (m_menuLevel)
@@ -248,13 +230,6 @@ void Menu::moveUp()
             m_menu5[m_selectedItemIndex].setFillColor(sf::Color::White);
             m_selectedItemIndex--;
             m_menu5[m_selectedItemIndex].setFillColor(sf::Color::Red);
-        }
-        break;
-    case 5:
-        if (m_selectedItemIndex - 1 >= 0) {
-            m_menu6[m_selectedItemIndex].setFillColor(sf::Color::White);
-            m_selectedItemIndex--;
-            m_menu6[m_selectedItemIndex].setFillColor(sf::Color::Red);
         }
         break;
     }
@@ -297,13 +272,6 @@ void Menu::moveDown() {
             m_menu5[m_selectedItemIndex].setFillColor(sf::Color::White);
             m_selectedItemIndex++;
             m_menu5[m_selectedItemIndex].setFillColor(sf::Color::Red);
-        }
-        break;
-    case 5:
-        if (m_selectedItemIndex + 1 < m_SETTINGS_ITEMS6) {
-            m_menu6[m_selectedItemIndex].setFillColor(sf::Color::White);
-            m_selectedItemIndex++;
-            m_menu6[m_selectedItemIndex].setFillColor(sf::Color::Red);
         }
         break;
     }
@@ -400,23 +368,6 @@ int Menu::handleMouseClick() {
             }
         }
         break;
-    case 5:
-        for (int i = 0; i < m_SETTINGS_ITEMS6; ++i)
-        {
-            if (m_menu6[i].getGlobalBounds().contains(static_cast<sf::Vector2f>(mousePosition)))
-            {
-                m_selectedItemIndex = i;
-                for (int j = 0; j < m_SETTINGS_ITEMS6; ++j)
-                {
-                    m_menu6[j].setFillColor(sf::Color::White);
-                }
-                m_menu6[m_selectedItemIndex].setFillColor(sf::Color::Red);
-                if (m_selectedItemIndex == 0)
-                    return MenuChoice(m_selectedItemIndex);
-                break;
-            }
-        }
-        break;
     }
     return -1;
 }
@@ -454,11 +405,6 @@ void Menu::clearMenuLevel()
         m_menu5[i].setFillColor(sf::Color::White);
     }
     m_menu5[m_selectedItemIndex].setFillColor(sf::Color::Red);
-    for (int i = 0; i < m_SETTINGS_ITEMS6; ++i)
-    {
-        m_menu6[i].setFillColor(sf::Color::White);
-    }
-    m_menu6[m_selectedItemIndex].setFillColor(sf::Color::Red);
 }
 
 int Menu::getMenuLevel() {
@@ -547,11 +493,6 @@ void Menu::resize()
     m_rec1.setPosition(m_window.getSize().x / 2 - m_rec1.getGlobalBounds().width / 2 - 150, m_window.getSize().y / 1.6f);
     m_rec2.setPosition(m_window.getSize().x / 2 - m_rec1.getGlobalBounds().width / 2, m_window.getSize().y / 1.6f);
     m_rec3.setPosition(m_window.getSize().x / 2 - m_rec1.getGlobalBounds().width / 2 + 150, m_window.getSize().y / 1.6f);
-
-    for (int i = 0; i < m_SETTINGS_ITEMS6; i++)
-    {
-        m_menu6[i].setPosition(m_window.getSize().x / 2 - m_menu6[i].getGlobalBounds().width / 2, 300 + i * 60);
-    }
 }
 
 void Menu::updateColorNumbers()
@@ -615,11 +556,11 @@ int Menu::MenuChoice(int elementId)
             return 4;
             break;
         case 2:
-            return 7;
-            break;
-        case 3:
             m_selectedItemIndex = 0;
             return 8;
+            break;
+        case 3:
+            
             break;
         } 
     break;
@@ -682,26 +623,6 @@ int Menu::MenuChoice(int elementId)
             break;
         case 3:
 
-            break;
-        }
-        break;
-    case 5: // advanced settings
-        switch (elementId)
-        {
-        case 0:
-            m_menuLevel = 1;
-            return 2;
-            break;
-        case 1:
-
-            break;
-        case 2:
-
-            break;
-        case 3:
-
-            break;
-        case 4:
             break;
         }
         break;

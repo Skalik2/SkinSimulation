@@ -10,11 +10,10 @@ class Menu
 {
     int m_menuLevel = 0;
     static const int m_MENU_ITEMS = 4;
-    static const int m_SETTINGS_ITEMS2 = 4;
+    static const int m_SETTINGS_ITEMS2 = 3;
     static const int m_SETTINGS_ITEMS3 = 3;
     static const int m_SETTINGS_ITEMS4 = 4;
     static const int m_SETTINGS_ITEMS5 = 4;
-    static const int m_SETTINGS_ITEMS6 = 5;
     static const int m_SETTINGS_ITEMS7 = 3;
     sf::Text m_title;
     sf::Text m_menu[m_MENU_ITEMS];
@@ -22,18 +21,16 @@ class Menu
     sf::Text m_menu3[m_SETTINGS_ITEMS3];
     sf::Text m_menu4[m_SETTINGS_ITEMS4];
     sf::Text m_menu5[m_SETTINGS_ITEMS5];
-    sf::Text m_menu6[m_SETTINGS_ITEMS6];
     sf::Text m_menu7[m_SETTINGS_ITEMS7];
     sf::Font m_font;
     int m_selectedItemIndex;
     sf::RenderWindow& m_window;
     Settings& m_settings;
     std::string m_options[m_MENU_ITEMS] = { "Kontynuuj","Nowa symulacja", "Ustawienia", "Wyjscie" };
-    std::string m_options2[m_SETTINGS_ITEMS2] = { "Powrot","Rozmiar planszy", "Dokladne wartosci", "Kolory" };
+    std::string m_options2[m_SETTINGS_ITEMS2] = { "Powrot","Rozmiar planszy", "Kolory" };
     std::string m_options3[m_SETTINGS_ITEMS3] = { "Powrot", "25x25", "75x75"};
     std::string m_options4[m_SETTINGS_ITEMS4] = { "Powrot", "Zdrowa", "Chora", "Odporna"};
     std::string m_options5[m_SETTINGS_ITEMS5] = { "Powrot", "R", "G", "B"};
-    std::string m_options6[m_SETTINGS_ITEMS6] = { "Powrot", "Czas infekcji", "Czas odpornosci", "Klatki na sekunde", "Szansa zarazenia" };
     std::string m_options7[m_SETTINGS_ITEMS7] = { "Powrot", "setting_item", "value"};
 
     sf::Texture m_t1;
@@ -50,7 +47,6 @@ public:
     void resize();
     void draw();
     void drawSettings();
-    void drawAdvancedSettings();
     void moveUp();
     void moveDown();
     int getSelectedItemIndex() const;

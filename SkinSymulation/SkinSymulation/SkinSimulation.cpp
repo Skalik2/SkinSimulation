@@ -36,5 +36,14 @@ int WinMain() {
 
 		window.display();
 	}
+	if (eventCapture.isRunning)
+	{
+		if (settings.getIsWindowHelpOpen())
+		{
+			settings.toggleIsWindowHelpOpen();
+		}
+		eventCapture.isRunning = false;
+		eventCapture.thread.join();
+	}
 	return 0;
 }
